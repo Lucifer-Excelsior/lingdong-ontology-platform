@@ -1,0 +1,68 @@
+# Local High-Availability 2-Replica Cluster Verification Stack
+# Usage: docker compose -f infra/docker-compose.ha.yml up -d --build
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  oxigraph:
+    image: oxigraph/oxigraph:latest
+    restart: unless-stopped
+    command: ["serve", "--location", "/data", "--bind", "0.0.0.0:7878"]
+    volumes:
+      - oxigraph_ha_data:/data
+
+  api-1:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+    hostname: lingdong-api-replica-1
+    environment:
+      APP_ENV: development
+      DATABASE_ADMIN_URL: postgres://lingdong:lingdong_v3_dev_password@host.docker.internal:5433/ontology_v3
+      DATABASE_APP_URL: postgres://lingdong_app:lingdong_app_password@host.docker.internal:5433/ontology_v3
+      SANDBOX_ERP_URL: postgres://lingdong:lingdong_v3_dev_password@host.docker.internal:5433/sandbox_erp
+      REDIS_URL: redis://redis:6379
+      GRAPH_STORE_MODE: remote_sparql
+      GRAPH_STORE_ENDPOINT: http://oxigraph:7878
+      ALLOWED_ORIGINS: http://127.0.0.1:8088,http://localhost:8088
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  api-2:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.api
+    hostname: lingdong-api-replica-2
+    environment:
+      APP_ENV: development
+      DATABASE_ADMIN_URL: postgres://lingdong:lingdong_v3_dev_password@host.docker.internal:5433/ontology_v3
+      DATABASE_APP_URL: postgres://lingdong_app:lingdong_app_password@host.docker.internal:5433/ontology_v3
+      SANDBOX_ERP_URL: postgres://lingdong:lingdong_v3_dev_password@host.docker.internal:5433/sandbox_erp
+      REDIS_URL: redis://redis:6379
+      GRAPH_STORE_MODE: remote_sparql
+      GRAPH_STORE_ENDPOINT: http://oxigraph:7878
+      ALLOWED_ORIGINS: http://127.0.0.1:8088,http://localhost:8088
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  nginx-lb:
+    build:
+      context: ..
+      dockerfile: infra/docker/Dockerfile.web
+    ports:
+      - "8088:80"
+    depends_on:
+      - api-1
+      - api-2
+
+volumes:
+  oxigraph_ha_data:

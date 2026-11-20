@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-api
+spec:
+  replicas: {{ .Values.api.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-api
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-api
+    spec:
+      containers:
+        - name: api
+          image: {{ .Values.api.image }}
+          ports:
+            - containerPort: {{ .Values.api.port }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.api.port }}
+          env:
+            - name: OIDC_ISSUER_URL
+              value: {{ .Values.api.env.OIDC_ISSUER_URL | quote }}
+            - name: ALLOW_DEMO_ACTOR_SWITCH
+              value: {{ .Values.api.env.ALLOW_DEMO_ACTOR_SWITCH | quote }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+spec:
+  replicas: {{ .Values.web.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-web
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-web
+    spec:
+      containers:
+        - name: web
+          image: {{ .Values.web.image }}
+          ports:
+            - containerPort: {{ .Values.web.port }}

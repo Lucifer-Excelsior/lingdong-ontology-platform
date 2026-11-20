@@ -1,0 +1,6 @@
+apiVersion: v2
+name: lingdong-v3
+description: 灵·洞本体工作站 V3.5 企业商业版 Helm Chart（支持 x86_64 与鲲鹏/海光信创 ARM64 离线私有化部署）
+type: application
+version: 3.5.0
+appVersion: "3.5.0"

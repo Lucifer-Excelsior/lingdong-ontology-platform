@@ -1,0 +1,29 @@
+{
+  "name": "@lingdong/web",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3200 --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 3200 --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@lingdong/contracts": "workspace:*",
+    "@tanstack/react-query": "^5.66.9",
+    "@xyflow/react": "^12.4.4",
+    "lucide-react": "^0.477.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.9",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.9",
+    "vite": "^6.2.0"
+  }
+}

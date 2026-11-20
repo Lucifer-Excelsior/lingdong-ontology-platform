@@ -1,0 +1,28 @@
+# Dependencies & build outputs
+node_modules/
+dist/
+build/
+.turbo/
+.vite/
+*.tsbuildinfo
+
+# Local runtime state & secrets (NEVER commit)
+.env
+.env.local
+.env.*.local
+.data/
+*.log
+*.sqlite
+*.db
+
+# OS & editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large media & generated deliverables (distributed via GitHub Releases)
+*.mp4
+*.mov
+*.wav
+*.pdf

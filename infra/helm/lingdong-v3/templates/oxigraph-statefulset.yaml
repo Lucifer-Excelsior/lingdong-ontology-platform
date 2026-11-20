@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lingdong-v4-oxigraph
+  labels:
+    app: lingdong-v4-oxigraph
+spec:
+  serviceName: lingdong-v4-oxigraph
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lingdong-v4-oxigraph
+  template:
+    metadata:
+      labels:
+        app: lingdong-v4-oxigraph
+    spec:
+      containers:
+        - name: oxigraph
+          image: oxigraph/oxigraph:v0.4.3
+          args: ["serve", "--location", "/data", "--bind", "0.0.0.0:7878"]
+          ports:
+            - containerPort: 7878
+              name: sparql
+          volumeMounts:
+            - name: graph-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "1000m"
+              memory: "2Gi"
+            limits:
+              cpu: "4000m"
+              memory: "8Gi"
+  volumeClaimTemplates:
+    - metadata:
+        name: graph-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lingdong-v4-oxigraph
+spec:
+  selector:
+    app: lingdong-v4-oxigraph
+  ports:
+    - name: sparql
+      port: 7878
+      targetPort: 7878

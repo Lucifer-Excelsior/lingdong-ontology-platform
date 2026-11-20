@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>灵·洞本体工作站 V7.0 — 品牌宣传册</title>
+<style>
+  @page {
+    size: 297mm 210mm;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  :root {
+    --obsidian: #060b18;
+    --obsidian-2: #0c1428;
+    --obsidian-card: rgba(16, 26, 51, 0.78);
+    --obsidian-border: rgba(148, 163, 184, 0.16);
+    --ivory: #f8fafc;
+    --paper: #ffffff;
+    --ink: #0f172a;
+    --ink-muted: #475569;
+    --ink-soft: #64748b;
+    --indigo: #4f46e5;
+    --indigo-light: #818cf8;
+    --cyan: #06b6d4;
+    --cyan-glow: #22d3ee;
+    --gold: #d4a359;
+    --gold-soft: #f3d59b;
+    --emerald: #10b981;
+    --rose: #f43f5e;
+  }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "SF Pro Display", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #111827;
+    color: var(--ink);
+    line-height: 1.55;
+    font-feature-settings: "tnum" on, "lnum" on;
+  }
+
+  .page {
+    width: 297mm;
+    height: 210mm;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .page-dark {
+    background: radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.12), transparent 44%),
+                radial-gradient(circle at 12% 85%, rgba(99, 102, 241, 0.14), transparent 45%),
+                linear-gradient(145deg, #050914 0%, #0a1226 55%, #070d1c 100%);
+    color: #f8fafc;
+  }
+
+  .page-light {
+    background: radial-gradient(circle at 90% 8%, rgba(79, 70, 229, 0.055), transparent 40%),
+                radial-gradient(circle at 6% 92%, rgba(6, 182, 212, 0.05), transparent 38%),
+                #f8fafc;
+    color: var(--ink);
+  }
+
+  /* Subtle Architectural Grid Overlay */
+  .grid-overlay-dark {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+    background-size: 16mm 16mm;
+    pointer-events: none;
+  }
+
+  .grid-overlay-light {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    background-size: 16mm 16mm;
+    pointer-events: none;
+  }
+
+  /* Running Header / Footer */
+  .page-chrome-top {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9mm 14mm 0 14mm;
+    font-size: 7.5pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .page-dark .page-chrome-top { color: rgba(203, 213, 225, 0.62); }
+  .page-light .page-chrome-top { color: #64748b; }
+
+  .brand-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .brand-dot::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan-glow), var(--indigo));
+  }
+
+  .page-chrome-bottom {
+    position: absolute;
+    left: 14mm;
+    right: 14mm;
+    bottom: 7mm;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7.5pt;
+    letter-spacing: 0.08em;
+    border-top: 1px solid rgba(148, 163, 184, 0.18);
+    padding-top: 3mm;
+  }
+  .page-dark .page-chrome-bottom { color: rgba(148, 163, 184, 0.68); border-color: rgba(148, 163, 184, 0.15); }
+  .page-light .page-chrome-bottom { color: #64748b; border-color: rgba(15, 23, 42, 0.09); }
+
+  .content-wrap {
+    position: relative;
+    z-index: 4;
+    padding: 6mm 14mm 16mm 14mm;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Typography */
+  .eyebrow {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 3mm;
+  }
+  .eyebrow-cyan { color: var(--cyan-glow); }
+  .eyebrow-gold { color: var(--gold-soft); }
+  .eyebrow-indigo { color: var(--indigo); }
+  .eyebrow::before {
+    content: "";
+    width: 14px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+
+  .h1-hero {
+    font-size: 36pt;
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  .h2-editorial {
+    font-size: 21pt;
+    font-weight: 800;
+    line-height: 1.22;
+    letter-spacing: -0.015em;
+  }
+
+  .h3-story {
+    font-size: 16.5pt;
+    font-weight: 800;
+    line-height: 1.26;
+    letter-spacing: -0.01em;
+  }
+
+  .lead-copy {
+    font-size: 10pt;
+    line-height: 1.65;
+  }
+
+  .body-copy {
+    font-size: 8.8pt;
+    line-height: 1.64;
+  }
+
+  /* Device Mockup Window Frame */
+  .mac-frame {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0f172a;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 20px 44px -14px rgba(2, 6, 23, 0.55), 0 4px 12px rgba(2, 6, 23, 0.25);
+    display: flex;
+    flex-direction: column;
+  }
+  .page-light .mac-frame {
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    box-shadow: 0 22px 45px -16px rgba(15, 23, 42, 0.24), 0 4px 14px rgba(15, 23, 42, 0.08);
+  }
+  .mac-bar {
+    height: 22px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    flex-shrink: 0;
+  }
+  .mac-dots {
+    display: flex;
+    gap: 5px;
+  }
+  .mac-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .mac-dots span:nth-child(1) { background: #ef4444; }
+  .mac-dots span:nth-child(2) { background: #f59e0b; }
+  .mac-dots span:nth-child(3) { background: #10b981; }
+  .mac-url {
+    font-size: 6.8pt;
+    color: rgba(203, 213, 225, 0.72);
+    font-family: "SF Mono", Menlo, monospace;
+    background: rgba(15, 23, 42, 0.65);
+    padding: 1.5px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+  }
+  .mac-tag {
+    font-size: 6.4pt;
+    font-weight: 700;
+    color: var(--cyan-glow);
+    letter-spacing: 0.06em;
+  }
+  .mac-screen {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #ffffff;
+    object-fit: contain;
+  }
+
+  /* Floating Callout Pill */
+  .float-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4.5px 10px;
+    border-radius: 999px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pill-dark {
+    background: rgba(6, 11, 24, 0.88);
+    color: #f8fafc;
+    border: 1px solid rgba(34, 211, 238, 0.45);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  }
+  .pill-indigo {
+    background: #eef2ff;
+    color: #3730a3;
+    border: 1px solid #c7d2fe;
+  }
+  .pill-emerald {
+    background: rgba(16, 185, 129, 0.14);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+  }
+  .pill-amber {
+    background: rgba(245, 158, 11, 0.14);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+  }
+
+  /* Persona Tag */
+  .persona-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 8pt;
+    font-weight: 600;
+    margin-bottom: 3.5mm;
+  }
+  .page-light .persona-chip {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  }
+  .page-dark .persona-chip {
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    color: #e2e8f0;
+  }
+  .persona-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    color: #fff;
+    font-size: 8pt;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Pull Quote */
+  .pull-quote {
+    border-left: 3px solid var(--indigo);
+    padding: 2.5mm 0 2.5mm 4mm;
+    margin: 3mm 0;
+    font-size: 9pt;
+    font-weight: 600;
+    line-height: 1.55;
+  }
+  .page-light .pull-quote {
+    color: #1e293b;
+    background: linear-gradient(90deg, rgba(79, 70, 229, 0.06), transparent);
+  }
+  .page-dark .pull-quote {
+    border-left-color: var(--gold);
+    color: #f1f5f9;
+    background: linear-gradient(90deg, rgba(212, 163, 89, 0.12), transparent);
+  }
+
+  /* KPI Strip */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3mm;
+    margin-top: auto;
+  }
+  .kpi-box {
+    border-radius: 9px;
+    padding: 3.2mm 3.5mm;
+  }
+  .page-light .kpi-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+  }
+  .page-dark .kpi-box {
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+  }
+  .kpi-val {
+    font-size: 13.5pt;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+  .kpi-lbl {
+    font-size: 7.2pt;
+    margin-top: 1mm;
+    opacity: 0.78;
+  }
+
+  /* Cards */
+  .glass-card-dark {
+    background: rgba(15, 23, 42, 0.74);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 10px;
+    padding: 4mm 4.5mm;
+  }
+  .card-light {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 4mm 4.5mm;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  }
+
+  /* Utility Layouts */
+  .split-40-60 {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 7mm;
+    flex: 1;
+    align-items: stretch;
+  }
+  .split-58-42 {
+    display: grid;
+    grid-template-columns: 58% 1fr;
+    gap: 7mm;
+    flex: 1;
+    align-items: stretch;
+  }
+  .split-50-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+    flex: 1;
+    align-items: stretch;
+  }
+  .col-flex {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gradient-text-cyan {
+    color: #7dd3fc;
+  }
+  .gradient-text-gold {
+    color: #f3d59b;
+  }
+
+  /* Page 1 Cover Specific */
+  .cover-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .cover-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(5, 9, 20, 0.96) 0%, rgba(5, 9, 20, 0.88) 44%, rgba(5, 9, 20, 0.28) 76%, rgba(5, 9, 20, 0.12) 100%);
+    z-index: 2;
+  }
+  .cover-content {
+    position: relative;
+    z-index: 4;
+    padding: 16mm 18mm 14mm 18mm;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: FULL-BLEED OBSIDIAN COVER ==================== -->
+<section class="page page-dark">
+  <img src="assets/brochure_cover_hero.jpg" alt="Cover Art" class="cover-bg" />
+  <div class="cover-scrim"></div>
+  <div class="cover-content">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="width:28px; height:28px; border-radius:7px; background:linear-gradient(135deg,#22d3ee,#4f46e5); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:12pt; color:#fff;">灵</div>
+        <div>
+          <div style="font-size:10.5pt; font-weight:800; letter-spacing:0.08em; color:#fff;">灵·洞本体工作站</div>
+          <div style="font-size:6.8pt; letter-spacing:0.18em; color:rgba(203,213,225,0.72); text-transform:uppercase;">LINGDONG ONTOLOGY WORKSTATION</div>
+        </div>
+      </div>
+      <div style="padding:4px 12px; border-radius:999px; border:1px solid rgba(212,163,89,0.5); background:rgba(6,11,24,0.65); color:var(--gold-soft); font-size:7.5pt; font-weight:700; letter-spacing:0.12em;">
+        V7.0 ENTERPRISE DECISION OS
+      </div>
+    </div>
+
+    <div style="max-width: 145mm; margin-top: 6mm;">
+      <div class="eyebrow eyebrow-gold">ENTERPRISE SEMANTIC DECISION OPERATING SYSTEM</div>
+      <h1 class="h1-hero" style="margin-bottom:5mm;">
+        <span class="gradient-text-cyan">洞见全局，</span><br/>
+        <span style="color:#ffffff;">决胜毫秒。</span>
+      </h1>
+      <p style="font-size:11.2pt; line-height:1.72; color:#cbd5e1; max-width:128mm; margin-bottom:7mm;">
+        当企业数据被锁在 ERP、CRM、OA 与成千上万份合同 PDF 里，决策只能靠人工拼凑与事后复盘。<strong style="color:#ffffff;">灵·洞本体工作站 V7.0</strong> 以语义本体为神经中枢，贯通多源主数据、影子沙箱推演、多智能体会审与国密合规治理，让每一次关键商业决策都<strong style="color:var(--cyan-glow);">毫秒穿透、证据确凿、风险可控</strong>。
+      </p>
+      <div style="display:flex; gap:4mm; flex-wrap:wrap;">
+        <div style="background:rgba(15,23,42,0.78); border:1px solid rgba(34,211,238,0.32); border-radius:9px; padding:3mm 4.5mm;">
+          <div style="font-size:14pt; font-weight:800; color:var(--cyan-glow);">2.93 ms</div>
+          <div style="font-size:7pt; color:#94a3b8;">自然语言穿透语义图谱</div>
+        </div>
+        <div style="background:rgba(15,23,42,0.78); border:1px solid rgba(212,163,89,0.35); border-radius:9px; padding:3mm 4.5mm;">
+          <div style="font-size:14pt; font-weight:800; color:var(--gold-soft);">0 生产污染</div>
+          <div style="font-size:7pt; color:#94a3b8;">影子图 What-If 级联推演</div>
+        </div>
+        <div style="background:rgba(15,23,42,0.78); border:1px solid rgba(16,185,129,0.35); border-radius:9px; padding:3mm 4.5mm;">
+          <div style="font-size:14pt; font-weight:800; color:#34d399;">SM3 + ABAC</div>
+          <div style="font-size:7pt; color:#94a3b8;">国密防篡改审计与动态脱敏</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid rgba(148,163,184,0.2); padding-top:4mm;">
+      <div style="font-size:8pt; color:#94a3b8;">
+        <strong style="color:#e2e8f0;">企业级产品品牌宣传册与真实场景实录</strong> · 2026 旗舰版
+      </div>
+      <div style="font-size:7.5pt; letter-spacing:0.14em; color:rgba(203,213,225,0.62); text-transform:uppercase;">
+        ONTOLOGY · GRAPH RAG · SHADOW SIMULATION · MULTI-AGENT · GOVERNANCE
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: THE MANIFESTO & PARADIGM SHIFT ==================== -->
+<section class="page page-dark">
+  <div class="grid-overlay-dark"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">LINGDONG V7.0 BRAND BROCHURE</span>
+    <span>01 / THE ENTERPRISE DILEMMA</span>
+  </div>
+  <div class="content-wrap">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:4.5mm;">
+      <div>
+        <div class="eyebrow eyebrow-cyan">THE PARADIGM SHIFT · 范式跃迁</div>
+        <h2 class="h2-editorial" style="color:#ffffff;">
+          投入上亿建了数据中台，<br/>为什么老板问一个问题还是要等 <span style="color:var(--gold-soft);">3 天</span>？
+        </h2>
+      </div>
+      <div style="max-width:105mm; font-size:8.6pt; color:#cbd5e1; line-height:1.62; text-align:left; border-left:2px solid var(--cyan); padding-left:4mm;">
+        传统数仓只搬运了“表和字段”，却丢失了业务世界里最宝贵的<strong style="color:#fff;">实体关系、合规约束与因果逻辑</strong>。没有语义本体底座，BI 只能看后视镜，大模型也只敢写周报、不敢进核心决策。
+      </div>
+    </div>
+
+    <!-- Centerpiece Prism Illustration -->
+    <div style="position:relative; border-radius:12px; overflow:hidden; height:76mm; border:1px solid rgba(148,163,184,0.22); margin-bottom:5mm; box-shadow:0 20px 50px rgba(0,0,0,0.45);">
+      <img src="assets/brochure_prism_story.jpg" alt="Semantic Prism" style="width:100%; height:100%; object-fit:cover; object-position:center;" />
+      <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(6,11,24,0.72) 0%, rgba(6,11,24,0.12) 45%, rgba(6,11,24,0.12) 55%, rgba(6,11,24,0.76) 100%);"></div>
+      <div style="position:absolute; left:7mm; top:50%; transform:translateY(-50%); max-width:68mm;">
+        <div style="font-size:7pt; letter-spacing:0.16em; color:#fbbf24; font-weight:700; margin-bottom:1.5mm;">BEFORE · 碎片化数据孤岛</div>
+        <div style="font-size:12pt; font-weight:800; color:#fff; margin-bottom:2mm;">失联的表、割裂的系统</div>
+        <div style="font-size:7.8pt; color:#cbd5e1; line-height:1.55;">ERP、CRM、合同 PDF、OA 审批各自为政；同名供应商口径不一，口径变更下游全红。</div>
+      </div>
+      <div style="position:absolute; left:50%; bottom:4mm; transform:translateX(-50%); background:rgba(6,11,24,0.85); border:1px solid rgba(255,255,255,0.25); padding:3px 12px; border-radius:999px; font-size:7.6pt; font-weight:700; color:#fff; letter-spacing:0.08em;">
+        灵·洞语义本体内核（OWL / SHACL / MDM）
+      </div>
+      <div style="position:absolute; right:7mm; top:50%; transform:translateY(-50%); max-width:68mm; text-align:right;">
+        <div style="font-size:7pt; letter-spacing:0.16em; color:var(--cyan-glow); font-weight:700; margin-bottom:1.5mm;">AFTER · 企业决策神经中枢</div>
+        <div style="font-size:12pt; font-weight:800; color:#fff; margin-bottom:2mm;">可推理、可推演、可追溯</div>
+        <div style="font-size:7.8pt; color:#cbd5e1; line-height:1.55;">自然语言直连语义图谱，影子沙箱提前预演级联风险，多智能体与 ECA 自动闭环。</div>
+      </div>
+    </div>
+
+    <!-- 4 Pain Points Grid -->
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:4mm; flex:1;">
+      <div class="glass-card-dark" style="border-top:2px solid #f43f5e;">
+        <div style="font-size:7.5pt; font-weight:700; color:#fb7185; margin-bottom:1.5mm;">痛点 01 · 问数慢、难溯源</div>
+        <div style="font-size:9.8pt; font-weight:800; color:#fff; margin-bottom:1.5mm;">报表滞后，证据散落</div>
+        <div style="font-size:7.8pt; color:#94a3b8; line-height:1.55;">合同条款藏在 PDF 扫描件，履约进度在 ERP，高管问一句“高风险敞口”，三部门对账两天。</div>
+      </div>
+      <div class="glass-card-dark" style="border-top:2px solid #f59e0b;">
+        <div style="font-size:7.5pt; font-weight:700; color:#fbbf24; margin-bottom:1.5mm;">痛点 02 · 风险事后才知</div>
+        <div style="font-size:9.8pt; font-weight:800; color:#fff; margin-bottom:1.5mm;">缺乏沙箱推演能力</div>
+        <div style="font-size:7.8pt; color:#94a3b8; line-height:1.55;">核心供应商突变或政策调整时，没人说得清会连环波及多少项目与千万级资金，只能事后救火。</div>
+      </div>
+      <div class="glass-card-dark" style="border-top:2px solid #818cf8;">
+        <div style="font-size:7.5pt; font-weight:700; color:#a5b4fc; margin-bottom:1.5mm;">痛点 03 · 孤岛与变更雪崩</div>
+        <div style="font-size:9.8pt; font-weight:800; color:#fff; margin-bottom:1.5mm;">同名不同命、改表全挂</div>
+        <div style="font-size:7.8pt; color:#94a3b8; line-height:1.55;">同一客户在多套系统名称各异导致重复授信；上游删一个字段，次日早会十几张报表集体报错。</div>
+      </div>
+      <div class="glass-card-dark" style="border-top:2px solid #10b981;">
+        <div style="font-size:7.5pt; font-weight:700; color:#34d399; margin-bottom:1.5mm;">痛点 04 · 集团合规高门槛</div>
+        <div style="font-size:9.8pt; font-weight:800; color:#fff; margin-bottom:1.5mm;">AI 不敢碰核心敏感数据</div>
+        <div style="font-size:7.8pt; color:#94a3b8; line-height:1.55;">央国企与金融客户严查密级脱敏、防篡改审计与版本可控，缺乏治理底座的 AI 永远停在演示阶段。</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>02</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: V7.0 ARCHITECTURE PANORAMA ==================== -->
+<section class="page page-light">
+  <div class="grid-overlay-light"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">LINGDONG V7.0 BRAND BROCHURE</span>
+    <span>02 / PRODUCT ARCHITECTURE</span>
+  </div>
+  <div class="content-wrap">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:5mm;">
+      <div>
+        <div class="eyebrow eyebrow-indigo">ENTERPRISE DECISION OS · 全景架构</div>
+        <h2 class="h2-editorial">一图看懂灵·洞 V7.0：从数据资产到自动决策闭环</h2>
+      </div>
+      <div style="font-size:8.6pt; color:var(--ink-muted); max-width:98mm; line-height:1.6;">
+        不是又一套 BI 看板，也不是裸奔的大模型问答框——而是将<strong style="color:var(--ink);">企业语义图谱、业务规则、沙箱仿真与安全合规</strong>融为一体的新一代决策操作系统。
+      </div>
+    </div>
+
+    <!-- 4-Layer Architecture Visual Stack -->
+    <div style="display:flex; flex-direction:column; gap:3.4mm; flex:1;">
+      <!-- Layer 4 -->
+      <div style="background:linear-gradient(90deg,#1e1b4b,#312e81); color:#fff; border-radius:10px; padding:3.8mm 5mm; display:grid; grid-template-columns:46mm 1fr; gap:5mm; align-items:center;">
+        <div>
+          <div style="font-size:6.8pt; letter-spacing:0.14em; color:#a5b4fc; font-weight:700;">LAYER 04 · DECISION UX</div>
+          <div style="font-size:11.5pt; font-weight:800; margin-top:0.5mm;">高管决策与业务闭环层</div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:3mm;">
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.4pt; font-weight:700;">高管门户与语义 KPI</div>
+            <div style="font-size:7pt; color:#c7d2fe; margin-top:1px;">统一口径指标 + AI 经营周报</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.4pt; font-weight:700;">NL-SPARQL 证据问数</div>
+            <div style="font-size:7pt; color:#c7d2fe; margin-top:1px;">毫秒级图谱检索 + PDF 锚点</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.4pt; font-weight:700;">多智能体联合会审</div>
+            <div style="font-size:7pt; color:#c7d2fe; margin-top:1px;">法务 / 财务 / 供应链并行研判</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.4pt; font-weight:700;">OA / ERP 嵌入式 SDK</div>
+            <div style="font-size:7pt; color:#c7d2fe; margin-top:1px;">iframe / Web Component 零切换</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 3 -->
+      <div style="background:#ffffff; border:1.5px solid #c7d2fe; border-radius:10px; padding:3.8mm 5mm; display:grid; grid-template-columns:46mm 1fr; gap:5mm; align-items:center; box-shadow:0 4px 12px rgba(79,70,229,0.06);">
+        <div>
+          <div style="font-size:6.8pt; letter-spacing:0.14em; color:var(--indigo); font-weight:700;">LAYER 03 · SIMULATION</div>
+          <div style="font-size:11.5pt; font-weight:800; color:var(--ink); margin-top:0.5mm;">影子推演与自动执行层</div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:3.5mm;">
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:7px; padding:2.5mm 3.5mm;">
+            <div style="font-size:8.4pt; font-weight:800; color:var(--indigo);">影子图 What-If 推演引擎</div>
+            <div style="font-size:7.2pt; color:var(--ink-muted); margin-top:1px;">内存级临时分叉，0 污染生产图谱，秒级算清千万级级联风险敞口</div>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:7px; padding:2.5mm 3.5mm;">
+            <div style="font-size:8.4pt; font-weight:800; color:#0284c7;">ECA 事件驱动自动化引擎</div>
+            <div style="font-size:7.2pt; color:var(--ink-muted); margin-top:1px;">事件-条件-动作实时闭环，风险触线自动冻结、建单并升级告警</div>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:7px; padding:2.5mm 3.5mm;">
+            <div style="font-size:8.4pt; font-weight:800; color:#059669;">能力中心与 OpenAPI 3.1</div>
+            <div style="font-size:7.2pt; color:var(--ink-muted); margin-top:1px;">将本体查询与推演封装为标准 API / MCP 工具，供外部业务系统调用</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 2 -->
+      <div style="background:#ffffff; border:1.5px solid #a5f3fc; border-radius:10px; padding:3.8mm 5mm; display:grid; grid-template-columns:46mm 1fr; gap:5mm; align-items:center;">
+        <div>
+          <div style="font-size:6.8pt; letter-spacing:0.14em; color:#0891b2; font-weight:700;">LAYER 02 · SEMANTIC CORE</div>
+          <div style="font-size:11.5pt; font-weight:800; color:var(--ink); margin-top:0.5mm;">语义本体与主数据融合层</div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:3mm;">
+          <div style="background:#f0fdfa; border:1px solid #ccfbf1; border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.3pt; font-weight:800; color:#0f766e;">行业模板市场</div>
+            <div style="font-size:7pt; color:#475569; margin-top:1px;">合同/供应链/设备/金融 4 大包</div>
+          </div>
+          <div style="background:#f0fdfa; border:1px solid #ccfbf1; border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.3pt; font-weight:800; color:#0f766e;">跨系统 MDM 黄金记录</div>
+            <div style="font-size:7pt; color:#475569; margin-top:1px;">相似度实体解析 + 一键回滚</div>
+          </div>
+          <div style="background:#f0fdfa; border:1px solid #ccfbf1; border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.3pt; font-weight:800; color:#0f766e;">SHACL 约束与四层血缘</div>
+            <div style="font-size:7pt; color:#475569; margin-top:1px;">表→本体→规则→应用漂移预警</div>
+          </div>
+          <div style="background:#f0fdfa; border:1px solid #ccfbf1; border-radius:7px; padding:2.5mm 3mm;">
+            <div style="font-size:8.3pt; font-weight:800; color:#0f766e;">Git 风格分支与 PR</div>
+            <div style="font-size:7pt; color:#475569; margin-top:1px;">三方合并冲突检测 + 两阶段审批</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 1 -->
+      <div style="background:#0f172a; color:#f8fafc; border-radius:10px; padding:3.8mm 5mm; display:grid; grid-template-columns:46mm 1fr; gap:5mm; align-items:center;">
+        <div>
+          <div style="font-size:6.8pt; letter-spacing:0.14em; color:var(--gold-soft); font-weight:700;">LAYER 01 · TRUST & HA</div>
+          <div style="font-size:11.5pt; font-weight:800; margin-top:0.5mm;">集团治理、信创安全与高可用</div>
+        </div>
+        <div style="display:flex; justify-content:space-between; gap:3mm; font-size:7.8pt; color:#cbd5e1;">
+          <span>● <strong style="color:#fff;">集团联邦与 SCIM 2.0</strong>：多子公司本体继承</span>
+          <span>● <strong style="color:#fff;">ABAC 三级密级脱敏</strong>：列级动态遮蔽</span>
+          <span>● <strong style="color:#fff;">国密 SM3 审计链</strong>：前向哈希零篡改</span>
+          <span>● <strong style="color:#fff;">KMS + 双活 HA</strong>：无状态集群零中断</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom 3 Value Pillars -->
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:5mm; margin-top:4.5mm;">
+      <div class="card-light" style="display:flex; align-items:center; gap:3.5mm; padding:3mm 4mm;">
+        <div style="font-size:17pt; font-weight:900; color:var(--indigo);">01</div>
+        <div>
+          <div style="font-size:9.2pt; font-weight:800;">听得懂业务 · 零幻觉溯源</div>
+          <div style="font-size:7.6pt; color:var(--ink-muted);">把自然语言编译为确定性 SPARQL，每条结论反查 PDF 原文页码。</div>
+        </div>
+      </div>
+      <div class="card-light" style="display:flex; align-items:center; gap:3.5mm; padding:3mm 4mm;">
+        <div style="font-size:17pt; font-weight:900; color:#0891b2;">02</div>
+        <div>
+          <div style="font-size:9.2pt; font-weight:800;">推得清后果 · 沙箱防踩坑</div>
+          <div style="font-size:7.6pt; color:var(--ink-muted);">先在影子图推演违约/改表后果，再经 ECA 自动处置，告别事后救火。</div>
+        </div>
+      </div>
+      <div class="card-light" style="display:flex; align-items:center; gap:3.5mm; padding:3mm 4mm;">
+        <div style="font-size:17pt; font-weight:900; color:#059669;">03</div>
+        <div>
+          <div style="font-size:9.2pt; font-weight:800;">守得住底线 · 信创即插即用</div>
+          <div style="font-size:7.6pt; color:var(--ink-muted);">ABAC 脱敏、SM3 审计链、KMS 密钥与 Git 分支治理原生内置。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>03</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: STORY 01 PART 1 (MONDAY 09:00 CLIFF) ==================== -->
+<section class="page page-light">
+  <div class="grid-overlay-light"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">STORY 01 · EXECUTIVE DECISION</span>
+    <span>SCENARIO 01 / HIGH-STAKES CONTRACT RISK</span>
+  </div>
+  <div class="content-wrap">
+    <div class="split-40-60">
+      <div class="col-flex">
+        <div class="eyebrow eyebrow-indigo">真实业务故事 01 · 高管决策</div>
+        <h2 class="h3-story" style="margin-bottom:3mm;">周一早九点的<br/><span style="color:var(--indigo);">285 万悬崖</span></h2>
+
+        <div class="persona-chip">
+          <span class="persona-avatar">周</span>
+          <span>周明 · 百亿智能制造集团 COO &amp; 林薇 · 法务总监</span>
+        </div>
+
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.8mm;">
+          <strong style="color:var(--ink);">【危机爆发】</strong>周一早上 8:45，距离季度经营例会只剩 15 分钟。采购部紧急汇报：核心算力供应商「星河数科」一份 <strong style="color:var(--ink);">285 万元</strong>主合同（<code>HT-2026-089</code>）仅剩 12 天到期，但三份补充协议与验收单分散在 ERP、法务归档库和加密 PDF 扫描件中。
+        </p>
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.8mm;">
+          <strong style="color:var(--ink);">【旧日困局】</strong>放在半年前，周明必须让法务、财务、采购拉群人工核对整整两天——等结果出来，要么被迫高价紧急续约，要么面临算力断供停产。
+        </p>
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.5mm;">
+          <strong style="color:var(--ink);">【灵·洞破局】</strong>现在，周明打开灵·洞高管门户：<code>HT-2026-089</code> 已被系统自动置顶为红色待办；右侧 4 张语义指标卡实时锁死全集团 <strong style="color:var(--ink);">925 万</strong>高风险合同敞口与 <strong style="color:var(--ink);">98.6%</strong> 合规率，进会议室前已成竹在胸。
+        </p>
+
+        <div class="pull-quote">
+          “以前开经营会，一半时间在争论‘到底谁的 Excel 数字是对的’；现在打开门户，红灯待办、敞口总额和原文证据一屏看穿。”
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--indigo);">30 秒</div>
+            <div class="kpi-lbl">2 天核查压缩至秒级</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--rose);">925 万</div>
+            <div class="kpi-lbl">实时锁定风险敞口</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--emerald);">98.6%</div>
+            <div class="kpi-lbl">全集团合约合规率</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-flex" style="justify-content:center; gap:3.5mm;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="float-pill pill-indigo">● 实机画面 · 高管经营门户驾驶舱</span>
+          <span style="font-size:7.6pt; color:var(--ink-soft);">一键穿透临期待办与全局风险指标</span>
+        </div>
+        <div class="mac-frame">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">https://lingdong.enterprise.local/portal</div>
+            <div class="mac-tag">LIVE V7.0</div>
+          </div>
+          <img src="screenshots/01_portal_cockpit.png" alt="Portal Cockpit" class="mac-screen" />
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:7.6pt; color:var(--ink-muted); background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:2.5mm 3.5mm;">
+          <span><strong style="color:var(--rose);">① 待办红灯置顶</strong>：HT-2026-089（285万 / 12天到期）</span>
+          <span><strong style="color:var(--indigo);">② 宽屏双栏驾驶舱</strong>：语义指标、快捷问数与待办同屏协同</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>04</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: STORY 01 PART 2 (NL-SPARQL + MULTI-AGENT) ==================== -->
+<section class="page page-dark">
+  <div class="grid-overlay-dark"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">STORY 01 · EVIDENCE &amp; MULTI-AGENT CO-REVIEW</span>
+    <span>ZERO HALLUCINATION · COURT-GRADE TRACEABILITY</span>
+  </div>
+  <div class="content-wrap">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:4.5mm; gap:4mm;">
+      <div>
+        <div class="eyebrow eyebrow-cyan">STORY 01 续 · 从“问出答案”到“三方专家并行会审”</div>
+        <h2 class="h2-editorial" style="color:#fff; font-size:19pt;">
+          2.93 ms 穿透 14 节点子图，每条结论均有 <span style="color:var(--cyan-glow);">PDF 原文作证</span>
+        </h2>
+      </div>
+      <div style="display:flex; gap:2.5mm; flex-shrink:0;">
+        <span class="float-pill pill-emerald">实测 2.93 ms</span>
+        <span class="float-pill pill-amber">会审 59/100 · 有条件通过</span>
+      </div>
+    </div>
+
+    <div class="split-50-50" style="flex:1;">
+      <div class="col-flex" style="gap:2.8mm;">
+        <div class="mac-frame">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/workbench · NL-to-SPARQL</div>
+            <div class="mac-tag">2.93 MS</div>
+          </div>
+          <img src="screenshots/02_nl_sparql_evidence.png" alt="NL SPARQL Evidence" class="mac-screen" />
+        </div>
+        <div class="glass-card-dark" style="flex:1;">
+          <div style="font-size:9.5pt; font-weight:800; color:var(--cyan-glow); margin-bottom:1.5mm;">① 自然语言直连本体图谱 + 原文证据锚点</div>
+          <p style="font-size:8.2pt; color:#cbd5e1; line-height:1.58;">
+            林薇在问数框输入“30 天内到期的高风险合同”，引擎在 <strong style="color:#fff;">2.93 ms</strong> 内生成标准 SPARQL，精准命中 5 份合同与 <strong style="color:#fff;">14 节点关联子图</strong>，并直接挂接 3 份 PDF / DOCX 原始条款页码——点击即看原文，彻底杜绝大模型“一本正经胡说八道”。
+          </p>
+        </div>
+      </div>
+
+      <div class="col-flex" style="gap:2.8mm;">
+        <div class="mac-frame">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/portal · Multi-Agent Co-Review</div>
+            <div class="mac-tag">3 EXPERTS</div>
+          </div>
+          <img src="screenshots/03_executive_multi_agent.png" alt="Executive Multi Agent" class="mac-screen" />
+        </div>
+        <div class="glass-card-dark" style="flex:1;">
+          <div style="font-size:9.5pt; font-weight:800; color:var(--gold-soft); margin-bottom:1.5mm;">② AI 经营周报 + 法务 / 财务 / 供应链三专家会审</div>
+          <p style="font-size:8.2pt; color:#cbd5e1; line-height:1.58;">
+            针对 <code>HT-2026-089</code> 发起一键联合会审：三位专属智能体从<strong style="color:#fff;">违约责任、付款账期、断供替代</strong>三个维度并行审查，3 秒输出 <strong style="color:#fbbf24;">59/100（有条件通过）</strong>及逐条修约清单，同步生成高管周报直达经营例会。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>05</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: STORY 02 (WHAT-IF + ECA + SDK) ==================== -->
+<section class="page page-light">
+  <div class="grid-overlay-light"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">STORY 02 · SHADOW SIMULATION &amp; AUTOMATION</span>
+    <span>SCENARIO 02 / SUPPLY CHAIN BLACK SWAN</span>
+  </div>
+  <div class="content-wrap">
+    <div class="split-40-60">
+      <div class="col-flex">
+        <div class="eyebrow eyebrow-indigo">真实业务故事 02 · 沙箱预演与自动闭环</div>
+        <h2 class="h3-story" style="margin-bottom:3mm;">把 <span style="color:var(--rose);">1,060 万</span>供应链黑天鹅<br/>提前关进沙箱</h2>
+
+        <div class="persona-chip">
+          <span class="persona-avatar" style="background:linear-gradient(135deg,#f43f5e,#f59e0b);">陈</span>
+          <span>陈涛 · 集团供应链风控总监</span>
+        </div>
+
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.8mm;">
+          <strong style="color:var(--ink);">【深夜警报】</strong>周五晚 8 点，上游某核心供应商突发资金链负面舆情。如果周一直接冻结打款或触发违约，会连环引爆哪些在建交付项目？传统系统不敢在生产库里做“假设实验”，只能盲人摸象。
+        </p>
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.8mm;">
+          <strong style="color:var(--ink);">【影子图 What-If】</strong>陈涛启动灵·洞<strong style="color:var(--ink);">内存级影子图推演</strong>：系统瞬间拉起隔离沙箱，模拟该节点违约，3 秒穿透 <strong style="color:var(--ink);">4 个关联实体</strong>、精准算清 <strong style="color:var(--rose);">1,060 万元级联敞口</strong>与 2 条致命告警；推演结束即刻销毁沙箱，生产数据零污染。
+        </p>
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.5mm;">
+          <strong style="color:var(--ink);">【ECA + 嵌入式 SDK】</strong>确认预案后，ECA 事件自动化规则实时触达冻结审批与高管告警；更关键的是，风控卡片通过原生 <strong style="color:var(--ink);">SDK 直接嵌入企业现有 OA / ERP</strong>，一线业务员无需跳转新系统即可执行处置。
+        </p>
+
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--rose);">1,060 万</div>
+            <div class="kpi-lbl">级联风险敞口精准算清</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--indigo);">0 污染</div>
+            <div class="kpi-lbl">影子图自动隔离销毁</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--emerald);">秒级闭环</div>
+            <div class="kpi-lbl">ECA 自动触发 + OA 嵌入</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-flex" style="gap:3.5mm; justify-content:center;">
+        <div class="mac-frame" style="width:118mm; margin:0 auto;">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/simulation · Shadow Graph What-If</div>
+            <div class="mac-tag">ISOLATED SANDBOX</div>
+          </div>
+          <img src="screenshots/04_whatif_shadow_sim.png" alt="Shadow Graph What-If" class="mac-screen" />
+        </div>
+        <div class="mac-frame" style="width:118mm; margin:0 auto;">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/automation · ECA Rules &amp; Embed SDK</div>
+            <div class="mac-tag">EXECUTED</div>
+          </div>
+          <img src="screenshots/05_eca_automation_sdk.png" alt="ECA Automation & SDK" class="mac-screen" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>06</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: STORY 03 (MDM GOLDEN RECORD + LINEAGE DRIFT) ==================== -->
+<section class="page page-dark">
+  <div class="grid-overlay-dark"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">STORY 03 · MDM &amp; FOUR-LAYER LINEAGE</span>
+    <span>SCENARIO 03 / ZERO SILOS &amp; ZERO SCHEMA CRASHES</span>
+  </div>
+  <div class="content-wrap">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:4.5mm;">
+      <div>
+        <div class="eyebrow eyebrow-gold">真实业务故事 03 · 数据治本</div>
+        <h2 class="h2-editorial" style="color:#fff;">
+          终结<span style="color:var(--gold-soft);">“同名不同命”</span>与<span style="color:var(--cyan-glow);">“凌晨三点报警”</span>
+        </h2>
+      </div>
+      <div class="persona-chip" style="margin-bottom:0;">
+        <span class="persona-avatar" style="background:linear-gradient(135deg,#06b6d4,#10b981);">赵</span>
+        <span>赵宇 · 集团数据治理架构师</span>
+      </div>
+    </div>
+
+    <div class="split-50-50">
+      <div class="col-flex" style="gap:3mm;">
+        <div class="mac-frame">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/mdm · Cross-System Entity Resolution</div>
+            <div class="mac-tag">94% SIMILARITY</div>
+          </div>
+          <img src="screenshots/06_mdm_golden_record.png" alt="MDM Golden Record" class="mac-screen" />
+        </div>
+        <div class="glass-card-dark" style="flex:1; border-left:3px solid var(--cyan-glow);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5mm;">
+            <span style="font-size:9.6pt; font-weight:800; color:#fff;">跨系统 MDM 黄金记录：消除重复授信</span>
+            <span style="font-size:7.4pt; color:var(--cyan-glow); font-weight:700;">GOLDEN-48920X-4925</span>
+          </div>
+          <p style="font-size:8.1pt; color:#cbd5e1; line-height:1.58;">
+            ERP 里的“华云智算科技”与 CRM 里的“华云智算”长期被当成两家公司，造成授信翻倍风险。灵·洞以 <strong style="color:#fff;">94% 语义相似度</strong>自动识别并一键归并黄金主记录，同时保留完整血缘快照，支持<strong style="color:var(--cyan-glow);">随时一键拆分回滚</strong>，治理零心理负担。
+          </p>
+        </div>
+      </div>
+
+      <div class="col-flex" style="gap:3mm;">
+        <div class="mac-frame">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/lineage · 4-Layer Schema Drift Radar</div>
+            <div class="mac-tag">12 RULES ALERTED</div>
+          </div>
+          <img src="screenshots/07_lineage_drift_alert.png" alt="Lineage Drift Alert" class="mac-screen" />
+        </div>
+        <div class="glass-card-dark" style="flex:1; border-left:3px solid var(--gold);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5mm;">
+            <span style="font-size:9.6pt; font-weight:800; color:#fff;">4 层血缘漂移雷达：把故障挡在上线前</span>
+            <span style="font-size:7.4pt; color:var(--gold-soft); font-weight:700;">表 → 本体 → 规则 → 应用</span>
+          </div>
+          <p style="font-size:8.1pt; color:#cbd5e1; line-height:1.58;">
+            当上游业务库拟删除 <code>public.contracts.expires_at</code> 字段时，四层血缘雷达瞬间响起红灯预警，精准标出下游受波及的 <strong style="color:#fff;">12 条 SHACL 校验规则</strong>、能力接口与经营大屏应用，彻底告别“上游一改表、凌晨三点救火”。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>07</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: STORY 04 PART 1 (TEMPLATES + GIT BRANCH PR) ==================== -->
+<section class="page page-light">
+  <div class="grid-overlay-light"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">STORY 04 · ENTERPRISE SCALE &amp; COLLABORATION</span>
+    <span>SCENARIO 04 / FROM 3 MONTHS TO 1 DAY</span>
+  </div>
+  <div class="content-wrap">
+    <div class="split-40-60">
+      <div class="col-flex">
+        <div class="eyebrow eyebrow-indigo">真实业务故事 04 · 集团规模化落地</div>
+        <h2 class="h3-story" style="margin-bottom:3mm;">从 <span style="color:var(--ink-soft); text-decoration:line-through;">3 个月</span>从零建模，<br/>到 <span style="color:var(--indigo);">1 天</span>集团级合规上线</h2>
+
+        <div class="persona-chip">
+          <span class="persona-avatar" style="background:linear-gradient(135deg,#4f46e5,#7c3aed);">张</span>
+          <span>张总 · 集团 CIO &amp; 首席信息安全官（CISO）</span>
+        </div>
+
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.8mm;">
+          <strong style="color:var(--ink);">【落地痛点】</strong>很多企业听说“本体工程”就打退堂鼓：专家稀缺、从零梳理动辄三五个月；上线后各子公司随意修改模型口径，一改就乱、不敢放权。
+        </p>
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.8mm;">
+          <strong style="color:var(--ink);">【10 秒行业冷启动】</strong>灵·洞内置<strong style="color:var(--ink);">行业本体模板市场</strong>，预置企业合同风控、供应链韧性、智能制造设备维护、金融反欺诈 4 大开箱包，一键装配即可继承标准实体、关系与 SHACL 规则。
+        </p>
+        <p class="body-copy" style="color:var(--ink-muted); margin-bottom:2.5mm;">
+          <strong style="color:var(--ink);">【像写代码一样治理本体】</strong>独创 <strong style="color:var(--ink);">Git 风格分支与两阶段 PR 审批</strong>：子公司在独立分支迭代扩展字段，系统自动做三方合并冲突检测，经架构师与合规官双签后才合入主干，既敏捷又绝不失控。
+        </p>
+
+        <div class="pull-quote">
+          “以前觉得本体是象牙塔里的奢侈品；有了行业模板和 Git 分支审批，我们 3 家子公司一周就跑通了标准模型协同。”
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--indigo);">4 大行业包</div>
+            <div class="kpi-lbl">10 秒冷启动开箱即用</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:#0891b2;">两阶段 PR</div>
+            <div class="kpi-lbl">三方冲突检测与双签合入</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val" style="color:var(--emerald);">100% 可回滚</div>
+            <div class="kpi-lbl">全版本快照留痕</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-flex" style="gap:3.5mm; justify-content:center;">
+        <div class="mac-frame" style="width:118mm; margin:0 auto;">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/templates · Industry Ontology Marketplace</div>
+            <div class="mac-tag">4 PACKS READY</div>
+          </div>
+          <img src="screenshots/08_industry_templates.png" alt="Industry Templates" class="mac-screen" />
+        </div>
+        <div class="mac-frame" style="width:118mm; margin:0 auto;">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/governance · Git Branch &amp; 2-Stage PR</div>
+            <div class="mac-tag">3-WAY MERGE</div>
+          </div>
+          <img src="screenshots/09_git_branch_pr.png" alt="Git Branch PR" class="mac-screen" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>08</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: STORY 04 PART 2 (ABAC + FEDERATION + SM3 + KMS) ==================== -->
+<section class="page page-dark">
+  <div class="grid-overlay-dark"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">STORY 04 · SOVEREIGN SECURITY &amp; COMPLIANCE</span>
+    <span>ZERO-TRUST · SM3 · ABAC · KMS · SCIM 2.0</span>
+  </div>
+  <div class="content-wrap">
+    <div style="margin-bottom:4.5mm;">
+      <div class="eyebrow eyebrow-gold">集团级安全与信创合规 · 一次通过最严苛验收</div>
+      <h2 class="h2-editorial" style="color:#fff;">
+        国密 SM3 防篡改链 × ABAC 动态脱敏 × 集团联邦治理
+      </h2>
+    </div>
+
+    <div class="split-58-42">
+      <div class="col-flex" style="gap:3mm; justify-content:center;">
+        <div class="mac-frame">
+          <div class="mac-bar">
+            <div class="mac-dots"><span></span><span></span><span></span></div>
+            <div class="mac-url">lingdong.local/governance · Federation / SM3 Audit / KMS</div>
+            <div class="mac-tag">INTACT · 45 BLOCKS</div>
+          </div>
+          <img src="screenshots/10_federation_sm3_kms.png" alt="Federation SM3 KMS" class="mac-screen" />
+        </div>
+        <div style="display:flex; gap:2.5mm; flex-wrap:wrap;">
+          <span class="float-pill pill-emerald">● SM3 审计链校验 INTACT（45 区块零断链）</span>
+          <span class="float-pill pill-dark">Head Hash: 85c98f62...a83d07</span>
+        </div>
+      </div>
+
+      <div class="col-flex" style="gap:3.2mm; justify-content:space-between;">
+        <div class="glass-card-dark" style="border-left:3px solid var(--cyan-glow);">
+          <div style="font-size:9.6pt; font-weight:800; color:#fff; margin-bottom:1mm;">01 · ABAC 三级密级与动态列脱敏</div>
+          <p style="font-size:8pt; color:#cbd5e1; line-height:1.55;">
+            按公开 / 内部 / 机密三级标签实施属性访问控制。普通访客（VIEWER）查询合同金额与身份证等敏感列时，系统实时动态遮蔽（实测自动脱敏 <strong style="color:var(--cyan-glow);">3 列 6 处敏感单元</strong>），杜绝越权泄密。
+          </p>
+        </div>
+        <div class="glass-card-dark" style="border-left:3px solid var(--indigo-light);">
+          <div style="font-size:9.6pt; font-weight:800; color:#fff; margin-bottom:1mm;">02 · 集团多组织联邦与 SCIM 2.0</div>
+          <p style="font-size:8pt; color:#cbd5e1; line-height:1.55;">
+            原生支持集团总部 + 下属子公司组织树（实跑 3 个组织单元、22 项联邦差异追踪），标准 SCIM 2.0 自动对接企业目录，做到“总部定标准、子公司按需扩展”。
+          </p>
+        </div>
+        <div class="glass-card-dark" style="border-left:3px solid var(--emerald);">
+          <div style="font-size:9.6pt; font-weight:800; color:#fff; margin-bottom:1mm;">03 · 国密 SM3 前向哈希审计链</div>
+          <p style="font-size:8pt; color:#cbd5e1; line-height:1.55;">
+            每一次本体变更、数据合并、权限调整均写入国密 SM3 链式账本，任何事后篡改数据库日志的行为都会导致哈希验真即刻告警，满足央国企与金融监管留痕要求。
+          </p>
+        </div>
+        <div class="glass-card-dark" style="border-left:3px solid var(--gold);">
+          <div style="font-size:9.6pt; font-weight:800; color:#fff; margin-bottom:1mm;">04 · KMS / Vault 密钥托管与零停机轮换</div>
+          <p style="font-size:8pt; color:#cbd5e1; line-height:1.55;">
+            统一纳管数据库连接串、签名私钥与外部 API 凭证（实跑 4 组托管密钥），支持一键轮换与实时 Prometheus 指标观测，告别配置文件明文落盘。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>09</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: HARDCORE ENGINEERING PROOF & PERSONA VALUE ==================== -->
+<section class="page page-dark">
+  <div class="grid-overlay-dark"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">ENGINEERING PROOF · PRODUCTION GRADE</span>
+    <span>VERIFIED BENCHMARKS &amp; EXECUTIVE ROI</span>
+  </div>
+  <div class="content-wrap">
+    <div style="margin-bottom:5mm;">
+      <div class="eyebrow eyebrow-cyan">PRODUCTION BENCHMARKS · 真压测、真高可用，客户敢托付核心业务</div>
+      <h2 class="h2-editorial" style="color:#fff;">
+        不止演示好看，更经得起<span class="gradient-text-gold">生产级极限压测与混沌断电考验</span>
+      </h2>
+    </div>
+
+    <!-- 5 Monumental Proof Tiles -->
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:3.5mm; margin-bottom:6mm;">
+      <div class="glass-card-dark" style="text-align:center; padding:5mm 3mm; border-top:2px solid var(--cyan-glow);">
+        <div style="font-size:21pt; font-weight:900; color:var(--cyan-glow); line-height:1.1;">451.2</div>
+        <div style="font-size:8pt; font-weight:700; color:#fff; margin-top:1.5mm;">峰值吞吐 (QPS)</div>
+        <div style="font-size:7pt; color:#94a3b8; margin-top:1mm;">150 并发混合负载实测</div>
+      </div>
+      <div class="glass-card-dark" style="text-align:center; padding:5mm 3mm; border-top:2px solid var(--emerald);">
+        <div style="font-size:21pt; font-weight:900; color:#34d399; line-height:1.1;">0.00%</div>
+        <div style="font-size:8pt; font-weight:700; color:#fff; margin-top:1.5mm;">压测错误率</div>
+        <div style="font-size:7pt; color:#94a3b8; margin-top:1mm;">11,127 次请求零报错</div>
+      </div>
+      <div class="glass-card-dark" style="text-align:center; padding:5mm 3mm; border-top:2px solid var(--indigo-light);">
+        <div style="font-size:21pt; font-weight:900; color:#a5b4fc; line-height:1.1;">88.8 ms</div>
+        <div style="font-size:8pt; font-weight:700; color:#fff; margin-top:1.5mm;">核心接口 P95</div>
+        <div style="font-size:7pt; color:#94a3b8; margin-top:1mm;">毫秒级流畅交互体验</div>
+      </div>
+      <div class="glass-card-dark" style="text-align:center; padding:5mm 3mm; border-top:2px solid var(--gold);">
+        <div style="font-size:21pt; font-weight:900; color:var(--gold-soft); line-height:1.1;">20 / 20</div>
+        <div style="font-size:8pt; font-weight:700; color:#fff; margin-top:1.5mm;">混沌容灾切换</div>
+        <div style="font-size:7pt; color:#94a3b8; margin-top:1mm;">强杀主节点业务零中断</div>
+      </div>
+      <div class="glass-card-dark" style="text-align:center; padding:5mm 3mm; border-top:2px solid #f472b6;">
+        <div style="font-size:21pt; font-weight:900; color:#f9a8d4; line-height:1.1;">59 / 59</div>
+        <div style="font-size:8pt; font-weight:700; color:#fff; margin-top:1.5mm;">全链路自动化测试</div>
+        <div style="font-size:7pt; color:#94a3b8; margin-top:1mm;">安全/业务/集群全绿封版</div>
+      </div>
+    </div>
+
+    <!-- 4 Persona ROI Matrix -->
+    <div style="font-size:8.5pt; font-weight:700; letter-spacing:0.12em; color:#94a3b8; text-transform:uppercase; margin-bottom:3mm;">
+      ROLE-BASED VALUE MATRIX · 给企业四大关键角色带来的直接价值
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:4mm; flex:1;">
+      <div class="glass-card-dark" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:7.2pt; font-weight:700; color:var(--gold-soft); margin-bottom:1.5mm;">CHAIRMAN / COO</div>
+          <div style="font-size:10.5pt; font-weight:800; color:#fff; margin-bottom:2mm;">企业高管与决策层</div>
+          <p style="font-size:7.9pt; color:#cbd5e1; line-height:1.6;">不再等三天报表，随时用自然语言穿透全集团风险敞口；AI 周报与多专家会审让重大签批有据可依。</p>
+        </div>
+        <div style="margin-top:3mm; padding-top:2.5mm; border-top:1px solid rgba(148,163,184,0.16); font-size:7.8pt; font-weight:700; color:var(--cyan-glow);">
+          决策响应提速 95%+
+        </div>
+      </div>
+      <div class="glass-card-dark" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:7.2pt; font-weight:700; color:#fb7185; margin-bottom:1.5mm;">LEGAL / FINANCE / RISK</div>
+          <div style="font-size:10.5pt; font-weight:800; color:#fff; margin-bottom:2mm;">法务、财务与风控</div>
+          <p style="font-size:7.9pt; color:#cbd5e1; line-height:1.6;">临期违约自动红灯预警、PDF 条款页码一键溯源、影子图提前算清千万级级联敞口，变事后追责为事前拦截。</p>
+        </div>
+        <div style="margin-top:3mm; padding-top:2.5mm; border-top:1px solid rgba(148,163,184,0.16); font-size:7.8pt; font-weight:700; color:#fb7185;">
+          高危敞口 100% 事前可视
+        </div>
+      </div>
+      <div class="glass-card-dark" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:7.2pt; font-weight:700; color:var(--cyan-glow); margin-bottom:1.5mm;">DATA &amp; ONTOLOGY TEAM</div>
+          <div style="font-size:10.5pt; font-weight:800; color:#fff; margin-bottom:2mm;">数据与本体工程师</div>
+          <p style="font-size:7.9pt; color:#cbd5e1; line-height:1.6;">行业模板 10 秒起步，MDM 一键归并可回滚，四层血缘精准拦截上游改表雪崩，Git 分支协作井然有序。</p>
+        </div>
+        <div style="margin-top:3mm; padding-top:2.5mm; border-top:1px solid rgba(148,163,184,0.16); font-size:7.8pt; font-weight:700; color:#a5b4fc;">
+          建模与排障成本下降 80%
+        </div>
+      </div>
+      <div class="glass-card-dark" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:7.2pt; font-weight:700; color:#34d399; margin-bottom:1.5mm;">CIO / CISO</div>
+          <div style="font-size:10.5pt; font-weight:800; color:#fff; margin-bottom:2mm;">信息官与安全合规官</div>
+          <p style="font-size:7.9pt; color:#cbd5e1; line-height:1.6;">K8s Helm 云原生双活部署，内置 ABAC 脱敏、国密 SM3 防篡改链与 KMS 轮换，轻松通过金融及央国企安全验收。</p>
+        </div>
+        <div style="margin-top:3mm; padding-top:2.5mm; border-top:1px solid rgba(148,163,184,0.16); font-size:7.8pt; font-weight:700; color:#34d399;">
+          等保与信创合规原生内置
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>10</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: 6-WEEK DEPLOYMENT ROADMAP & VERTICALS ==================== -->
+<section class="page page-light">
+  <div class="grid-overlay-light"></div>
+  <div class="page-chrome-top">
+    <span class="brand-dot">IMPLEMENTATION &amp; INDUSTRIES</span>
+    <span>FAST-TRACK 6-WEEK DEPLOYMENT</span>
+  </div>
+  <div class="content-wrap">
+    <div style="margin-bottom:5mm;">
+      <div class="eyebrow eyebrow-indigo">LOW-RISK ROLLOUT · 敏捷试点，6 周见效</div>
+      <h2 class="h2-editorial">不必推倒重来：三步让灵·洞在您的企业快速跑出业务价值</h2>
+    </div>
+
+    <!-- 3-Step Roadmap -->
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:5mm; margin-bottom:6.5mm;">
+      <div class="card-light" style="border-top:4px solid var(--indigo); position:relative;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5mm;">
+          <span style="font-size:8pt; font-weight:800; color:var(--indigo); background:#eef2ff; padding:2px 9px; border-radius:999px;">PHASE 01 · 第 1 周</span>
+          <span style="font-size:16pt; font-weight:900; color:#cbd5e1;">01</span>
+        </div>
+        <div style="font-size:11pt; font-weight:800; margin-bottom:2mm;">PoC 极速验证</div>
+        <p style="font-size:8.2pt; color:var(--ink-muted); line-height:1.6;">
+          10 秒装载行业本体模板，接入 1–2 个核心痛点数据源（如合同库 + 供应商主表），当周跑通自然语言证据问数与临期风险预警，高管亲眼看到真实收益。
+        </p>
+      </div>
+      <div class="card-light" style="border-top:4px solid #0891b2;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5mm;">
+          <span style="font-size:8pt; font-weight:800; color:#0e7490; background:#ecfeff; padding:2px 9px; border-radius:999px;">PHASE 02 · 第 2–3 周</span>
+          <span style="font-size:16pt; font-weight:900; color:#cbd5e1;">02</span>
+        </div>
+        <div style="font-size:11pt; font-weight:800; margin-bottom:2mm;">核心域深度融合</div>
+        <p style="font-size:8.2pt; color:var(--ink-muted); line-height:1.6;">
+          打通 ERP / CRM / OA 多源数据，运行 MDM 黄金记录归并；启用影子图 What-If 推演、多智能体联合会审与 ECA 自动化规则，嵌入现有业务审批流。
+        </p>
+      </div>
+      <div class="card-light" style="border-top:4px solid #059669;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5mm;">
+          <span style="font-size:8pt; font-weight:800; color:#047857; background:#ecfdf5; padding:2px 9px; border-radius:999px;">PHASE 03 · 第 4–6 周</span>
+          <span style="font-size:16pt; font-weight:900; color:#cbd5e1;">03</span>
+        </div>
+        <div style="font-size:11pt; font-weight:800; margin-bottom:2mm;">集团级推广与合规验收</div>
+        <p style="font-size:8.2pt; color:var(--ink-muted); line-height:1.6;">
+          部署 K8s 双活集群，开启集团联邦组织树、Git 分支审批、ABAC 三级密级脱敏与国密 SM3 审计链，完成客户全员分层培训并正式交付投产。
+        </p>
+      </div>
+    </div>
+
+    <!-- 4 Target Industries -->
+    <div style="font-size:8.2pt; font-weight:800; letter-spacing:0.12em; color:var(--ink-soft); text-transform:uppercase; margin-bottom:3mm;">
+      PROVEN VERTICALS · 重点行业标杆场景
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:4mm; flex:1;">
+      <div class="card-light" style="background:linear-gradient(180deg,#ffffff,#f8fafc);">
+        <div style="font-size:9.8pt; font-weight:800; color:var(--indigo); margin-bottom:1.5mm;">高端制造与供应链</div>
+        <p style="font-size:8pt; color:var(--ink-muted); line-height:1.58;">BOM 与供应商级联断供推演、设备预测性维护本体、跨厂区质量追溯与物料黄金主数据治理。</p>
+      </div>
+      <div class="card-light" style="background:linear-gradient(180deg,#ffffff,#f8fafc);">
+        <div style="font-size:9.8pt; font-weight:800; color:#0891b2; margin-bottom:1.5mm;">央国企招采与合约</div>
+        <p style="font-size:8pt; color:var(--ink-muted); line-height:1.58;">百万级合同条款 PDF 证据溯源、围标串标关系图谱穿透、法务/财务多智能体联合审查与国密审计。</p>
+      </div>
+      <div class="card-light" style="background:linear-gradient(180deg,#ffffff,#f8fafc);">
+        <div style="font-size:9.8pt; font-weight:800; color:#059669; margin-bottom:1.5mm;">能源电力与资产运维</div>
+        <p style="font-size:8pt; color:var(--ink-muted); line-height:1.58;">电网/场站设备拓扑本体建模、检修影响面影子图仿真、工单 ECA 自动派发与多级调度联邦协同。</p>
+      </div>
+      <div class="card-light" style="background:linear-gradient(180deg,#ffffff,#f8fafc);">
+        <div style="font-size:9.8pt; font-weight:800; color:#b45309; margin-bottom:1.5mm;">金融风控与政企监管</div>
+        <p style="font-size:8pt; color:var(--ink-muted); line-height:1.58;">集团授信关联方去重归并、反欺诈/反洗钱多层资金穿透、ABAC 密级隔离与监管报送四层血缘留痕。</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-chrome-bottom">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>11</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: LUXURY BACK COVER ==================== -->
+<section class="page page-dark" style="justify-content:center; align-items:center; text-align:center;">
+  <div class="grid-overlay-dark"></div>
+  <div style="position:relative; z-index:4; max-width:195mm; padding:16mm; display:flex; flex-direction:column; align-items:center;">
+    <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,#22d3ee,#4f46e5); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:20pt; color:#fff; margin-bottom:6mm; box-shadow:0 12px 32px rgba(34,211,238,0.28);">灵</div>
+    <div class="eyebrow eyebrow-gold" style="justify-content:center;">LINGDONG ONTOLOGY WORKSTATION V7.0</div>
+    <h2 style="font-size:28pt; font-weight:800; line-height:1.25; margin-bottom:5mm; color:#ffffff;">
+      把复杂留给语义内核，<br/><span class="gradient-text-gold">把确定性交给决策者。</span>
+    </h2>
+    <p style="font-size:10.5pt; color:#94a3b8; line-height:1.7; max-width:148mm; margin-bottom:9mm;">
+      无论您正面临跨系统数据口径割裂、高风险合同与供应链黑天鹅，还是集团级信创合规验收挑战，灵·洞团队均可为您提供<strong style="color:#e2e8f0;"> 30 分钟真实业务数据实机演示</strong>与<strong style="color:#e2e8f0;"> 1 周专属 PoC 评估方案</strong>。
+    </p>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:5mm; width:100%; margin-bottom:10mm;">
+      <div class="glass-card-dark" style="text-align:left; border-top:2px solid var(--cyan-glow);">
+        <div style="font-size:7.4pt; color:var(--cyan-glow); font-weight:700; letter-spacing:0.1em;">NEXT STEP 01</div>
+        <div style="font-size:10pt; font-weight:800; color:#fff; margin:1.5mm 0;">预约实机演示</div>
+        <div style="font-size:7.8pt; color:#94a3b8;">带上您的真实业务难题，现场体验 2.93 ms 证据问数与影子推演。</div>
+      </div>
+      <div class="glass-card-dark" style="text-align:left; border-top:2px solid var(--gold);">
+        <div style="font-size:7.4pt; color:var(--gold-soft); font-weight:700; letter-spacing:0.1em;">NEXT STEP 02</div>
+        <div style="font-size:10pt; font-weight:800; color:#fff; margin:1.5mm 0;">领取客户培训手册</div>
+        <div style="font-size:7.8pt; color:#94a3b8;">配套《V7.0 客户培训与操作手册》，覆盖全角色分步实操与动手实验。</div>
+      </div>
+      <div class="glass-card-dark" style="text-align:left; border-top:2px solid var(--emerald);">
+        <div style="font-size:7.4pt; color:#34d399; font-weight:700; letter-spacing:0.1em;">NEXT STEP 03</div>
+        <div style="font-size:10pt; font-weight:800; color:#fff; margin:1.5mm 0;">启动 1 周免费 PoC</div>
+        <div style="font-size:7.8pt; color:#94a3b8;">Docker / K8s 私有化一键部署，数据不出内网，快速验证 ROI。</div>
+      </div>
+    </div>
+
+    <div style="font-size:8pt; color:#64748b; letter-spacing:0.1em; border-top:1px solid rgba(148,163,184,0.18); padding-top:4mm; width:100%;">
+      灵·洞本体工作站 V7.0 Enterprise Decision OS · 品牌宣传册（2026 旗舰版）· 版权所有
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

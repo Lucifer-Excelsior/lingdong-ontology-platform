@@ -1,0 +1,19 @@
+{
+  "name": "@lingdong/cli",
+  "version": "3.5.0",
+  "type": "module",
+  "bin": {
+    "lingdong-cli": "./dist/index.js"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "fflate": "^0.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
+  }
+}

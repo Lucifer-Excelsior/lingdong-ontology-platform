@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  APP_ENV: "production"
+  HOST: "0.0.0.0"
+  PORT: "8280"
+  GRAPH_STORE_MODE: {{ .Values.graphStore.mode | default "remote_sparql" | quote }}
+  GRAPH_STORE_ENDPOINT: {{ .Values.graphStore.endpoint | default "http://oxigraph-server:7878" | quote }}
+  REDIS_URL: {{ .Values.redis.url | default "redis://lingdong-redis:6379" | quote }}
+  ALLOWED_ORIGINS: {{ .Values.security.allowedOrigins | default "https://ontology.enterprise.local" | quote }}
+  AUDIT_HASH_ALGO: "SM3"
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-api-netpol
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: lingdong-api
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: lingdong-web
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8280

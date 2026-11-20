@@ -1,0 +1,63 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lingdong
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lingdong_v3_prod_change_me}
+      POSTGRES_DB: ontology_v3
+    volumes:
+      - v3_prod_pgdata:/var/lib/postgresql/data
+      - ./infra/postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lingdong -d ontology_v3"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: "8280"
+      DATABASE_ADMIN_URL: postgresql://lingdong:${POSTGRES_PASSWORD:-lingdong_v3_prod_change_me}@postgres:5432/ontology_v3
+      DATABASE_APP_URL: postgresql://lingdong_app:lingdong_app_dev_password@postgres:5432/ontology_v3
+      SANDBOX_ERP_DATABASE_URL: postgresql://lingdong:${POSTGRES_PASSWORD:-lingdong_v3_prod_change_me}@postgres:5432/sandbox_erp
+      LINGDONG_SESSION_SECRET: ${LINGDONG_SESSION_SECRET:-change-me-in-production-32-chars}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      OPENAI_MODEL: ${OPENAI_MODEL:-qwen-max}
+      OIDC_ISSUER_URL: ${OIDC_ISSUER_URL:-}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:-}
+      ELK_SIDECAR_URL: ${ELK_SIDECAR_URL:-}
+    ports:
+      - "127.0.0.1:8280:8280"
+    volumes:
+      - v3_prod_oxigraph:/app/apps/api/.data
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:3200:80"
+
+  elk-sidecar:
+    profiles: ["elk"]
+    build:
+      context: ./services/elk-sidecar
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8281:8281"
+
+volumes:
+  v3_prod_pgdata:
+  v3_prod_oxigraph:

@@ -1,0 +1,180 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+:root {
+  --background: #f8fafc;
+  --sidebar: #f8fafc;
+  --card: #ffffff;
+  --secondary: #f1f5f9;
+  --border: #e2e8f0;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+}
+
+/* 1. Modern Web Guidance (tabs): Active indicator via ::after border, zero dimension shift */
+[role="tablist"] {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: inline proximity;
+}
+[role="tablist"]::-webkit-scrollbar {
+  display: none;
+}
+[role="tab"] {
+  position: relative;
+  flex: none;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+[role="tab"][aria-selected="true"] {
+  color: var(--primary);
+}
+[role="tab"][aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px 0;
+  border-block-end: 2px solid var(--primary);
+}
+
+/* 2. Modern Web Guidance (dialog & light-dismiss-a-dialog): Scroll containment & scoped open display */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(3px);
+}
+dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3. Modern Web Guidance (responsive-table): Sticky headers + @container stacked layout */
+.table-wrapper {
+  overflow: auto;
+  max-inline-size: 100%;
+  max-block-size: min(520px, 75vh);
+  container-type: inline-size;
+  cursor: default;
+}
+.table-wrapper table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  font-size: 12px;
+}
+.table-wrapper thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background: var(--secondary);
+}
+.table-wrapper th,
+.table-wrapper td {
+  padding: 10px 14px;
+  border-block-end: 1px solid var(--border);
+  white-space: nowrap;
+}
+.table-wrapper tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--card);
+  font-weight: 600;
+}
+@container (width < 600px) {
+  .table-wrapper table,
+  .table-wrapper thead,
+  .table-wrapper tbody,
+  .table-wrapper tr,
+  .table-wrapper th,
+  .table-wrapper td {
+    display: block;
+    white-space: normal;
+  }
+  .table-wrapper thead {
+    display: none;
+  }
+  .table-wrapper tr {
+    margin-block-end: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .table-wrapper tbody th {
+    inset-block-start: 0;
+    background: var(--secondary);
+  }
+  .table-wrapper td:nth-child(2)::before {
+    content: var(--label-2, "") ": ";
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+  .table-wrapper td:nth-child(3)::before {
+    content: var(--label-3, "") ": ";
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+  .table-wrapper td:nth-child(4)::before {
+    content: var(--label-4, "") ": ";
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+  .table-wrapper td:nth-child(5)::before {
+    content: var(--label-5, "") ": ";
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+  .table-wrapper td:nth-child(6)::before {
+    content: var(--label-6, "") ": ";
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+}
+
+/* 4. Modern Web Guidance (forms): Non-intrusive :user-invalid validation & focus rings */
+input:user-invalid,
+textarea:user-invalid,
+select:user-invalid {
+  border-color: #dc2626;
+  outline-color: #dc2626;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible,
+.table-wrapper:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* 5. Dot-grid canvas & ReactFlow enterprise node polish */
+.canvas-grid {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.graph-node {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.graph-node:hover {
+  transform: translateY(-1px);
+}
+.graph-node[data-selected="true"] {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.react-flow__attribution {
+  display: none;
+}
+.react-flow__edge-text {
+  font-size: 12px;
+}

@@ -1,0 +1,77 @@
+name: Lingdong Ontology Studio V7.0 CI Gate
+
+on:
+  push:
+    branches: [main, master, "release/**"]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-and-test:
+    name: Typecheck, Build, 59 Tests & Security Gates
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: lingdong
+          POSTGRES_PASSWORD: lingdong_v3_dev_password
+          POSTGRES_DB: ontology_v3
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd="pg_isready -U lingdong -d ontology_v3"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      DATABASE_ADMIN_URL: postgres://lingdong:lingdong_v3_dev_password@127.0.0.1:5433/ontology_v3
+      DATABASE_APP_URL: postgres://lingdong_app:lingdong_app_password@127.0.0.1:5433/ontology_v3
+      SANDBOX_ERP_URL: postgres://lingdong:lingdong_v3_dev_password@127.0.0.1:5433/sandbox_erp
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm & Node.js 24
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Initialize PostgreSQL roles & sandbox ERP DB
+        run: |
+          PGPASSWORD=lingdong_v3_dev_password psql -h 127.0.0.1 -p 5433 -U lingdong -d ontology_v3 -f infra/postgres-init/01-init.sql
+
+      - name: Monorepo Typecheck & Build
+        run: |
+          pnpm -r typecheck
+          pnpm -r build
+
+      - name: Run Semantic Core & API Full Test Suite (59 tests)
+        run: |
+          pnpm --filter @lingdong/semantic-core test
+          pnpm --filter @lingdong/api test
+
+      - name: Enforce File-Size Budget (<=280 backend / <=260 frontend)
+        run: |
+          MAX_BE=$(find apps/api/src packages/*/src \( -name '*.ts' -o -name '*.tsx' \) -exec wc -l {} + | grep -v ' total$' | awk '{print $1}' | sort -nr | head -n 1)
+          MAX_FE=$(find apps/web/src \( -name '*.ts' -o -name '*.tsx' \) -exec wc -l {} + | grep -v ' total$' | awk '{print $1}' | sort -nr | head -n 1)
+          echo "Max backend lines: $MAX_BE (limit 280), Max frontend lines: $MAX_FE (limit 260)"
+          test "$MAX_BE" -le 280
+          test "$MAX_FE" -le 260
+
+      - name: Security Gate - Verify Zero Hardcoded Dev Passcode in Production Web Bundle
+        run: |
+          ! grep -rn "Lingdong@2026" apps/web/dist/

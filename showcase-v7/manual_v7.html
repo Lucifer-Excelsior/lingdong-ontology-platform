@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>灵·洞本体工作站 V7.0 — 客户培训与操作手册</title>
+<style>
+  @page {
+    size: 210mm 297mm;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  :root {
+    --ink: #0f172a;
+    --ink-2: #334155;
+    --ink-muted: #64748b;
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --indigo: #4f46e5;
+    --indigo-soft: #eef2ff;
+    --indigo-border: #c7d2fe;
+    --cyan: #0284c7;
+    --cyan-soft: #f0f9ff;
+    --emerald: #059669;
+    --emerald-soft: #ecfdf5;
+    --amber: #d97706;
+    --amber-soft: #fffbeb;
+    --rose: #e11d48;
+    --rose-soft: #fff1f2;
+  }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "SF Pro Text", "Microsoft YaHei", -apple-system, sans-serif;
+    background: #e2e8f0;
+    color: var(--ink);
+    line-height: 1.58;
+    font-feature-settings: "tnum" on, "lnum" on;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* Running Header & Footer */
+  .m-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9mm 14mm 3.5mm 14mm;
+    border-bottom: 1px solid var(--border);
+    font-size: 7.5pt;
+    color: var(--ink-muted);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .m-header-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+  }
+  .m-header-brand::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--indigo);
+  }
+
+  .m-footer {
+    position: absolute;
+    left: 14mm;
+    right: 14mm;
+    bottom: 8mm;
+    border-top: 1px solid var(--border);
+    padding-top: 2.8mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7.5pt;
+    color: var(--ink-muted);
+  }
+
+  .m-body {
+    padding: 6mm 14mm 18mm 14mm;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Chapter Heading */
+  .chap-eyebrow {
+    font-size: 7.8pt;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--indigo);
+    text-transform: uppercase;
+    margin-bottom: 1.5mm;
+  }
+  .chap-title {
+    font-size: 17.5pt;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.24;
+    margin-bottom: 2.2mm;
+  }
+  .chap-desc {
+    font-size: 8.8pt;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 4.5mm;
+  }
+
+  .sec-title {
+    font-size: 11.2pt;
+    font-weight: 800;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 3.5mm 0 2.5mm 0;
+  }
+  .sec-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 7px;
+    border-radius: 5px;
+    background: var(--indigo);
+    color: #fff;
+    font-size: 8pt;
+    font-weight: 800;
+  }
+
+  /* Role Badges */
+  .role-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 3mm;
+  }
+  .role-badge {
+    font-size: 7.2pt;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .rb-exec { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
+  .rb-risk { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+  .rb-eng  { background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; }
+  .rb-sec  { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+
+  /* Step List */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2mm;
+    margin-bottom: 3.2mm;
+  }
+  .step-item {
+    display: flex;
+    gap: 2.8mm;
+    align-items: flex-start;
+    font-size: 8.4pt;
+    line-height: 1.56;
+    color: var(--ink-2);
+  }
+  .step-circle {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: var(--indigo-soft);
+    border: 1.5px solid var(--indigo);
+    color: var(--indigo);
+    font-size: 7.4pt;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1.5px;
+  }
+  .step-item strong { color: var(--ink); }
+
+  /* Callout Boxes */
+  .callout {
+    border-radius: 8px;
+    padding: 2.8mm 3.6mm;
+    font-size: 8pt;
+    line-height: 1.55;
+    margin: 2.5mm 0;
+  }
+  .callout-tip {
+    background: var(--cyan-soft);
+    border-left: 3.5px solid var(--cyan);
+    color: #0c4a6e;
+  }
+  .callout-warn {
+    background: var(--amber-soft);
+    border-left: 3.5px solid var(--amber);
+    color: #78350f;
+  }
+  .callout-ok {
+    background: var(--emerald-soft);
+    border-left: 3.5px solid var(--emerald);
+    color: #065f46;
+  }
+  .callout strong { font-weight: 800; }
+
+  /* UI Screenshot Frame */
+  .ui-box {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    margin: 2mm 0 2.5mm 0;
+  }
+  .ui-box.compact {
+    width: 96mm;
+    margin: 1mm auto 1.5mm auto;
+  }
+  .ui-box.compact .ui-box-bar {
+    font-size: 6.3pt;
+    padding: 1.2mm 2.5mm;
+    white-space: nowrap;
+  }
+  .ui-box.compact .ui-box-bar span:last-child {
+    display: none;
+  }
+  .ui-box-bar {
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1.6mm 3mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7pt;
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+  .ui-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .ui-caption {
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    padding: 1.8mm 3mm;
+    font-size: 7.4pt;
+    color: var(--ink-2);
+  }
+
+  /* Tables */
+  table.m-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.8pt;
+    margin: 2mm 0 3mm 0;
+  }
+  table.m-table th {
+    background: #f1f5f9;
+    color: var(--ink);
+    font-weight: 800;
+    text-align: left;
+    padding: 2.2mm 2.6mm;
+    border: 1px solid #cbd5e1;
+  }
+  table.m-table td {
+    padding: 2.1mm 2.6mm;
+    border: 1px solid #e2e8f0;
+    color: var(--ink-2);
+    vertical-align: top;
+    line-height: 1.48;
+  }
+  table.m-table tr:nth-child(even) td { background: #f8fafc; }
+
+  /* Cards & Grids */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3.2mm 3.8mm;
+  }
+
+  code {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 7.6pt;
+    background: #f1f5f9;
+    color: #3730a3;
+    padding: 0.5px 4px;
+    border-radius: 4px;
+  }
+
+  /* Lab Card */
+  .lab-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    padding: 3.4mm 4mm;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  }
+  .lab-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.8mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 1px dashed #cbd5e1;
+  }
+  .lab-check {
+    list-style: none;
+    font-size: 8pt;
+    color: var(--ink-2);
+    display: flex;
+    flex-direction: column;
+    gap: 1.4mm;
+  }
+  .lab-check li::before {
+    content: "☐ ";
+    color: var(--indigo);
+    font-weight: 800;
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: CLEAN LUXURY COVER ==================== -->
+<section class="page" style="background:#f8fafc;">
+  <img src="assets/manual_cover_art.jpg" alt="Manual Cover" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;" />
+  <div style="position:relative; z-index:3; padding:16mm 16mm 14mm 16mm; height:100%; display:flex; flex-direction:column; justify-content:space-between;">
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14mm;">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <div style="width:28px; height:28px; border-radius:7px; background:linear-gradient(135deg,#4f46e5,#0ea5e9); color:#fff; font-weight:900; font-size:12pt; display:flex; align-items:center; justify-content:center;">灵</div>
+          <div>
+            <div style="font-size:10.5pt; font-weight:800; color:#0f172a;">灵·洞本体工作站</div>
+            <div style="font-size:6.8pt; letter-spacing:0.15em; color:#64748b; text-transform:uppercase;">LINGDONG ONTOLOGY WORKSTATION</div>
+          </div>
+        </div>
+        <div style="padding:3.5px 11px; border-radius:999px; background:#eef2ff; border:1px solid #c7d2fe; color:#3730a3; font-size:7.6pt; font-weight:800;">
+          V7.0 ENTERPRISE · 客户官方培训教材
+        </div>
+      </div>
+
+      <div style="font-size:8.5pt; font-weight:800; letter-spacing:0.18em; color:#4f46e5; text-transform:uppercase; margin-bottom:3mm;">
+        CUSTOMER TRAINING &amp; OPERATIONS MANUAL
+      </div>
+      <h1 style="font-size:31pt; font-weight:900; line-height:1.18; color:#0f172a; margin-bottom:4mm; letter-spacing:-0.02em;">
+        平台操作手册与<br/>客户实战培训指南
+      </h1>
+      <p style="font-size:10.5pt; color:#475569; line-height:1.68; max-width:155mm; margin-bottom:7mm;">
+        一本面向企业高管、法务风控、数据本体工程师与安全管理员的<strong style="color:#0f172a;">全角色实战操作指南</strong>。系统讲清平台<strong style="color:#4f46e5;">有什么功能、干什么用、一步步怎么用</strong>，配套 4 个 10 分钟现场动手实验与排障速查表。
+      </p>
+
+      <div style="display:flex; gap:3mm; flex-wrap:wrap;">
+        <span class="role-badge rb-exec" style="font-size:8pt; padding:3.5px 10px;">高管与业务决策者</span>
+        <span class="role-badge rb-risk" style="font-size:8pt; padding:3.5px 10px;">法务 / 财务 / 供应链风控</span>
+        <span class="role-badge rb-eng" style="font-size:8pt; padding:3.5px 10px;">数据与本体工程师</span>
+        <span class="role-badge rb-sec" style="font-size:8pt; padding:3.5px 10px;">CIO / 安全合规管理员</span>
+      </div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.92); border:1px solid #cbd5e1; border-radius:10px; padding:4.5mm 6mm; display:grid; grid-template-columns:repeat(3,1fr); gap:4mm; backdrop-filter:blur(8px);">
+      <div>
+        <div style="font-size:7pt; color:#64748b; font-weight:700;">适用版本</div>
+        <div style="font-size:9pt; font-weight:800; color:#0f172a; margin-top:1px;">V7.0 Enterprise Decision OS</div>
+      </div>
+      <div>
+        <div style="font-size:7pt; color:#64748b; font-weight:700;">建议培训学时</div>
+        <div style="font-size:9pt; font-weight:800; color:#0f172a; margin-top:1px;">半天快速上手 · 1 天认证实战</div>
+      </div>
+      <div>
+        <div style="font-size:7pt; color:#64748b; font-weight:700;">文档编号 / 日期</div>
+        <div style="font-size:9pt; font-weight:800; color:#0f172a; margin-top:1px;">LD-MAN-V70 · 2026 年版</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAGE 2: TOC & ROLE LEARNING PATHS ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>目录与学习路径</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">TRAINING ROADMAP · 培训导读</div>
+    <h2 class="chap-title">手册目录与分角色学习路径</h2>
+    <p class="chap-desc">灵·洞 V7.0 同时服务于业务决策端（门户）与数据工程治理端（工作台）。建议按您的岗位角色对号入座，优先掌握本岗高频操作，再通过第 6 章动手实验完成通关。</p>
+
+    <!-- Structured TOC -->
+    <div class="card" style="margin-bottom:5mm; background:#ffffff; border-color:#cbd5e1;">
+      <div style="font-size:9pt; font-weight:800; color:var(--indigo); margin-bottom:2.8mm; letter-spacing:0.06em;">全册章节总览</div>
+      <div style="display:flex; flex-direction:column; gap:2mm; font-size:8.6pt;">
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 1 章｜5 分钟看懂平台：</strong>核心术语大白话、8 大功能模块全景图、登录与界面导航</span>
+          <span style="font-weight:800; color:var(--indigo);">P.03</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 2 章｜业务与高管必学：</strong>经营门户驾驶舱、自然语言问数与 PDF 原文证据溯源</span>
+          <span style="font-weight:800; color:var(--indigo);">P.04</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 2 章（续）｜智能辅助决策：</strong>AI 经营周报一键生成、法务/财务/供应链多智能体联合会审</span>
+          <span style="font-weight:800; color:var(--indigo);">P.05</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 3 章｜风控与运营必学：</strong>影子图 What-If 推演、ECA 自动化规则与 OA/ERP 嵌入式 SDK</span>
+          <span style="font-weight:800; color:var(--indigo);">P.06</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 4 章｜数据与本体工程师必学：</strong>行业模板市场冷启动、跨系统 MDM 黄金记录合并与回滚</span>
+          <span style="font-weight:800; color:var(--indigo);">P.07</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 4 章（续）｜防变更雪崩：</strong>四层全链路血缘追踪、Schema 漂移模拟与本体画布巡检</span>
+          <span style="font-weight:800; color:var(--indigo);">P.08</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 5 章｜架构师与安全管理员必学：</strong>Git 分支 PR 审批、集团联邦、ABAC 脱敏、SM3 审计与 KMS</span>
+          <span style="font-weight:800; color:var(--indigo);">P.09</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 6 章｜客户现场实操训练营：</strong>4 个 10 分钟动手实验（Lab 1–Lab 4 通关清单）</span>
+          <span style="font-weight:800; color:var(--indigo);">P.10</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #e2e8f0; padding-bottom:1.5mm;">
+          <span><strong>第 7 章｜高频问题 FAQ 与排障速查：</strong>培训与上线现场最常遇到的 10 个问题解答</span>
+          <span style="font-weight:800; color:var(--indigo);">P.11</span>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span><strong>附录｜结业验收签收表与日常高频入口速查卡</strong></span>
+          <span style="font-weight:800; color:var(--indigo);">P.12</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Role Learning Paths -->
+    <div style="font-size:9.5pt; font-weight:800; color:var(--ink); margin-bottom:2.8mm;">四大岗位角色专属学习路径</div>
+    <div class="grid-2" style="gap:3.8mm; flex:1;">
+      <div class="card" style="border-top:3px solid var(--indigo);">
+        <span class="role-badge rb-exec">角色 A · 企业高管 / 业务负责人</span>
+        <div style="font-size:9.5pt; font-weight:800; margin:2mm 0 1.2mm 0;">重点学：第 1 章 + 第 2 章 + Lab 1</div>
+        <p style="font-size:8pt; color:var(--ink-2); line-height:1.58;">
+          <strong>日常用来干什么：</strong>早会前 1 分钟看清临期高风险合同与语义 KPI 指标；用自然语言直接问数并点开 PDF 原文核验；一键生成经营周报，查看三专家会审结论后拍板签批。
+        </p>
+        <div style="margin-top:2mm; font-size:7.6pt; color:var(--indigo); font-weight:700;">预计上手时间：20 分钟</div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--rose);">
+        <span class="role-badge rb-risk">角色 B · 法务 / 财务 / 供应链风控专员</span>
+        <div style="font-size:9.5pt; font-weight:800; margin:2mm 0 1.2mm 0;">重点学：第 2 章 + 第 3 章 + Lab 1–2</div>
+        <p style="font-size:8pt; color:var(--ink-2); line-height:1.58;">
+          <strong>日常用来干什么：</strong>对单份合同发起法务/财务/供应链多智能体联合审查；用影子图 What-If 提前演练供应商违约会波及多少项目与资金；配置 ECA 自动冻结/预警规则。
+        </p>
+        <div style="margin-top:2mm; font-size:7.6pt; color:var(--rose); font-weight:700;">预计上手时间：40 分钟</div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--cyan);">
+        <span class="role-badge rb-eng">角色 C · 数据工程师 / 本体架构师</span>
+        <div style="font-size:9.5pt; font-weight:800; margin:2mm 0 1.2mm 0;">重点学：第 4 章 + 第 5.1 节 + Lab 3</div>
+        <p style="font-size:8pt; color:var(--ink-2); line-height:1.58;">
+          <strong>日常用来干什么：</strong>从行业模板市场快速搭建本体模型；将 ERP/CRM 同名主体归并为 MDM 黄金记录（支持回滚）；上游改表前运行四层血缘漂移检测；通过 Git 分支提 PR 合入变更。
+        </p>
+        <div style="margin-top:2mm; font-size:7.6pt; color:var(--cyan); font-weight:700;">预计上手时间：90 分钟</div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--emerald);">
+        <span class="role-badge rb-sec">角色 D · 安全管理员 / CIO / 运维</span>
+        <div style="font-size:9.5pt; font-weight:800; margin:2mm 0 1.2mm 0;">重点学：第 5 章 + Lab 4 + 第 7 章</div>
+        <p style="font-size:8pt; color:var(--ink-2); line-height:1.58;">
+          <strong>日常用来干什么：</strong>管理集团子公司联邦组织树与 SCIM 同步；配置 ABAC 公开/内部/机密三级脱敏策略；定期校验国密 SM3 防篡改审计链；执行 KMS 密钥零停机轮换与监控巡检。
+        </p>
+        <div style="margin-top:2mm; font-size:7.6pt; color:var(--emerald); font-weight:700;">预计上手时间：60 分钟</div>
+      </div>
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 02 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 3: CHAPTER 1 OVERVIEW & MODULE MAP ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 1 章 · 平台全景与核心概念</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 01 · PLATFORM FUNDAMENTALS</div>
+    <h2 class="chap-title">5 分钟看懂平台：有什么功能、干什么用</h2>
+    <p class="chap-desc">很多客户第一次接触“本体（Ontology）”会觉得抽象。其实只需记住一句话：<strong>本体就是把企业里散落在各个系统的“人、财、物、合同、供应商”以及它们之间的业务规则，翻译成机器能精准推理的一张活地图。</strong></p>
+
+    <div class="sec-title"><span class="sec-num">1.1</span> 核心术语大白话速懂</div>
+    <div class="grid-3" style="margin-bottom:3.5mm;">
+      <div class="card">
+        <div style="font-size:8.6pt; font-weight:800; color:var(--indigo); margin-bottom:1mm;">语义本体（Ontology）</div>
+        <div style="font-size:7.7pt; color:var(--ink-2);">企业的“标准业务字典 + 关系网”。比如明确规定：一份<code>合同</code>必有<code>签约方</code>、<code>金额</code>与<code>到期日</code>。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:8.6pt; font-weight:800; color:var(--cyan); margin-bottom:1mm;">SHACL 约束规则</div>
+        <div style="font-size:7.7pt; color:var(--ink-2);">自动执法的“数据质检员”。比如规定“金额≥200万且30天内到期必须预警”，违规数据自动隔离。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:8.6pt; font-weight:800; color:var(--emerald); margin-bottom:1mm;">MDM 黄金记录</div>
+        <div style="font-size:7.7pt; color:var(--ink-2);">把 ERP 里的“华云智算科技”和 CRM 里的“华云智算”合并为唯一权威档案，消除重复统计。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:8.6pt; font-weight:800; color:var(--rose); margin-bottom:1mm;">影子图（Shadow Graph）</div>
+        <div style="font-size:7.7pt; color:var(--ink-2);">内存里的“平行宇宙沙箱”。用来模拟违约或断供后果，算完立刻销毁，绝不改坏正式生产数据。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:8.6pt; font-weight:800; color:var(--amber); margin-bottom:1mm;">ECA 自动化规则</div>
+        <div style="font-size:7.7pt; color:var(--ink-2);">“事件-条件-动作（When-If-Then）”。一旦监测到高危风险触线，系统自动建待办、发通知或冻结。</div>
+      </div>
+      <div class="card">
+        <div style="font-size:8.6pt; font-weight:800; color:#7c3aed; margin-bottom:1mm;">ABAC &amp; SM3 审计链</div>
+        <div style="font-size:7.7pt; color:var(--ink-2);">按密级自动把敏感字段打码（<code>***</code>），并用国密 SM3 链式账本记录每次操作，事后无法篡改。</div>
+      </div>
+    </div>
+
+    <div class="sec-title"><span class="sec-num">1.2</span> 平台八大核心模块全景速查表</div>
+    <table class="m-table">
+      <thead>
+        <tr>
+          <th style="width:19%;">功能模块</th>
+          <th style="width:27%;">核心能力（有什么）</th>
+          <th style="width:29%;">业务价值（干什么用）</th>
+          <th style="width:25%;">系统导航入口</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>① 业务应用门户</strong></td>
+          <td>待办队列、语义 KPI 卡片、AI 周报、多智能体会审</td>
+          <td>高管与业务人员一站式看风险、问数据、做会审决策</td>
+          <td>左侧栏顶部切换<code>业务应用门户</code></td>
+        </tr>
+        <tr>
+          <td><strong>② NL-SPARQL 问数</strong></td>
+          <td>自然语言转 SPARQL、子图可视化、PDF 原文锚点</td>
+          <td>用大白话秒查跨系统复杂关系，每条结论可反查原文</td>
+          <td>门户顶部标签<code>NL-SPARQL 语义检索</code></td>
+        </tr>
+        <tr>
+          <td><strong>③ 影子图 What-If</strong></td>
+          <td>内存级隔离沙箱、多跳级联敞口测算</td>
+          <td>提前预演核心供应商违约/停供对下游项目与资金的冲击</td>
+          <td>门户顶部标签<code>影子图 What-If 推演</code></td>
+        </tr>
+        <tr>
+          <td><strong>④ ECA 与嵌入 SDK</strong></td>
+          <td>事件驱动规则引擎、iframe / Web Component 嵌入</td>
+          <td>风险触线自动触发处置，并将卡片无缝嵌入现有 OA/ERP</td>
+          <td>工程台 → <code>语义应用与编排</code> → 事件自动化</td>
+        </tr>
+        <tr>
+          <td><strong>⑤ 行业模板与画布</strong></td>
+          <td>4 大行业开箱包、可视化类与关系画布、全局搜索</td>
+          <td>10 秒冷启动行业标准本体，告别从零梳理 3 个月</td>
+          <td>工程台 → <code>总览与任务</code> / <code>本体专家画布</code></td>
+        </tr>
+        <tr>
+          <td><strong>⑥ 数据融合与 MDM</strong></td>
+          <td>跨系统实体相似度识别、黄金记录合并与一键回滚</td>
+          <td>治理“一户多码、同名不同命”，消灭重复授信与统计偏差</td>
+          <td>工程台 → <code>数据接入与物化</code> → 实体消歧与黄金主数据</td>
+        </tr>
+        <tr>
+          <td><strong>⑦ 四层血缘与漂移</strong></td>
+          <td>表→本体→SHACL→应用四层穿透、删改字段预演</td>
+          <td>上游 DBA 改表前提前拉响红灯，杜绝下游报表与规则雪崩</td>
+          <td>工程台 → <code>数据接入与物化</code> → 血缘漂移预警</td>
+        </tr>
+        <tr>
+          <td><strong>⑧ 集团治理与安全</strong></td>
+          <td>Git 分支 PR、联邦组织树、ABAC 脱敏、SM3 审计、KMS</td>
+          <td>像管代码一样管本体变更，满足央国企与金融等保合规验收</td>
+          <td>工程台 → <code>模型、权限与运行</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+      <strong>💡 界面快捷导航提示：</strong>系统左侧栏顶部提供<strong>「本体工程台」</strong>与<strong>「业务应用门户」</strong>一键切换；顶部搜索框支持快捷键 <code>⌘K / Ctrl+K</code> 全局直达任意模块；所有页面均支持 <strong>URL 深链分享</strong>，直接复制浏览器地址发给同事即可打开完全相同的视图与页签。
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 03 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 4: CHAPTER 2 PORTAL & NL-SPARQL ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 2 章 · 高管门户与自然语言问数</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 02 · EXECUTIVE PORTAL &amp; EVIDENCE Q&amp;A</div>
+    <h2 class="chap-title">高管与业务必学：门户驾驶舱与证据溯源问数</h2>
+    <div class="role-row">
+      <span class="role-badge rb-exec">适用：高管 / 业务负责人</span>
+      <span class="role-badge rb-risk">适用：法务 / 财务 / 采购专员</span>
+    </div>
+
+    <div class="sec-title"><span class="sec-num">2.1</span> 经营门户驾驶舱：怎么看待办与全局风险</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>进入门户：</strong>登录后点击左侧栏顶部<code>业务应用门户</code>，选择已发布的业务应用（例如<code>合同到期处置台</code>），左侧蓝底徽标会实时显示当前待处置数量（如<code>1 待办</code>）。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>处置临期待办：</strong>左侧“合同到期待办队列”按紧迫度自动置顶标红（如 <code>HT-2026-089 · 12 天后到期</code>）。点击卡片下方<code>360° 档案</code>可查看全景画像，点击<code>确认发起续签流转</code>或<code>推送审批</code>即可一键发起业务流。</div></div>
+      <div class="step-item"><span class="step-circle">3</span><div><strong>快速对话与导出：</strong>右侧可直接点击高频快捷提问芯片，或点击右上角<code>导出风险台账 (.csv)</code> 带去线下会议。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 2-1 · 业务应用门户（待办与快捷问答双栏视图）</span><span>业务应用门户 → 合同到期处置台</span></div>
+      <img src="screenshots/01_portal_cockpit.png" alt="Portal Cockpit" />
+    </div>
+
+    <div class="sec-title"><span class="sec-num">2.2</span> 自然语言问数（NL-to-SPARQL）与原文证据锚定</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>切换问数页签：</strong>在门户顶部点击<code>NL-SPARQL 语义检索</code>，输入业务问题（如：<em>“查询未来 30 天内到期的高风险合同及金额”</em>），点击执行。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>核验结构化结果与子图：</strong>系统毫秒级返回结构化表格与<strong>图谱子图关联路径</strong>（例如 14 节点 · 10 条关系），直观展示合同、签约主体与到期日之间的精确关联。</div></div>
+      <div class="step-item"><span class="step-circle">3</span><div><strong>点击 PDF / DOCX 原文证据锚点：</strong>在页面下方“制度文档原文证据锚点”区域，直接核对原始合同条款与字符坐标片段，确保每一条 AI 结论都有据可查、零幻觉。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 2-2 · NL-to-SPARQL 毫秒检索与 PDF/DOCX 证据锚点</span><span>NL-SPARQL 语义检索</span></div>
+      <img src="screenshots/02_nl_sparql_evidence.png" alt="NL SPARQL" />
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 04 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 5: CHAPTER 2 PART 2 EXECUTIVE BRIEFING & MULTI-AGENT ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 2 章（续） · AI 周报与多智能体会审</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 02 · CONTINUED</div>
+    <h2 class="chap-title">AI 经营周报与多智能体联合会审</h2>
+    <p class="chap-desc">对于金额大、条款复杂的关键合同或采购项目，单靠人工跨部门传阅往往耗时数天。通过「高层驾驶舱与多 Agent 会审」页签，您可以 3 秒完成周报汇总与法务、财务、供应链三方专家并行初审。</p>
+
+    <div class="sec-title"><span class="sec-num">2.3</span> 统一语义指标卡与 AI 经营周报</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>打开高层驾驶舱：</strong>在门户顶部点击<code>高层驾驶舱与多 Agent 会审</code>。页面顶部 4 张统一语义指标卡实时聚合全集团高风险合同敞口、语义合规率、黄金主数据消歧率与 ECA 覆盖度，所有指标均附带透明口径公式，杜绝“部门口径打架”。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>一键生成 AI 经营周报：</strong>点击周报区刷新按钮，系统自动基于最新图谱事实提炼“本周重点风险与处置建议”（精确到合同号、剩余天数、主数据待合并项与安全审计状态），可直接复制粘贴至邮件或汇报 PPT。</div></div>
+    </div>
+
+    <div class="sec-title"><span class="sec-num">2.4</span> 发起法务 / 财务 / 供应链三专家并行会审</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>选择会审对象：</strong>在下方“多角色专家智能体协同会审”卡片中输入或选择合同编号（如 <code>HT-2026-089</code>），点击蓝色按钮<code>发起三专家联合会审</code>。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>解读综合结论：</strong>系统并行调度三位专属 Agent，给出总风险评分与审批定性（例如：<strong>59 / 100 · 有条件通过</strong>）以及一句话执行建议（如<em>“财务预算合规，需在 7 日内签署书面续签确认函并完成供应商黄金主数据合并”</em>）。</div></div>
+      <div class="step-item"><span class="step-circle">3</span><div><strong>逐项核查分角色意见与证据源：</strong>分别展开<strong>法务合规 Agent</strong>（条款自动续延/违约上限）、<strong>财务预算 Agent</strong>（预算余量/质保金比例）与<strong>供应链履约 Agent</strong>（CRM/ERP 主体一致性与历史 SLA）卡片，底部灰色标签标明了每条意见对应的底层数据源。</div></div>
+    </div>
+
+    <div class="ui-box">
+      <div class="ui-box-bar"><span>操作示意 2-3 · AI 经营周报与三角色专家智能体会审面板</span><span>路径：业务应用门户 → 高层驾驶舱与多 Agent 会审</span></div>
+      <img src="screenshots/03_executive_multi_agent.png" alt="Executive Multi-Agent" />
+      <div class="ui-caption"><strong>看图要点：</strong>上半区为基于语义指标实时生成的 AI 经营周报；下半区为法务（76/100）、财务（42/100）、供应链（58/100）三专家并行评审卡片及综合裁决 59/100。</div>
+    </div>
+
+    <div class="callout callout-ok">
+      <strong>✅ 最佳实践建议：</strong>多智能体会审定位于<strong>“90% 重复核查自动化 + 10% 关键风险人工拍板”</strong>。当综合评分为「有条件通过」或「建议拦截」时，业务经办人应先按法务/财务列出的修约清单补齐材料，再推送 OA 终审。
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 05 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 6: CHAPTER 3 WHAT-IF & ECA & SDK ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 3 章 · 影子推演与事件自动闭环</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 03 · SIMULATION, AUTOMATION &amp; EMBEDDING</div>
+    <h2 class="chap-title">风控与运营必学：What-If 影子推演与 ECA 自动化</h2>
+    <div class="role-row">
+      <span class="role-badge rb-risk">适用：风控 / 供应链 / 运营专员</span>
+      <span class="role-badge rb-eng">适用：系统集成工程师</span>
+    </div>
+
+    <div class="sec-title"><span class="sec-num">3.1</span> 影子图 What-If 推演：先算清后果再决策</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>设定推演假设：</strong>进入门户<code>影子图 What-If 推演</code>，在“直接冲击实体编号”中选择目标对象（如 <code>HT-2026-089</code>），拖动“风控金额阈值”滑块（如 <code>500 万元</code>），点击<code>启动影子图推演</code>。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>查看级联冲击明细：</strong>页面绿色横幅会确认<strong>「影子图已隔离清理（生产 ABox 零污染）」</strong>。重点查看三项汇总指标（受影响实体数 <code>4</code>、预计风险敞口 <code>1,060 万</code>、高危告警 <code>2</code>）以及下方按跳数（Hop 0 → Hop 1 → Hop 2）展开的传导链路表。</div></div>
+      <div class="step-item"><span class="step-circle">3</span><div><strong>触发受控处置动作：</strong>确认预案后，可在底部勾选<code>一键推送高风险预警至风控群</code>或<code>冻结关联待付款里程碑</code>（均需人工审批确认）。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 3-1 · 影子图 What-If 级联推演结果</span><span>影子图 What-If 推演</span></div>
+      <img src="screenshots/04_whatif_shadow_sim.png" alt="What-If Simulation" />
+    </div>
+
+    <div class="sec-title"><span class="sec-num">3.2</span> ECA 事件驱动自动化与 OA / ERP 嵌入式 SDK</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>配置与试跑 ECA 规则：</strong>切换至<code>本体工程台</code> → <code>语义应用与编排</code> → <code>事件自动化与嵌入 SDK</code>。在顶部表单填写规则名、When 事件（如合同变更）、If 条件（如金额≥100万）与 Then 动作，点击<code>+ 新建</code>；点击任意规则右侧<code>模拟事件触发</code>可立即演练并在底部日志验证<code>已执行 (EXECUTED)</code>。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>嵌入企业现有 OA / ERP：</strong>在页面下方 SDK 区域复制 <code>&lt;iframe&gt;</code> 或 <code>&lt;lingdong-widget&gt;</code> 代码片段交给前端集成，一线员工在原有审批界面即可直接看到灵·洞风控卡片，无需切换系统。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 3-2 · ECA 事件驱动规则管理与模拟触发日志</span><span>事件自动化与嵌入 SDK</span></div>
+      <img src="screenshots/05_eca_automation_sdk.png" alt="ECA & SDK" />
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 06 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 7: CHAPTER 4 TEMPLATES & MDM ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 4 章 · 行业模板与跨系统 MDM 融合</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 04 · MODELING &amp; MASTER DATA FUSION</div>
+    <h2 class="chap-title">数据与本体工程师必学：行业模板与 MDM 黄金记录</h2>
+    <div class="role-row">
+      <span class="role-badge rb-eng">适用：数据工程师 / 本体架构师</span>
+    </div>
+
+    <div class="sec-title"><span class="sec-num">4.1</span> 行业本体模板市场：10 秒完成项目冷启动</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>浏览预置行业包：</strong>进入<code>本体工程台</code> → <code>总览与任务</code>（或模板市场入口），即可浏览平台预置的 4 大行业开箱包：<strong>企业合同风控、供应链韧性、智能制造设备维护、金融反欺诈</strong>。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>一键装配到当前方案：</strong>查看每个模板包包含的类、关系与 SHACL 规则数量，点击<code>一键导入模板</code>，系统自动完成本体骨架装配，随后可在<code>本体专家画布</code>中按本企业个性需求微调字段。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 4-1 · 行业本体模板市场（4 大标准行业包）</span><span>行业模板市场</span></div>
+      <img src="screenshots/08_industry_templates.png" alt="Industry Templates" />
+    </div>
+
+    <div class="sec-title"><span class="sec-num">4.2</span> 跨系统实体解析与 MDM 黄金记录（支持一键回滚）</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>识别疑似重复主体：</strong>进入<code>数据接入与物化</code> → <code>6. 实体消歧与黄金主数据</code>，系统自动按统一社会信用代码、名称编辑距离与银行账户计算跨系统相似度（例如 CRM 的“华云智算科技有限公司”与 ERP 的“华云智算（上海）”相似度高达 <strong>94%</strong>）。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>指定权威源并执行合并：</strong>核对两侧资信评级与更新时间，选定权威主源（如 CRM），点击合并生成全局唯一黄金主记录（如 <code>GOLDEN-48920X-4925</code>）。</div></div>
+      <div class="step-item"><span class="step-circle">3</span><div><strong>误合并一键拆分回滚：</strong>所有合并操作均保留原始血缘快照；若后续发现属于不同独立法人，点击该记录右侧<code>一键拆分回滚</code>即可无损恢复原状。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 4-2 · MDM 黄金主数据仲裁台（合并与回滚）</span><span>6. 实体消歧与黄金主数据</span></div>
+      <img src="screenshots/06_mdm_golden_record.png" alt="MDM Golden Record" />
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 07 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 8: CHAPTER 4 PART 2 LINEAGE DRIFT & CANVAS ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 4 章（续） · 四层血缘与漂移防雪崩</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 04 · CONTINUED</div>
+    <h2 class="chap-title">四层全链路血缘追踪与 Schema 漂移预警</h2>
+    <p class="chap-desc">在大型企业中，最常见的生产事故莫过于“上游 ERP/数据库改了一个字段名或删了一列，结果下游规则、接口和老板大屏集体报错”。灵·洞通过四层血缘雷达，把变更风险挡在上线之前。</p>
+
+    <div class="sec-title"><span class="sec-num">4.3</span> 上游改表前的漂移影响评估操作步骤</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>打开血缘漂移预警：</strong>进入<code>本体工程台</code> → <code>数据接入与物化</code> → <code>5. 血缘漂移预警</code>。默认展示当前所有物理表字段与本体的正常映射链路。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>运行变更演练（零影响生产库）：</strong>当收到上游 DBA 变更通知时，点击顶部演练按钮（例如<code>模拟上游删列 expires_at</code> 或 <code>模拟类型漂移 total_amount</code>），系统在不触碰真实数据库的前提下执行沙箱血缘穿透。</div></div>
+      <div class="step-item"><span class="step-circle">3</span><div><strong>核查四层影响面清单：</strong>页面立即标红断链字段，逐层展开：<strong>① 物理表列 → ② 本体属性 → ③ 受影响 SHACL 约束（如 12 条规则）→ ④ 受影响动作/应用</strong>，并给出明确处理建议，工程师据此提前调整映射再放行上游 DDL。</div></div>
+    </div>
+
+    <div class="ui-box">
+      <div class="ui-box-bar"><span>操作示意 4-3 · 四层全链路血缘与 Schema 漂移演练面板</span><span>路径：本体工程台 → 数据接入与物化 → 5. 血缘漂移预警</span></div>
+      <img src="screenshots/07_lineage_drift_alert.png" alt="Lineage Drift Alert" />
+      <div class="ui-caption"><strong>看图要点：</strong>顶部三张汇总卡实时统计“总血缘链路 / 断链告警 / 类型漂移”；每张卡片清晰串联物理表、本体属性、SHACL 约束与上层应用四层依赖。</div>
+    </div>
+
+    <div class="sec-title"><span class="sec-num">4.4</span> 本体画布与 SHACL 质量门禁日常巡检规范</div>
+    <div class="grid-2" style="margin-top:1.5mm;">
+      <div class="card">
+        <div style="font-size:8.8pt; font-weight:800; color:var(--indigo); margin-bottom:1.5mm;">本体专家画布高频操作</div>
+        <ul style="font-size:8pt; color:var(--ink-2); padding-left:14px; line-height:1.6;">
+          <li>使用顶部<strong>搜索与类型筛选栏</strong>快速定位某个业务类（如 <code>Contract</code>、<code>Supplier</code>）。</li>
+          <li>点击任意节点在右侧抽屉查看其属性定义、数据来源与关联的 SHACL 校验规则。</li>
+          <li>修改模型后变更会先暂存在顶部<code>待审 ChangeSet</code>，不会直接污染线上发布版本。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-size:8.8pt; font-weight:800; color:var(--emerald); margin-bottom:1.5mm;">质量门禁与隔离区巡检</div>
+        <ul style="font-size:8pt; color:var(--ink-2); padding-left:14px; line-height:1.6;">
+          <li>每次数据物化后，进入<code>3. ABox 持续物化与隔离区</code>检查是否有违规数据进入隔离区。</li>
+          <li>发布新版本前，在<code>质量门禁与发布</code>确保所有 SHACL 门禁与基准评测集全部通过。</li>
+          <li>发现异常时可一键回退到上一个已验证的历史修订版本（Revision）。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 08 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 9: CHAPTER 5 GOVERNANCE, GIT PR, FEDERATION, SM3, KMS ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 5 章 · 版本治理、集团联邦与安全合规</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 05 · ENTERPRISE GOVERNANCE &amp; SECURITY</div>
+    <h2 class="chap-title">架构师与安全管理员必学：Git 分支、ABAC 与国密审计</h2>
+    <div class="role-row">
+      <span class="role-badge rb-eng">适用：本体架构师</span>
+      <span class="role-badge rb-sec">适用：安全合规管理员 / CIO</span>
+    </div>
+
+    <div class="sec-title"><span class="sec-num">5.1</span> Git 风格分支与两阶段 PR 审批（让本体变更可控）</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>创建特性分支：</strong>进入<code>本体工程台</code> → <code>模型、权限与运行</code> → <code>Git 分支与 PR 审批</code>，新建独立分支（如子公司字段扩展），避免直接改动主干 <code>main</code>。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>提交 PR 与三方冲突检测：</strong>发起合并请求后，系统自动比对基线差异并标注冲突项；依次通过<strong>阶段一（架构技术评审）</strong>与<strong>阶段二（合规/负责人批准）</strong>后方可正式合入发布。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 5-1 · Git 风格分支管理与两阶段 PR 合并抽屉</span><span>Git 分支与 PR</span></div>
+      <img src="screenshots/09_git_branch_pr.png" alt="Git Branch PR" />
+    </div>
+
+    <div class="sec-title"><span class="sec-num">5.2</span> 集团联邦、ABAC 脱敏、国密 SM3 审计与 KMS 轮换</div>
+    <div class="steps">
+      <div class="step-item"><span class="step-circle">1</span><div><strong>ABAC 三级密级脱敏验证：</strong>在<code>ABAC 密级与 OpenAPI</code> 页签为敏感字段打标（公开/内部/机密）。切换左侧角色为访客（<code>VIEWER</code>）即可验证金额、身份证等列已被实时动态遮蔽为 <code>***</code>。</div></div>
+      <div class="step-item"><span class="step-circle">2</span><div><strong>集团联邦与 SM3 审计验真：</strong>在<code>集团联邦与 SM3 审计链</code>查看总部/子公司组织树与差异项；点击 SM3 审计链区的校验状态，确认<strong>链式验真完好（INTACT）</strong>与最新 Head Hash，随时支持监管迎检。</div></div>
+      <div class="step-item"><span class="step-circle">3</span><div><strong>KMS 密钥托管与实时监控：</strong>在下方 KMS 区域对数据库连接与 API 凭证执行零停机密钥轮换；顶部实时遥测栏可随时观测 Prometheus QPS、P95 延迟与集群节点健康状态。</div></div>
+    </div>
+
+    <div class="ui-box compact">
+      <div class="ui-box-bar"><span>操作示意 5-2 · 国密 SM3 防篡改审计链与 KMS 零停机密钥轮换</span><span>集团联邦与 SM3 审计链</span></div>
+      <img src="screenshots/10_federation_sm3_kms.png" alt="Federation SM3 KMS" />
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 09 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 10: CHAPTER 6 HANDS-ON TRAINING LABS ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 6 章 · 客户现场动手实验（Labs）</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 06 · HANDS-ON WORKSHOP LABS</div>
+    <h2 class="chap-title">客户现场培训实操演练（4 × 10 分钟通关实验）</h2>
+    <p class="chap-desc">建议在客户现场培训的下半场安排 40 分钟上机实操。每位学员按本岗对应实验逐项打勾，全部通过即具备独立上岗操作能力。</p>
+
+    <div style="display:flex; flex-direction:column; gap:4mm; flex:1;">
+      <!-- Lab 1 -->
+      <div class="lab-card" style="border-left:4px solid var(--indigo);">
+        <div class="lab-head">
+          <div>
+            <span style="font-size:8pt; font-weight:800; color:var(--indigo); margin-right:6px;">LAB 01 · 10 分钟</span>
+            <strong style="font-size:10pt;">高管与业务实战：临期合同问数、证据溯源与三专家会审</strong>
+          </div>
+          <span class="role-badge rb-exec">业务 / 高管必做</span>
+        </div>
+        <div style="font-size:7.9pt; color:var(--ink-muted); margin-bottom:2mm;"><strong>实验目标：</strong>掌握从门户发现临期风险、用自然语言核验原文证据并获取三专家会审结论的完整闭环。</div>
+        <ul class="lab-check">
+          <li>进入<code>业务应用门户 → 合同到期处置台</code>，在左侧待办队列定位 <code>HT-2026-089</code> 并查看其剩余到期天数。</li>
+          <li>切换至<code>NL-SPARQL 语义检索</code>，执行高风险临期合同查询，记录返回耗时并点开下方 1 条 PDF/DOCX 证据锚点。</li>
+          <li>进入<code>高层驾驶舱与多 Agent 会审</code>，输入 <code>HT-2026-089</code> 点击发起会审，核对综合评分（59/100）及法务/财务/供应链建议。</li>
+        </ul>
+      </div>
+
+      <!-- Lab 2 -->
+      <div class="lab-card" style="border-left:4px solid var(--rose);">
+        <div class="lab-head">
+          <div>
+            <span style="font-size:8pt; font-weight:800; color:var(--rose); margin-right:6px;">LAB 02 · 10 分钟</span>
+            <strong style="font-size:10pt;">风控与运营实战：影子图 What-If 推演与 ECA 自动处置</strong>
+          </div>
+          <span class="role-badge rb-risk">风控 / 运营必做</span>
+        </div>
+        <div style="font-size:7.9pt; color:var(--ink-muted); margin-bottom:2mm;"><strong>实验目标：</strong>学会在不影响生产数据的前提下测算供应链违约级联敞口，并验证自动化预警规则。</div>
+        <ul class="lab-check">
+          <li>进入<code>影子图 What-If 推演</code>，选择 <code>HT-2026-089</code>、阈值设为 <code>500 万元</code>，点击启动推演。</li>
+          <li>确认页面出现「影子图已隔离清理（生产 ABox 零污染）」绿色提示，并读出受影响实体数（4）与预计敞口（1,060 万）。</li>
+          <li>进入<code>本体工程台 → 语义应用与编排 → 事件自动化与嵌入 SDK</code>，对任意运行中规则点击<code>模拟事件触发</code>，确认日志出现<code>已执行</code>。</li>
+        </ul>
+      </div>
+
+      <!-- Lab 3 -->
+      <div class="lab-card" style="border-left:4px solid var(--cyan);">
+        <div class="lab-head">
+          <div>
+            <span style="font-size:8pt; font-weight:800; color:var(--cyan); margin-right:6px;">LAB 03 · 10 分钟</span>
+            <strong style="font-size:10pt;">数据治理实战：MDM 黄金记录合并/回滚与四层血缘漂移演练</strong>
+          </div>
+          <span class="role-badge rb-eng">数据 / 本体工程师必做</span>
+        </div>
+        <div style="font-size:7.9pt; color:var(--ink-muted); margin-bottom:2mm;"><strong>实验目标：</strong>熟练治理跨系统重复主体，并掌握上游数据库变更前的四层血缘影响评估。</div>
+        <ul class="lab-check">
+          <li>进入<code>数据接入与物化 → 6. 实体消歧与黄金主数据</code>，找到相似度 94% 的「华云智算」候选对，选择 CRM 为权威源并点击合并。</li>
+          <li>记录生成的黄金编号（<code>GOLDEN-...</code>），随后测试点击<code>一键拆分回滚</code>验证无损恢复能力（演示后再重新合并）。</li>
+          <li>切换至<code>5. 血缘漂移预警</code>，点击<code>模拟上游删列 expires_at</code>，查看被标红的断链告警与受影响的 12 条 SHACL 规则。</li>
+        </ul>
+      </div>
+
+      <!-- Lab 4 -->
+      <div class="lab-card" style="border-left:4px solid var(--emerald);">
+        <div class="lab-head">
+          <div>
+            <span style="font-size:8pt; font-weight:800; color:var(--emerald); margin-right:6px;">LAB 04 · 10 分钟</span>
+            <strong style="font-size:10pt;">安全合规实战：ABAC 访客脱敏、Git PR 审批与 SM3 审计验真</strong>
+          </div>
+          <span class="role-badge rb-sec">安全 / 管理员必做</span>
+        </div>
+        <div style="font-size:7.9pt; color:var(--ink-muted); margin-bottom:2mm;"><strong>实验目标：</strong>验证零信任权限隔离、本体变更审批与国密审计链防篡改机制。</div>
+        <ul class="lab-check">
+          <li>进入<code>模型、权限与运行 → ABAC 密级与 OpenAPI</code>，检查机密字段标签配置，并通过访客视角确认敏感单元格自动脱敏。</li>
+          <li>切换至<code>集团联邦与 SM3 审计链</code>，核验 SM3 账本状态为<code>链式验真完好 (INTACT)</code>，且刚才 Lab 1–3 的操作均已实时上链。</li>
+          <li>检查下方 KMS 托管凭据列表与顶部实时 Prometheus 运行指标栏，完成安全巡检闭环。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 10 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 11: CHAPTER 7 FAQ & TROUBLESHOOTING ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>第 7 章 · 高频问题 FAQ 与排障速查</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">CHAPTER 07 · FAQ &amp; TROUBLESHOOTING</div>
+    <h2 class="chap-title">客户培训与上线现场高频问题 FAQ（10 问 10 答）</h2>
+    <p class="chap-desc">以下整理了客户在培训、试运行及正式投产阶段最常咨询的 10 类典型问题，便于内部管理员和一线业务员随时速查。</p>
+
+    <table class="m-table" style="font-size:7.9pt;">
+      <thead>
+        <tr>
+          <th style="width:6%; text-align:center;">#</th>
+          <th style="width:32%;">常见问题 / 现象</th>
+          <th style="width:62%;">原因说明与标准处理方法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">01</td>
+          <td><strong>为什么查询结果里部分合同金额或联系方式显示为 <code>***</code>？</strong></td>
+          <td>这是 <strong>ABAC 三级密级动态脱敏</strong>正在生效。您的当前账号角色（如 <code>VIEWER</code> 访客）未获得“机密”字段访问授权。如需查看明文，请联系安全管理员在<code>成员权限与审计</code>中调整角色或密级许可。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">02</td>
+          <td><strong>做影子图 What-If 推演，会不会把正式生产数据改坏？</strong></td>
+          <td><strong>绝对不会。</strong>每次推演都在后端内存中创建一次性隔离影子图（Ephemeral Shadow Graph），推演完成后立即销毁，对正式生产库与生产图谱（ABox）零写入、零污染。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">03</td>
+          <td><strong>在 MDM 工作台不小心把两家不同公司合并了怎么办？</strong></td>
+          <td>完全可逆。进入<code>6. 实体消歧与黄金主数据</code>找到该黄金主记录，点击<code>一键拆分回滚</code>即可依据合并前快照无损还原，且回滚操作同样记录在 SM3 审计链中。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">04</td>
+          <td><strong>自然语言问数没有命中想要的结果，怎么提问最准确？</strong></td>
+          <td>建议在提问中包含明确的<strong>实体词 + 过滤条件</strong>（例如：“未来 30 天到期”“金额超过 200 万”“华东大区高风险合同”），或直接点击问数框上方的预置快捷提问芯片作为模板微调。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">05</td>
+          <td><strong>怎么把当前看到的某个风险页面直接发给同事或领导？</strong></td>
+          <td>灵·洞全面支持 <strong>URL 深链状态持久化</strong>。直接复制浏览器地址栏链接发给企业微信/钉钉，同事点开即可精准直达同一方案空间与同一子页签（且刷新不丢失状态）。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">06</td>
+          <td><strong>一线业务员不想再记一个新系统网址，能嵌进现有 OA 吗？</strong></td>
+          <td>可以。在<code>语义应用与编排 → 事件自动化与嵌入 SDK</code> 中复制 <code>&lt;iframe&gt;</code> 或 <code>&lt;lingdong-widget&gt;</code> 代码片段嵌入 OA/ERP 审批单，结合企业 SSO 即可免登录无缝使用。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">07</td>
+          <td><strong>在本体画布改了字段，为什么门户里还没生效？</strong></td>
+          <td>为防止误操作直接冲击线上业务，所有本体修改均先进入<code>待审 ChangeSet</code> / 分支草稿。需经<code>质量门禁与发布</code>或<code>Git PR 两阶段审批</code>合入主干后，新口径才会正式生效。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">08</td>
+          <td><strong>上游业务库即将改表结构，应该提前做什么？</strong></td>
+          <td>务必先到<code>5. 血缘漂移预警</code>运行模拟删列/类型漂移检查，导出受影响的 SHACL 规则与业务应用清单，协同调整字段映射后再允许上游执行 DDL。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">09</td>
+          <td><strong>为什么提示权限不足或无法保存修改？</strong></td>
+          <td>请查看左下角当前身份标识：仅 <code>OWNER / ADMIN / EDITOR</code> 可修改本体与规则；<code>VIEWER</code> 为只读访客态。若遇登录态过期，点击左下角<code>退出</code>重新登录即可刷新令牌。</td>
+        </tr>
+        <tr>
+          <td style="text-align:center; font-weight:800; color:var(--indigo);">10</td>
+          <td><strong>如何向内审或监管部门证明平台日志未被人为篡改？</strong></td>
+          <td>打开<code>集团联邦与 SM3 审计链</code>，展示实时验真状态<code>链式验真完好 (INTACT)</code>、总区块数与最新国密 SM3 Head Hash；任何绕过系统的底层篡改都会触发哈希断链告警。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warn" style="margin-top:auto;">
+      <strong>⚠️ 安全与生产变更红线：</strong>① 严禁在生产环境绕过 PR 审批直接修改核心本体类定义；② 定期（建议每季度）在 KMS 面板执行外部数据源凭证轮换；③ 任何涉及资金冻结的 ECA 动作建议保留人工二次确认门禁。
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 11 页</span>
+  </div>
+</section>
+
+<!-- ==================== PAGE 12: QUICK CHEAT SHEET & TRAINING SIGN-OFF ==================== -->
+<section class="page">
+  <div class="m-header">
+    <span class="m-header-brand">灵·洞本体工作站 V7.0 客户培训与操作手册</span>
+    <span>附录 · 快捷备忘卡与培训结业验收</span>
+  </div>
+  <div class="m-body">
+    <div class="chap-eyebrow">APPENDIX · QUICK REFERENCE &amp; CERTIFICATION</div>
+    <h2 class="chap-title">日常高频入口速查卡与客户培训结业单</h2>
+
+    <div class="sec-title"><span class="sec-num">A1</span> 高频业务需求 → 一秒直达路径速查卡</div>
+    <table class="m-table" style="margin-bottom:5mm;">
+      <thead>
+        <tr>
+          <th style="width:36%;">我现在想做的事情</th>
+          <th style="width:38%;">系统点击路径</th>
+          <th style="width:26%;">建议权限角色</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>查看即将到期的高风险合同并处理待办</td><td><code>业务应用门户</code> → 合同到期处置台 → 待办队列</td><td>业务员 / 高管 / OWNER</td></tr>
+        <tr><td>用大白话查跨系统合同数据并看 PDF 原文</td><td><code>业务应用门户</code> → NL-SPARQL 语义检索</td><td>全员（按密级脱敏）</td></tr>
+        <tr><td>一键生成本周经营风险周报或三专家会审</td><td><code>业务应用门户</code> → 高层驾驶舱与多 Agent 会审</td><td>高管 / 法务 / 财务 / 风控</td></tr>
+        <tr><td>模拟供应商违约看看会波及多少钱和项目</td><td><code>业务应用门户</code> → 影子图 What-If 推演</td><td>风控 / 供应链负责人</td></tr>
+        <tr><td>配置自动预警规则或复制 OA 嵌入代码</td><td><code>本体工程台</code> → 语义应用与编排 → 事件自动化与嵌入 SDK</td><td>运营 / 集成工程师</td></tr>
+        <tr><td>合并 ERP 与 CRM 里重复的同一家供应商</td><td><code>本体工程台</code> → 数据接入与物化 → 6. 实体消歧与黄金主数据</td><td>数据治理工程师</td></tr>
+        <tr><td>评估上游删改表字段会不会影响下游应用</td><td><code>本体工程台</code> → 数据接入与物化 → 5. 血缘漂移预警</td><td>数据 / 本体架构师</td></tr>
+        <tr><td>导入标准行业本体模板快速建新业务域</td><td><code>本体工程台</code> → 总览与任务 / 行业模板市场</td><td>本体架构师 / ADMIN</td></tr>
+        <tr><td>提交本体模型修改审批或查看冲突差异</td><td><code>本体工程台</code> → 模型、权限与运行 → Git 分支与 PR</td><td>本体架构师 / OWNER</td></tr>
+        <tr><td>验收国密 SM3 审计链、ABAC 与 KMS 轮换</td><td><code>本体工程台</code> → 模型、权限与运行 → 集团联邦与 SM3 审计链</td><td>安全管理员 / CISO</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sec-title"><span class="sec-num">A2</span> 客户现场培训结业验收单（打印签收用）</div>
+    <div class="card" style="background:#ffffff; border:1.5px solid #cbd5e1; padding:5mm 6mm; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:4mm; font-size:8.6pt; margin-bottom:4mm;">
+          <div style="border-bottom:1px solid #cbd5e1; padding-bottom:2mm;"><strong>客户单位名称：</strong></div>
+          <div style="border-bottom:1px solid #cbd5e1; padding-bottom:2mm;"><strong>培训日期 / 讲师：</strong></div>
+          <div style="border-bottom:1px solid #cbd5e1; padding-bottom:2mm;"><strong>参训学员姓名：</strong></div>
+          <div style="border-bottom:1px solid #cbd5e1; padding-bottom:2mm;"><strong>所属部门 / 角色：</strong></div>
+        </div>
+        <div style="font-size:8.4pt; font-weight:800; color:var(--ink); margin-bottom:2mm;">实操验收清单（完成项请打 ✓）：</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.2mm; font-size:8.2pt; color:var(--ink-2);">
+          <div>☐ 理解语义本体、SHACL、MDM 与影子图核心概念</div>
+          <div>☐ 独立完成 Lab 1：门户待办、问数溯源与三专家会审</div>
+          <div>☐ 独立完成 Lab 2：影子图 What-If 推演与 ECA 试跑</div>
+          <div>☐ 独立完成 Lab 3：MDM 合并/回滚与血缘漂移评估</div>
+          <div>☐ 独立完成 Lab 4：ABAC 脱敏与 SM3 审计链验真</div>
+          <div>☐ 已获取本岗账号、环境地址与技术支持联系通道</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-top:6mm; padding-top:4mm; border-top:1px dashed #cbd5e1; font-size:8.4pt; color:var(--ink-2);">
+        <div>学员签字确认：______________________</div>
+        <div>培训讲师 / 客户负责人签字：______________________</div>
+      </div>
+    </div>
+
+    <div style="margin-top:4mm; text-align:center; font-size:7.8pt; color:var(--ink-muted);">
+      如需定制本企业专属行业培训课件或开展 1 对 1 上岗辅导，请联系灵·洞客户成功与架构师团队 · V7.0 Enterprise Decision OS
+    </div>
+  </div>
+  <div class="m-footer">
+    <span>灵·洞本体工作站 V7.0 Enterprise Decision OS</span>
+    <span>第 12 页</span>
+  </div>
+</section>
+
+</body>
+</html>

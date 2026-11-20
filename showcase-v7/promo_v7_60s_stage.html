@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>灵·洞本体工作站 V7.0 — 60s Apple Keynote Product Launch Film</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #000000;
+    font-family: "PingFang SC", "SF Pro Display", "Hiragino Sans GB", -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum" on, "lnum" on;
+    color: #f8fafc;
+  }
+
+  #stage {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #000000;
+  }
+
+  canvas#bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    z-index: 1;
+  }
+
+  /* Global Ceramic White Overlay for Act 5 */
+  #white-backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f5f5f7 68%, #e8ebf0 100%);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .act {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Typography */
+  .titanium-text {
+    color: #f8fafc;
+    text-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    letter-spacing: -0.025em;
+  }
+  .accent-cyan { color: #38bdf8; }
+  .accent-gold { color: #f3d59b; }
+  .accent-emerald { color: #34d399; }
+  .accent-rose { color: #fb7185; }
+  .accent-indigo { color: #818cf8; }
+
+  /* Floating Top Headline Container (auto-dissolves when camera zooms > 1.02) */
+  .act-headline {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 20;
+    will-change: transform, opacity;
+  }
+  .act-eyebrow {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .act-title {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .act-sub {
+    font-size: 22px;
+    color: #94a3b8;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  /* 3D Hardware Studio Bezel */
+  .camera-rig {
+    position: absolute;
+    top: 235px;
+    left: 50%;
+    margin-left: -680px;
+    width: 1360px;
+    height: 760px;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    z-index: 10;
+  }
+
+  .bezel {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #1e293b 0%, #090d16 100%);
+    padding: 12px;
+    box-shadow:
+      0 50px 120px -20px rgba(0, 0, 0, 0.85),
+      0 0 0 1px rgba(255, 255, 255, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    position: relative;
+  }
+  .bezel-light {
+    background: linear-gradient(145deg, #e2e8f0 0%, #cbd5e1 100%);
+    box-shadow:
+      0 42px 100px -20px rgba(15, 23, 42, 0.25),
+      0 0 0 1px rgba(15, 23, 42, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #0b1120;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .screen-light {
+    background: #f8fafc;
+    color: #0f172a;
+  }
+
+  /* Window Top Chrome */
+  .win-bar {
+    height: 44px;
+    background: #0f172a;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    flex-shrink: 0;
+  }
+  .screen-light .win-bar {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .win-dots { display: flex; gap: 8px; }
+  .win-dots i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+  .win-dots i:nth-child(1) { background: #ef4444; }
+  .win-dots i:nth-child(2) { background: #f59e0b; }
+  .win-dots i:nth-child(3) { background: #10b981; }
+  .win-url {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.8);
+    padding: 5px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+  }
+  .screen-light .win-url {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: #e2e8f0;
+  }
+  .win-badge {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.14);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+  }
+
+  /* Live Cursor + Click Ripple */
+  .live-cursor {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    z-index: 60;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.45));
+  }
+  .click-ring {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
+    border-radius: 50%;
+    border: 3px solid #38bdf8;
+    z-index: 55;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  /* Common UI Cards inside Live Screens */
+  .ui-card {
+    background: rgba(15, 23, 42, 0.86);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .ui-card-light {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+  }
+
+  /* Bento Grid (Act 7) */
+  .bento-grid {
+    width: 1520px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 290px);
+    gap: 26px;
+    margin-top: 130px;
+  }
+  .bento-card {
+    background: linear-gradient(155deg, rgba(24, 32, 52, 0.92) 0%, rgba(10, 14, 24, 0.96) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 26px;
+    padding: 34px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    will-change: transform, opacity;
+  }
+  .bento-num {
+    font-size: 74px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .bento-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 6px;
+  }
+  .bento-sub {
+    font-size: 16px;
+    color: #94a3b8;
+  }
+
+  /* Bottom Progress Micro-Indicator */
+  #timeline-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8, #f3d59b);
+    z-index: 90;
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg-canvas" width="1920" height="1080"></canvas>
+  <div id="white-backdrop"></div>
+
+  <!-- ==================== ACT 1: TEASER & PAIN HOOK (0.0s - 6.5s) ==================== -->
+  <div id="act1" class="act">
+    <div id="a1-hook" style="position:absolute; text-align:center; width:1600px;">
+      <div style="font-size:20px; font-weight:700; letter-spacing:0.28em; color:#f3d59b; text-transform:uppercase; margin-bottom:22px;">
+        THE ENTERPRISE DILEMMA · 时代之痛
+      </div>
+      <div style="font-size:88px; font-weight:900; line-height:1.18; letter-spacing:-0.025em; color:#ffffff;">
+        数据锁在孤岛里，<br/><span style="color:#fb7185;">决策还要等三天？</span>
+      </div>
+      <div style="font-size:28px; color:#94a3b8; margin-top:26px; font-weight:500;">
+        ERP · CRM · 合同 PDF · 审批流各自为政 · 大模型幻觉不敢进核心业务
+      </div>
+    </div>
+
+    <div id="a1-brand" style="position:absolute; text-align:center; width:1600px; opacity:0;">
+      <div style="width:92px; height:92px; border-radius:24px; background:linear-gradient(135deg,#22d3ee,#4f46e5); margin:0 auto 28px auto; display:flex; align-items:center; justify-content:center; font-size:48px; font-weight:900; color:#fff; box-shadow:0 0 80px rgba(56,189,248,0.55);">灵</div>
+      <div style="font-size:22px; font-weight:700; letter-spacing:0.32em; color:#38bdf8; text-transform:uppercase; margin-bottom:16px;">
+        INTRODUCING V7.0 ENTERPRISE DECISION OS
+      </div>
+      <div style="font-size:104px; font-weight:900; letter-spacing:-0.03em; color:#ffffff; line-height:1.1;">
+        灵·洞本体工作站
+      </div>
+      <div style="font-size:34px; font-weight:600; color:#f3d59b; margin-top:20px; letter-spacing:0.08em;">
+        洞见全局，决胜毫秒。
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ACT 2: NL-TO-SPARQL + PDF EVIDENCE (6.5s - 15.5s) ==================== -->
+  <div id="act2" class="act">
+    <div id="a2-head" class="act-headline">
+      <div class="act-eyebrow accent-cyan">STORY 01 · 2.93 MS SEMANTIC RETRIEVAL</div>
+      <div class="act-title titanium-text">一句大白话，<span class="accent-cyan">2.93 ms</span> 穿透 14 节点子图</div>
+      <div class="act-sub">自然语言直译确定性 SPARQL · 每条结论锚定 PDF 合同原文页码 · 彻底告别 AI 幻觉</div>
+    </div>
+
+    <div id="a2-rig" class="camera-rig">
+      <div class="bezel">
+        <div class="screen">
+          <div class="win-bar">
+            <div class="win-dots"><i></i><i></i><i></i></div>
+            <div class="win-url">https://lingdong.enterprise.local/portal/nl-sparql</div>
+            <div id="a2-latency" class="win-badge">READY</div>
+          </div>
+
+          <div style="padding:24px 28px; flex:1; display:flex; flex-direction:column; gap:18px; position:relative;">
+            <!-- Search Bar -->
+            <div style="display:flex; gap:14px; align-items:center; background:#111c33; border:1.5px solid rgba(56,189,248,0.45); border-radius:14px; padding:14px 18px;">
+              <div style="font-size:18px; color:#38bdf8; font-weight:800;">✦ AI 问数</div>
+              <div id="a2-typing" style="flex:1; font-size:21px; color:#f8fafc; font-weight:600;"></div>
+              <div id="a2-btn" style="background:linear-gradient(135deg,#4f46e5,#0284c7); color:#fff; font-size:16px; font-weight:800; padding:10px 24px; border-radius:10px;">执行穿透</div>
+            </div>
+
+            <!-- Live Graph + PDF Evidence Split -->
+            <div style="display:grid; grid-template-columns:1.15fr 0.85fr; gap:20px; flex:1;">
+              <!-- Live Animated SVG Knowledge Subgraph -->
+              <div class="ui-card" style="position:relative; overflow:hidden; display:flex; flex-direction:column;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <span style="font-size:15px; font-weight:800; color:#38bdf8;">语义图谱关联路径（14 节点 · 10 条关系）</span>
+                  <span id="a2-hits" style="font-size:13px; font-weight:700; color:#34d399; opacity:0;">命中 5 份高危合同</span>
+                </div>
+                <svg id="a2-svg" viewBox="0 0 720 470" style="width:100%; height:100%;">
+                  <defs>
+                    <filter id="glow-cyan"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  </defs>
+                  <!-- Bézier Paths -->
+                  <path id="p2-1" d="M 130 235 C 220 235, 240 110, 340 110" stroke="rgba(56,189,248,0.45)" stroke-width="3" fill="none" />
+                  <path id="p2-2" d="M 130 235 C 220 235, 240 235, 340 235" stroke="rgba(244,63,94,0.65)" stroke-width="3.5" fill="none" />
+                  <path id="p2-3" d="M 130 235 C 220 235, 240 365, 340 365" stroke="rgba(129,140,248,0.45)" stroke-width="3" fill="none" />
+                  <path id="p2-4" d="M 340 235 C 440 235, 470 140, 585 140" stroke="rgba(251,191,36,0.55)" stroke-width="3" fill="none" />
+                  <path id="p2-5" d="M 340 235 C 440 235, 470 330, 585 330" stroke="rgba(52,211,153,0.55)" stroke-width="3" fill="none" />
+
+                  <!-- Energy Pulses -->
+                  <circle id="e2-1" r="7" fill="#38bdf8" filter="url(#glow-cyan)" opacity="0" />
+                  <circle id="e2-2" r="8" fill="#fb7185" filter="url(#glow-cyan)" opacity="0" />
+                  <circle id="e2-3" r="7" fill="#a5b4fc" filter="url(#glow-cyan)" opacity="0" />
+                  <circle id="e2-4" r="7" fill="#fbbf24" filter="url(#glow-cyan)" opacity="0" />
+                  <circle id="e2-5" r="7" fill="#34d399" filter="url(#glow-cyan)" opacity="0" />
+
+                  <!-- Nodes -->
+                  <g id="n2-root" transform="translate(130,235)">
+                    <circle r="44" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+                    <text y="-4" text-anchor="middle" fill="#fff" font-size="14" font-weight="800">华东大区</text>
+                    <text y="16" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="700">925 万敞口</text>
+                  </g>
+                  <g id="n2-c1" transform="translate(340,110)">
+                    <rect x="-82" y="-28" width="164" height="56" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                    <text y="-3" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="800">HT-2026-104</text>
+                    <text y="16" text-anchor="middle" fill="#94a3b8" font-size="11">640 万 · 24 天到期</text>
+                  </g>
+                  <g id="n2-c2" transform="translate(340,235)">
+                    <rect x="-90" y="-34" width="180" height="68" rx="14" fill="#2a0f1c" stroke="#f43f5e" stroke-width="3"/>
+                    <text y="-6" text-anchor="middle" fill="#fff" font-size="15" font-weight="900">HT-2026-089</text>
+                    <text y="16" text-anchor="middle" fill="#fda4af" font-size="12" font-weight="700">285 万 · 12 天到期 !</text>
+                  </g>
+                  <g id="n2-c3" transform="translate(340,365)">
+                    <rect x="-82" y="-28" width="164" height="56" rx="12" fill="#0f172a" stroke="#818cf8" stroke-width="2"/>
+                    <text y="-3" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="800">HT-2026-118</text>
+                    <text y="16" text-anchor="middle" fill="#94a3b8" font-size="11">135 万 · 关联备件</text>
+                  </g>
+                  <g id="n2-s1" transform="translate(585,140)">
+                    <rect x="-84" y="-28" width="168" height="56" rx="12" fill="#1e1b0f" stroke="#fbbf24" stroke-width="2"/>
+                    <text y="-3" text-anchor="middle" fill="#fef3c7" font-size="13" font-weight="800">星河数科</text>
+                    <text y="16" text-anchor="middle" fill="#fbbf24" font-size="11">核心算力供应商</text>
+                  </g>
+                  <g id="n2-s2" transform="translate(585,330)">
+                    <rect x="-84" y="-28" width="168" height="56" rx="12" fill="#06281e" stroke="#34d399" stroke-width="2"/>
+                    <text y="-3" text-anchor="middle" fill="#d1fae5" font-size="13" font-weight="800">PDF 第 4.2 条</text>
+                    <text y="16" text-anchor="middle" fill="#34d399" font-size="11">自动续延违约条款</text>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Sliding PDF Evidence Anchor Panel -->
+              <div id="a2-evidence" class="ui-card" style="display:flex; flex-direction:column; gap:14px; border-color:rgba(52,211,153,0.4); opacity:0; transform:translateX(60px);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:16px; font-weight:800; color:#34d399;">📄 原始制度与合同证据锚点 (3)</span>
+                  <span style="font-size:12px; background:rgba(52,211,153,0.16); color:#34d399; padding:3px 10px; border-radius:999px; font-weight:700;">零幻觉核验</span>
+                </div>
+                <div style="background:#0f172a; border-left:4px solid #f43f5e; border-radius:10px; padding:14px 16px;">
+                  <div style="font-size:13px; font-weight:800; color:#f8fafc; margin-bottom:6px;">2026 商务合同续签与风控管理规范.pdf · Chunk #18</div>
+                  <div style="font-size:14px; color:#cbd5e1; line-height:1.6;">
+                    “第 4.2 条：智算中心维保类合同若未在到期前 <strong style="color:#fb7185;">30 个自然日</strong>书面声明终止，将自动续延 12 个月，违约上限为合同总额 <strong style="color:#fbbf24;">15%</strong>。”
+                  </div>
+                </div>
+                <div style="background:#0f172a; border-left:4px solid #38bdf8; border-radius:10px; padding:14px 16px;">
+                  <div style="font-size:13px; font-weight:800; color:#f8fafc; margin-bottom:6px;">政企大客户履约违约金核算细则.docx · Chunk #04</div>
+                  <div style="font-size:14px; color:#cbd5e1; line-height:1.6;">
+                    “核心网络及算力主合同累计违约赔偿需经法务与财务双签复核，字符坐标 <code>[410..525]</code> 已锁定。”
+                  </div>
+                </div>
+                <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center; background:rgba(56,189,248,0.1); border-radius:10px; padding:12px 16px;">
+                  <span style="font-size:14px; color:#bae6fd; font-weight:700;">SPARQL 编译与图谱执行耗时</span>
+                  <span style="font-size:26px; font-weight:900; color:#38bdf8;">2.93 ms</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Cursor & Click Ring -->
+            <div id="a2-ring" class="click-ring"></div>
+            <svg id="a2-cursor" class="live-cursor" viewBox="0 0 24 24"><path d="M4 2L20 11L12.5 13.2L9.5 21L4 2Z" fill="#ffffff" stroke="#0f172a" stroke-width="1.8"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ACT 3: MULTI-AGENT CO-REVIEW (15.5s - 24.0s) ==================== -->
+  <div id="act3" class="act">
+    <div id="a3-head" class="act-headline">
+      <div class="act-eyebrow accent-gold">STORY 01 续 · MULTI-AGENT CO-REVIEW</div>
+      <div class="act-title titanium-text">法务 · 财务 · 供应链，<span class="accent-gold">3 秒联合会审</span></div>
+      <div class="act-sub">三位专属智能体基于本体证据链并行研判 · 自动输出综合评分与逐条修约清单</div>
+    </div>
+
+    <div id="a3-rig" class="camera-rig">
+      <div class="bezel">
+        <div class="screen">
+          <div class="win-bar">
+            <div class="win-dots"><i></i><i></i><i></i></div>
+            <div class="win-url">https://lingdong.enterprise.local/portal/multi-agent</div>
+            <div class="win-badge" style="color:#fbbf24; border-color:rgba(251,191,36,0.4); background:rgba(251,191,36,0.12);">3 EXPERTS PARALLEL</div>
+          </div>
+
+          <div style="padding:26px 30px; flex:1; display:flex; flex-direction:column; gap:20px; position:relative;">
+            <!-- Verdict Header -->
+            <div style="display:flex; justify-content:space-between; align-items:center; background:linear-gradient(90deg,#172554,#1e1b4b); border:1px solid rgba(129,140,248,0.4); border-radius:16px; padding:20px 26px;">
+              <div>
+                <div style="font-size:14px; color:#a5b4fc; font-weight:700; letter-spacing:0.08em;">会审标的 · HT-2026-089 华东智算中心年度维保合同（285 万元）</div>
+                <div id="a3-verdict-txt" style="font-size:24px; font-weight:800; color:#fff; margin-top:6px;">等待发起三专家并行联合会审...</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:18px;">
+                <div style="text-align:right;">
+                  <div style="font-size:12px; color:#cbd5e1;">综合风险评分</div>
+                  <div id="a3-score" style="font-size:44px; font-weight:900; color:#fbbf24; line-height:1;">0<span style="font-size:20px; color:#94a3b8;">/100</span></div>
+                </div>
+                <div id="a3-btn" style="background:linear-gradient(135deg,#6366f1,#3b82f6); color:#fff; font-size:16px; font-weight:800; padding:12px 24px; border-radius:12px;">发起联合会审</div>
+              </div>
+            </div>
+
+            <!-- 3 Specialist Cards -->
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; flex:1;">
+              <div id="a3-c1" class="ui-card" style="border-top:4px solid #f43f5e; display:flex; flex-direction:column; justify-content:space-between; opacity:0.35;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                    <span style="font-size:20px; font-weight:800; color:#fff;">⚖️ 法务合规 Agent</span>
+                    <span id="a3-b1" style="font-size:13px; font-weight:800; padding:4px 10px; border-radius:999px; background:rgba(244,63,94,0.18); color:#fda4af;">待审查</span>
+                  </div>
+                  <div style="font-size:38px; font-weight:900; color:#fb7185; margin-bottom:12px;" id="a3-s1">-- / 100</div>
+                  <div style="font-size:15px; color:#cbd5e1; line-height:1.65;">
+                    • 命中第 4.2 条自动续延红线，距到期仅 12 天。<br/>
+                    • 建议 7 日内发出书面续签确认函，锁定 15% 违约金上限。
+                  </div>
+                </div>
+                <div style="font-size:12px; color:#64748b; border-top:1px solid rgba(148,163,184,0.15); padding-top:10px;">证据源：Oxigraph · 合同规范 PDF #18</div>
+              </div>
+
+              <div id="a3-c2" class="ui-card" style="border-top:4px solid #10b981; display:flex; flex-direction:column; justify-content:space-between; opacity:0.35;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                    <span style="font-size:20px; font-weight:800; color:#fff;">💰 财务预算 Agent</span>
+                    <span id="a3-b2" style="font-size:13px; font-weight:800; padding:4px 10px; border-radius:999px; background:rgba(16,185,129,0.18); color:#6ee7b7;">待审查</span>
+                  </div>
+                  <div style="font-size:38px; font-weight:900; color:#34d399; margin-bottom:12px;" id="a3-s2">-- / 100</div>
+                  <div style="font-size:15px; color:#cbd5e1; line-height:1.65;">
+                    • 285 万元处于华东大区 Q4 运维预算余量（410 万）内。<br/>
+                    • 符合集团 3-4-3 验收付款节点，建议保留 10% 质保金。
+                  </div>
+                </div>
+                <div style="font-size:12px; color:#64748b; border-top:1px solid rgba(148,163,184,0.15); padding-top:10px;">证据源：ERP · public.contracts · ABAC</div>
+              </div>
+
+              <div id="a3-c3" class="ui-card" style="border-top:4px solid #f59e0b; display:flex; flex-direction:column; justify-content:space-between; opacity:0.35;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                    <span style="font-size:20px; font-weight:800; color:#fff;">🔗 供应链履约 Agent</span>
+                    <span id="a3-b3" style="font-size:13px; font-weight:800; padding:4px 10px; border-radius:999px; background:rgba(245,158,11,0.18); color:#fcd34d;">待审查</span>
+                  </div>
+                  <div style="font-size:38px; font-weight:900; color:#fbbf24; margin-bottom:12px;" id="a3-s3">-- / 100</div>
+                  <div style="font-size:15px; color:#cbd5e1; line-height:1.65;">
+                    • 发现关联主体在 CRM 与 ERP 存在重复档案，需先完成 MDM 合并。<br/>
+                    • 历史 SLA 履约率 97.4%，建议纳入备选算力供应商名单。
+                  </div>
+                </div>
+                <div style="font-size:12px; color:#64748b; border-top:1px solid rgba(148,163,184,0.15); padding-top:10px;">证据源：MDM · Shadow What-If 图谱</div>
+              </div>
+            </div>
+
+            <div id="a3-ring" class="click-ring"></div>
+            <svg id="a3-cursor" class="live-cursor" viewBox="0 0 24 24"><path d="M4 2L20 11L12.5 13.2L9.5 21L4 2Z" fill="#ffffff" stroke="#0f172a" stroke-width="1.8"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ACT 4: SHADOW GRAPH WHAT-IF (24.0s - 33.5s) ==================== -->
+  <div id="act4" class="act">
+    <div id="a4-head" class="act-headline">
+      <div class="act-eyebrow accent-rose">STORY 02 · SHADOW GRAPH WHAT-IF</div>
+      <div class="act-title titanium-text">把 <span class="accent-rose">1,060 万</span>供应链黑天鹅关进沙箱</div>
+      <div class="act-sub">内存级临时影子图 · 3 秒穿透多跳级联敞口 · 算完即销毁，生产数据零污染</div>
+    </div>
+
+    <div id="a4-rig" class="camera-rig">
+      <div class="bezel">
+        <div class="screen">
+          <div class="win-bar">
+            <div class="win-dots"><i></i><i></i><i></i></div>
+            <div class="win-url">https://lingdong.enterprise.local/simulation/shadow-whatif</div>
+            <div id="a4-shield" class="win-badge" style="color:#34d399; border-color:rgba(52,211,153,0.45); background:rgba(16,185,129,0.14);">ISOLATED SANDBOX</div>
+          </div>
+
+          <div style="padding:24px 28px; flex:1; display:flex; flex-direction:column; gap:18px; position:relative;">
+            <!-- Control Bar -->
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#111827; border:1px solid rgba(244,63,94,0.35); border-radius:14px; padding:14px 22px;">
+              <div style="display:flex; gap:26px; align-items:center;">
+                <div>
+                  <div style="font-size:12px; color:#94a3b8;">冲击源实体</div>
+                  <div style="font-size:18px; font-weight:800; color:#fff;">HT-2026-089 · 星河数科违约</div>
+                </div>
+                <div style="width:260px;">
+                  <div style="display:flex; justify-content:space-between; font-size:12px; color:#94a3b8; margin-bottom:6px;">
+                    <span>风控金额阈值</span><span id="a4-thresh" style="color:#fb7185; font-weight:800;">500 万</span>
+                  </div>
+                  <div style="height:8px; background:#1e293b; border-radius:99px; position:relative;">
+                    <div id="a4-slider-fill" style="height:100%; width:40%; background:linear-gradient(90deg,#f43f5e,#fbbf24); border-radius:99px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div id="a4-btn" style="background:linear-gradient(135deg,#e11d48,#7c3aed); color:#fff; font-size:16px; font-weight:800; padding:11px 24px; border-radius:10px;">▶ 启动影子图推演</div>
+            </div>
+
+            <!-- Live Cascade Impact + KPI -->
+            <div style="display:grid; grid-template-columns:1.25fr 0.75fr; gap:20px; flex:1;">
+              <div class="ui-card" style="position:relative;">
+                <div style="font-size:15px; font-weight:800; color:#fda4af; margin-bottom:8px;">多跳级联冲击传导图（Hop 0 → Hop 1 → Hop 2）</div>
+                <svg viewBox="0 0 760 440" style="width:100%; height:90%;">
+                  <path id="p4-1" d="M 140 220 C 230 220, 260 120, 380 120" stroke="rgba(244,63,94,0.65)" stroke-width="4" fill="none"/>
+                  <path id="p4-2" d="M 140 220 C 230 220, 260 320, 380 320" stroke="rgba(245,158,11,0.6)" stroke-width="3.5" fill="none"/>
+                  <path id="p4-3" d="M 380 120 C 480 120, 520 120, 620 120" stroke="rgba(244,63,94,0.65)" stroke-width="3.5" fill="none"/>
+                  <path id="p4-4" d="M 380 320 C 480 320, 520 320, 620 320" stroke="rgba(245,158,11,0.55)" stroke-width="3" fill="none"/>
+
+                  <circle id="e4-1" r="9" fill="#fb7185" opacity="0"/>
+                  <circle id="e4-2" r="8" fill="#fbbf24" opacity="0"/>
+                  <circle id="e4-3" r="9" fill="#f43f5e" opacity="0"/>
+                  <circle id="e4-4" r="8" fill="#fbbf24" opacity="0"/>
+
+                  <g transform="translate(140,220)">
+                    <circle r="54" fill="#3f0b18" stroke="#f43f5e" stroke-width="3.5"/>
+                    <text y="-6" text-anchor="middle" fill="#fff" font-size="14" font-weight="900">HOP 0 · 违约源</text>
+                    <text y="16" text-anchor="middle" fill="#fda4af" font-size="12" font-weight="700">星河数科</text>
+                  </g>
+                  <g transform="translate(380,120)">
+                    <rect x="-92" y="-34" width="184" height="68" rx="14" fill="#2a0f1c" stroke="#f43f5e" stroke-width="2.5"/>
+                    <text y="-5" text-anchor="middle" fill="#fff" font-size="14" font-weight="800">HOP 1 · HT-2026-089</text>
+                    <text y="16" text-anchor="middle" fill="#fda4af" font-size="13" font-weight="700">敞口 285 万 · CRITICAL</text>
+                  </g>
+                  <g transform="translate(380,320)">
+                    <rect x="-92" y="-34" width="184" height="68" rx="14" fill="#271a07" stroke="#f59e0b" stroke-width="2.5"/>
+                    <text y="-5" text-anchor="middle" fill="#fff" font-size="14" font-weight="800">HOP 2 · HT-2026-104</text>
+                    <text y="16" text-anchor="middle" fill="#fcd34d" font-size="13" font-weight="700">敞口 640 万 · HIGH</text>
+                  </g>
+                  <g transform="translate(620,120)">
+                    <rect x="-86" y="-30" width="172" height="60" rx="12" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+                    <text y="-4" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">智算中心交付</text>
+                    <text y="16" text-anchor="middle" fill="#c7d2fe" font-size="12">里程碑停摆预警</text>
+                  </g>
+                  <g transform="translate(620,320)">
+                    <rect x="-86" y="-30" width="172" height="60" rx="12" fill="#271a07" stroke="#fbbf24" stroke-width="2"/>
+                    <text y="-4" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">HOP 2 · HT-2026-118</text>
+                    <text y="16" text-anchor="middle" fill="#fcd34d" font-size="12">敞口 135 万 · 备件</text>
+                  </g>
+                </svg>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <div class="ui-card" style="border-left:4px solid #f43f5e;">
+                  <div style="font-size:14px; color:#94a3b8;">预计级联风险总敞口</div>
+                  <div id="a4-exposure" style="font-size:52px; font-weight:900; color:#fb7185; line-height:1.1; margin-top:6px;">0 万</div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                  <div class="ui-card">
+                    <div style="font-size:13px; color:#94a3b8;">受影响实体</div>
+                    <div id="a4-entities" style="font-size:38px; font-weight:900; color:#fff; margin-top:4px;">0</div>
+                  </div>
+                  <div class="ui-card">
+                    <div style="font-size:13px; color:#94a3b8;">SHACL 高危告警</div>
+                    <div id="a4-alerts" style="font-size:38px; font-weight:900; color:#fbbf24; margin-top:4px;">0</div>
+                  </div>
+                </div>
+                <div id="a4-clean-banner" class="ui-card" style="margin-top:auto; background:rgba(16,185,129,0.14); border-color:rgba(52,211,153,0.5); opacity:0;">
+                  <div style="font-size:15px; font-weight:800; color:#34d399;">✓ 影子图已隔离销毁</div>
+                  <div style="font-size:13px; color:#a7f3d0; margin-top:4px;">生产图谱 ABox 52 条基线三元组 0 污染</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="a4-ring" class="click-ring" style="border-color:#fb7185;"></div>
+            <svg id="a4-cursor" class="live-cursor" viewBox="0 0 24 24"><path d="M4 2L20 11L12.5 13.2L9.5 21L4 2Z" fill="#ffffff" stroke="#0f172a" stroke-width="1.8"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ACT 5: CERAMIC WHITE PORTAL + ECA + SDK (33.5s - 42.5s) ==================== -->
+  <div id="act5" class="act">
+    <div id="a5-head" class="act-headline">
+      <div class="act-eyebrow" style="color:#4f46e5;">EXECUTIVE COCKPIT · ECA AUTOMATION &amp; OA SDK</div>
+      <div class="act-title" style="color:#0f172a;">从高管洞察，到<span style="color:#4f46e5;">秒级自动闭环</span></div>
+      <div class="act-sub" style="color:#475569;">统一语义指标 · ECA 事件驱动自动处置 · 原生 SDK 无缝嵌入企业 OA / ERP</div>
+    </div>
+
+    <div id="a5-rig" class="camera-rig">
+      <div class="bezel bezel-light">
+        <div class="screen screen-light">
+          <div class="win-bar">
+            <div class="win-dots"><i></i><i></i><i></i></div>
+            <div class="win-url">https://oa.enterprise.local/lingdong-widget · 嵌入式门户</div>
+            <div class="win-badge" style="background:#eef2ff; color:#4f46e5; border-color:#c7d2fe;">CERAMIC LIGHT UX</div>
+          </div>
+
+          <div style="padding:24px 28px; flex:1; display:grid; grid-template-columns:1.1fr 0.9fr; gap:22px; position:relative; overflow:hidden;">
+            <!-- Left: Executive KPIs + Pending Todo -->
+            <div style="display:flex; flex-direction:column; gap:18px;">
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+                <div class="ui-card-light" style="border-top:4px solid #e11d48;">
+                  <div style="font-size:13px; color:#64748b; font-weight:600;">高风险合同敞口</div>
+                  <div id="a5-kpi1" style="font-size:34px; font-weight:900; color:#e11d48; margin-top:4px;">0 万</div>
+                </div>
+                <div class="ui-card-light" style="border-top:4px solid #059669;">
+                  <div style="font-size:13px; color:#64748b; font-weight:600;">语义合规通过率</div>
+                  <div id="a5-kpi2" style="font-size:34px; font-weight:900; color:#059669; margin-top:4px;">0.0%</div>
+                </div>
+                <div class="ui-card-light" style="border-top:4px solid #4f46e5;">
+                  <div style="font-size:13px; color:#64748b; font-weight:600;">ECA 自动化覆盖</div>
+                  <div style="font-size:34px; font-weight:900; color:#4f46e5; margin-top:4px;">7×24h</div>
+                </div>
+              </div>
+
+              <div class="ui-card-light" style="flex:1; display:flex; flex-direction:column; justify-content:space-between; border-left:5px solid #e11d48;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:13px; font-weight:800; color:#be123c; background:#fff1f2; padding:4px 12px; border-radius:999px;">● 待办 #1 · 12 天后到期</span>
+                    <span style="font-size:13px; color:#64748b;">已嵌入企业 OA 审批单</span>
+                  </div>
+                  <div style="font-size:24px; font-weight:900; color:#0f172a; margin-bottom:8px;">HT-2026-089 · 华东智算中心年度维保合同</div>
+                  <div style="font-size:16px; color:#475569; line-height:1.6;">金额 285 万元 · 含第 4.2 条自动续延红线条款 · 三专家会审建议 7 日内发出书面确认函。</div>
+                </div>
+                <div style="display:flex; gap:12px; align-items:center;">
+                  <div id="a5-btn" style="background:#4f46e5; color:#fff; font-size:16px; font-weight:800; padding:12px 24px; border-radius:10px;">一键触发 ECA 续签处置</div>
+                  <div id="a5-status" style="font-size:15px; font-weight:800; color:#d97706; background:#fffbeb; border:1px solid #fde68a; padding:10px 18px; border-radius:10px;">待人工确认</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Sliding 360 Drawer + ECA Log -->
+            <div id="a5-drawer" class="ui-card-light" style="background:#ffffff; border:1.5px solid #c7d2fe; display:flex; flex-direction:column; justify-content:space-between; transform:translateX(80px); opacity:0;">
+              <div>
+                <div style="font-size:14px; font-weight:800; color:#4f46e5; letter-spacing:0.08em; margin-bottom:8px;">⚡ ECA 事件驱动自动化闭环</div>
+                <div style="font-size:21px; font-weight:900; color:#0f172a; margin-bottom:14px;">WHEN 合同临期 &lt; 30 天 &amp; 金额 ≥ 200 万</div>
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; font-size:15px; color:#334155; line-height:1.7; margin-bottom:14px;">
+                  <div>✓ <strong>动作 1</strong>：自动推送高危预警至企微/钉钉风控群</div>
+                  <div>✓ <strong>动作 2</strong>：在企业 OA 创建续签审批单 <code>OA-2026-9918</code></div>
+                  <div>✓ <strong>动作 3</strong>：写入国密 SM3 不可篡改审计链 Block #45</div>
+                </div>
+                <div id="a5-exec-tag" style="background:#ecfdf5; border:1px solid #6ee7b7; color:#047857; font-size:16px; font-weight:800; padding:12px 16px; border-radius:10px; opacity:0;">
+                  ● EXECUTED · 自动化处置已执行完毕（耗时 18 ms）
+                </div>
+              </div>
+              <div style="font-family:'SF Mono',Menlo,monospace; font-size:13px; background:#0f172a; color:#7dd3fc; padding:12px 16px; border-radius:10px;">
+                &lt;lingdong-widget contract="HT-2026-089" mode="oa-embed" /&gt;
+              </div>
+            </div>
+
+            <div id="a5-ring" class="click-ring" style="border-color:#4f46e5;"></div>
+            <svg id="a5-cursor" class="live-cursor" viewBox="0 0 24 24"><path d="M4 2L20 11L12.5 13.2L9.5 21L4 2Z" fill="#0f172a" stroke="#ffffff" stroke-width="1.8"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ACT 6: MDM + LINEAGE + SM3/ABAC (42.5s - 50.0s) ==================== -->
+  <div id="act6" class="act">
+    <div id="a6-head" class="act-headline">
+      <div class="act-eyebrow accent-emerald">STORY 03 &amp; 04 · MDM · 4-LAYER LINEAGE · SOVEREIGN SECURITY</div>
+      <div class="act-title titanium-text">治本防雪崩，<span class="accent-emerald">信创安全原生内置</span></div>
+      <div class="act-sub">跨系统 MDM 黄金归并可回滚 · 四层血缘拦截上游改表 · ABAC 脱敏与国密 SM3 防篡改</div>
+    </div>
+
+    <div id="a6-rig" class="camera-rig">
+      <div class="bezel">
+        <div class="screen">
+          <div class="win-bar">
+            <div class="win-dots"><i></i><i></i><i></i></div>
+            <div class="win-url">https://lingdong.enterprise.local/governance/mdm-lineage-sm3</div>
+            <div class="win-badge" style="color:#34d399; border-color:rgba(52,211,153,0.4);">SM3 INTACT · 45 BLOCKS</div>
+          </div>
+
+          <div style="padding:24px 28px; flex:1; display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+            <!-- Left: MDM Magnetic Merge -->
+            <div class="ui-card" style="display:flex; flex-direction:column; justify-content:space-between; border-top:4px solid #38bdf8;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                  <span style="font-size:18px; font-weight:800; color:#38bdf8;">跨系统 MDM 实体消歧归并</span>
+                  <span style="font-size:13px; font-weight:800; color:#7dd3fc; background:rgba(56,189,248,0.15); padding:4px 12px; border-radius:999px;">相似度 94%</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;">
+                  <div id="a6-src1" style="background:#0f172a; border:1px solid #38bdf8; border-radius:12px; padding:16px;">
+                    <div style="font-size:12px; color:#38bdf8; font-weight:800;">CRM 权威源</div>
+                    <div style="font-size:17px; font-weight:800; color:#fff; margin-top:4px;">华云智算科技有限公司</div>
+                    <div style="font-size:12px; color:#94a3b8; margin-top:4px;">信用码：91310115MA1K48920X</div>
+                  </div>
+                  <div id="a6-src2" style="background:#0f172a; border:1px solid #818cf8; border-radius:12px; padding:16px;">
+                    <div style="font-size:12px; color:#a5b4fc; font-weight:800;">ERP 重复源</div>
+                    <div style="font-size:17px; font-weight:800; color:#fff; margin-top:4px;">华云智算（上海）</div>
+                    <div style="font-size:12px; color:#94a3b8; margin-top:4px;">信用码：91310115MA1K48920X</div>
+                  </div>
+                </div>
+                <div id="a6-golden" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(6,182,212,0.18)); border:1.5px solid #34d399; border-radius:14px; padding:18px; opacity:0; transform:scale(0.92);">
+                  <div style="font-size:13px; color:#34d399; font-weight:800;">★ 黄金主记录已生成（支持随时一键拆分回滚）</div>
+                  <div style="font-size:24px; font-weight:900; color:#fff; margin-top:6px;">GOLDEN-48920X-4925</div>
+                </div>
+              </div>
+
+              <!-- ABAC Redaction Strip -->
+              <div style="background:#0f172a; border:1px solid rgba(148,163,184,0.22); border-radius:12px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <div style="font-size:13px; color:#f3d59b; font-weight:800;">ABAC 三级密级动态脱敏（VIEWER 态）</div>
+                  <div id="a6-abac" style="font-size:15px; color:#cbd5e1; margin-top:4px; font-family:'SF Mono',Menlo,monospace;">合同金额：2,850,000 → ***（已脱敏 6 处）</div>
+                </div>
+                <span style="font-size:13px; font-weight:800; color:#34d399;">零越权</span>
+              </div>
+            </div>
+
+            <!-- Right: 4-Layer Lineage Drift + SM3 Audit -->
+            <div class="ui-card" style="display:flex; flex-direction:column; justify-content:space-between; border-top:4px solid #f59e0b;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                  <span style="font-size:18px; font-weight:800; color:#fbbf24;">四层血缘漂移预警雷达</span>
+                  <span style="font-size:13px; font-weight:800; color:#fda4af; background:rgba(244,63,94,0.2); padding:4px 12px; border-radius:999px;">拦截删列 expires_at</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                  <div id="a6-l1" style="background:#2a0f1c; border:1px solid #f43f5e; border-radius:10px; padding:12px 16px; display:flex; justify-content:space-between;">
+                    <span style="font-size:15px; font-weight:800; color:#fff;">L1 物理表列</span><span style="font-size:14px; color:#fda4af;">public.contracts.expires_at 拟删除</span>
+                  </div>
+                  <div id="a6-l2" style="background:#1e1b4b; border:1px solid #818cf8; border-radius:10px; padding:12px 16px; display:flex; justify-content:space-between; opacity:0.3;">
+                    <span style="font-size:15px; font-weight:800; color:#fff;">L2 本体属性</span><span style="font-size:14px; color:#c7d2fe;">ont:expiresAt 映射断链预警</span>
+                  </div>
+                  <div id="a6-l3" style="background:#271a07; border:1px solid #fbbf24; border-radius:10px; padding:12px 16px; display:flex; justify-content:space-between; opacity:0.3;">
+                    <span style="font-size:15px; font-weight:800; color:#fff;">L3 SHACL 规则</span><span style="font-size:14px; color:#fcd34d;">精准锁定 12 条合规校验规则</span>
+                  </div>
+                  <div id="a6-l4" style="background:#06281e; border:1px solid #34d399; border-radius:10px; padding:12px 16px; display:flex; justify-content:space-between; opacity:0.3;">
+                    <span style="font-size:15px; font-weight:800; color:#fff;">L4 业务应用</span><span style="font-size:14px; color:#6ee7b7;">提前阻断合同预警大屏故障</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SM3 Hash Chain Strip -->
+              <div style="background:rgba(16,185,129,0.12); border:1px solid rgba(52,211,153,0.45); border-radius:12px; padding:14px 16px;">
+                <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:800; color:#34d399;">
+                  <span>🔒 国密 SM3 前向哈希审计链 · 验真完好 (INTACT)</span>
+                  <span>45 BLOCKS · 4 KMS KEYS</span>
+                </div>
+                <div style="font-family:'SF Mono',Menlo,monospace; font-size:12px; color:#a7f3d0; margin-top:5px;">
+                  Head Hash: 85c98f62b1b073c4ba152fee699511b86247e812273706a83d07
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ACT 7: APPLE TITANIUM BENTO GRID (50.0s - 56.0s) ==================== -->
+  <div id="act7" class="act">
+    <div id="a7-head" class="act-headline" style="top:44px;">
+      <div class="act-eyebrow accent-gold">PRODUCTION VERIFIED · 硬核工程底座</div>
+      <div class="act-title titanium-text">经得起生产级极限压测与断电考验</div>
+    </div>
+
+    <div class="bento-grid">
+      <div id="b-1" class="bento-card" style="border-top:3px solid #38bdf8;">
+        <div style="font-size:14px; font-weight:800; letter-spacing:0.14em; color:#38bdf8;">PEAK THROUGHPUT</div>
+        <div id="bn-1" class="bento-num accent-cyan">0.0</div>
+        <div>
+          <div class="bento-title">峰值吞吐 QPS</div>
+          <div class="bento-sub">150 并发阶梯混合负载实测</div>
+        </div>
+      </div>
+
+      <div id="b-2" class="bento-card" style="border-top:3px solid #34d399;">
+        <div style="font-size:14px; font-weight:800; letter-spacing:0.14em; color:#34d399;">ZERO ERROR RATE</div>
+        <div class="bento-num accent-emerald">0.00%</div>
+        <div>
+          <div class="bento-title">11,127 次压测零报错</div>
+          <div class="bento-sub">长稳压测零内存泄漏</div>
+        </div>
+      </div>
+
+      <div id="b-3" class="bento-card" style="border-top:3px solid #818cf8;">
+        <div style="font-size:14px; font-weight:800; letter-spacing:0.14em; color:#a5b4fc;">ULTRA-LOW LATENCY</div>
+        <div id="bn-3" class="bento-num accent-indigo">0.0 ms</div>
+        <div>
+          <div class="bento-title">核心接口 P95 响应</div>
+          <div class="bento-sub">毫秒级流畅高管交互体验</div>
+        </div>
+      </div>
+
+      <div id="b-4" class="bento-card" style="border-top:3px solid #f3d59b;">
+        <div style="font-size:14px; font-weight:800; letter-spacing:0.14em; color:#f3d59b;">CHAOS FAILOVER HA</div>
+        <div class="bento-num accent-gold">20 / 20</div>
+        <div>
+          <div class="bento-title">双活容灾零中断</div>
+          <div class="bento-sub">强杀主节点全量请求无缝接管</div>
+        </div>
+      </div>
+
+      <div id="b-5" class="bento-card" style="border-top:3px solid #fb7185;">
+        <div style="font-size:14px; font-weight:800; letter-spacing:0.14em; color:#fb7185;">SOVEREIGN SECURITY</div>
+        <div class="bento-num accent-rose" style="font-size:56px;">SM3 + ABAC</div>
+        <div>
+          <div class="bento-title">国密防篡改与动态脱敏</div>
+          <div class="bento-sub">KMS 零停机轮换 · 集团联邦治理</div>
+        </div>
+      </div>
+
+      <div id="b-6" class="bento-card" style="border-top:3px solid #22d3ee;">
+        <div style="font-size:14px; font-weight:800; letter-spacing:0.14em; color:#22d3ee;">QUALITY GATE</div>
+        <div id="bn-6" class="bento-num" style="color:#ffffff;">0 / 59</div>
+        <div>
+          <div class="bento-title">全链路自动化测试全绿</div>
+          <div class="bento-sub">K8s Helm 云原生私有化一键交付</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ACT 8: GRAND FINALE (56.0s - 60.0s) ==================== -->
+  <div id="act8" class="act">
+    <div id="a8-wrap" style="text-align:center;">
+      <div style="width:116px; height:116px; border-radius:30px; background:linear-gradient(135deg,#22d3ee,#4f46e5); margin:0 auto 34px auto; display:flex; align-items:center; justify-content:center; font-size:62px; font-weight:900; color:#fff; box-shadow:0 0 110px rgba(56,189,248,0.65);">灵</div>
+      <div style="font-size:96px; font-weight:900; letter-spacing:-0.025em; color:#ffffff; line-height:1.12;">
+        灵·洞本体工作站 V7.0
+      </div>
+      <div style="font-size:38px; font-weight:700; color:#f3d59b; margin-top:20px; letter-spacing:0.1em;">
+        洞见全局，决胜毫秒。
+      </div>
+      <div style="font-size:20px; color:#94a3b8; margin-top:28px; letter-spacing:0.22em; text-transform:uppercase;">
+        ENTERPRISE SEMANTIC DECISION OPERATING SYSTEM · 2026
+      </div>
+    </div>
+  </div>
+
+  <div id="timeline-bar"></div>
+</div>
+
+<script>
+(() => {
+  const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const seg = (t, t0, t1) => clamp((t - t0) / (t1 - t0), 0, 1);
+  const expoOut = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+  const power4InOut = (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2);
+  const backOut = (x) => {
+    const c1 = 1.45, c3 = c1 + 1;
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const canvas = $("bg-canvas");
+  const ctx = canvas.getContext("2d");
+
+  // Deterministic star/warp particles for background volumetric field
+  const particles = Array.from({ length: 75 }, (_, i) => ({
+    angle: (i * 137.508) * Math.PI / 180,
+    dist: 0.12 + ((i * 73) % 100) / 110,
+    size: 1.2 + (i % 3) * 0.9,
+    speed: 0.35 + (i % 5) * 0.14,
+  }));
+
+  function drawVolumetricBg(t) {
+    ctx.clearRect(0, 0, 1920, 1080);
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, 1920, 1080);
+
+    // Breathing volumetric light orbs
+    const orbs = [
+      { x: 960 + Math.sin(t * 0.45) * 280, y: 420 + Math.cos(t * 0.35) * 140, r: 620, c: "rgba(56,189,248,0.16)" },
+      { x: 520 + Math.cos(t * 0.32) * 240, y: 740 + Math.sin(t * 0.4) * 120, r: 540, c: "rgba(99,102,241,0.16)" },
+      { x: 1460 + Math.sin(t * 0.28) * 220, y: 680 + Math.cos(t * 0.38) * 130, r: 480, c: "rgba(212,163,89,0.11)" },
+    ];
+    if (t >= 23.5 && t <= 33.8) {
+      orbs[0].c = "rgba(244,63,94,0.18)";
+    }
+    ctx.globalCompositeOperation = "screen";
+    for (const o of orbs) {
+      const g = ctx.createRadialGradient(o.x, o.y, 10, o.x, o.y, o.r);
+      g.addColorStop(0, o.c);
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Subtle warp streaks during Act 1 & Act 8
+    const warpAlpha = t < 6.5 ? 0.55 : t > 55.5 ? 0.45 : 0.12;
+    ctx.strokeStyle = `rgba(148, 197, 255, ${warpAlpha})`;
+    ctx.lineWidth = 1.5;
+    for (const p of particles) {
+      const r0 = ((p.dist + t * p.speed * 0.14) % 1.0) * 1020;
+      const r1 = r0 + (t < 6.5 ? 42 : 12);
+      const x0 = 960 + Math.cos(p.angle) * r0;
+      const y0 = 540 + Math.sin(p.angle) * r0 * 0.65;
+      const x1 = 960 + Math.cos(p.angle) * r1;
+      const y1 = 540 + Math.sin(p.angle) * r1 * 0.65;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = "source-over";
+  }
+
+  function animatePulse(pathId, dotId, prog) {
+    const path = $(pathId);
+    const dot = $(dotId);
+    if (!path || !dot) return;
+    if (prog <= 0 || prog >= 1) {
+      dot.setAttribute("opacity", "0");
+      return;
+    }
+    const len = path.getTotalLength();
+    const pt = path.getPointAtLength(len * prog);
+    dot.setAttribute("cx", pt.x.toFixed(1));
+    dot.setAttribute("cy", pt.y.toFixed(1));
+    dot.setAttribute("opacity", String(Math.sin(prog * Math.PI)));
+  }
+
+  function animateClickRing(ringId, x, y, prog) {
+    const el = $(ringId);
+    if (!el) return;
+    if (prog <= 0 || prog >= 1) {
+      el.style.opacity = "0";
+      return;
+    }
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+    el.style.opacity = String(1 - prog);
+    el.style.transform = `scale(${lerp(0.3, 1.9, expoOut(prog))})`;
+  }
+
+  function setActCamera(rigId, headId, { ry, rx, scale, tx = 0, ty = 0, opacity = 1 }) {
+    const rig = $(rigId);
+    const head = $(headId);
+    if (rig) {
+      rig.style.opacity = String(opacity);
+      rig.style.transform = `perspective(1900px) translate3d(${tx}px, ${ty}px, 0) rotateY(${ry}deg) rotateX(${rx}deg) scale(${scale})`;
+    }
+    // Anti-collision rule: smoothly dissolve top headline when zoomed in (scale > 1.02)
+    if (head) {
+      const dissolve = clamp((scale - 1.02) / 0.14, 0, 1);
+      head.style.opacity = String(opacity * (1 - dissolve));
+      head.style.transform = `translateY(${-30 * dissolve}px)`;
+    }
+  }
+
+  window.renderAt = function (t) {
+    drawVolumetricBg(t);
+    $("timeline-bar").style.width = `${clamp(t / 60, 0, 1) * 100}%`;
+
+    // Hide all acts first
+    for (let i = 1; i <= 8; i++) $("act" + i).style.opacity = "0";
+
+    // Ceramic White backdrop for Act 5 (33.5s - 42.5s)
+    const whiteIn = seg(t, 33.4, 34.1);
+    const whiteOut = 1 - seg(t, 41.9, 42.6);
+    $("white-backdrop").style.opacity = String(t >= 33.4 && t <= 42.6 ? Math.min(whiteIn, whiteOut) : 0);
+
+    // ===== ACT 1 (0.0 - 6.5s) =====
+    if (t < 6.7) {
+      const op = 1 - seg(t, 6.1, 6.6);
+      $("act1").style.opacity = String(op);
+
+      const hIn = expoOut(seg(t, 0.15, 1.0));
+      const hOut = 1 - seg(t, 2.7, 3.2);
+      $("a1-hook").style.opacity = String(hIn * hOut);
+      $("a1-hook").style.transform = `scale(${lerp(0.92, 1.02, seg(t, 0, 3.2))})`;
+
+      const bIn = expoOut(seg(t, 3.2, 4.1));
+      $("a1-brand").style.opacity = String(bIn);
+      $("a1-brand").style.transform = `scale(${lerp(0.86, 1.02, bIn)}) translateY(${lerp(36, 0, bIn)}px)`;
+    }
+
+    // ===== ACT 2 (6.5 - 15.5s): NL-to-SPARQL + Live Graph + PDF Anchor =====
+    if (t >= 6.4 && t <= 15.7) {
+      const lt = t - 6.5;
+      const actOp = Math.min(seg(t, 6.4, 7.0), 1 - seg(t, 15.0, 15.6));
+      $("act2").style.opacity = String(actOp);
+
+      // 3-phase camera: Establish -> Macro Punch-In -> Pull Back
+      const p1 = expoOut(seg(lt, 0.0, 1.6));
+      const p2 = power4InOut(seg(lt, 3.4, 4.9));
+      const p3 = power4InOut(seg(lt, 7.5, 8.7));
+      const ry = lerp(-20, -4, p1) + lerp(0, 5, p2) + lerp(0, 10, p3);
+      const rx = lerp(8, 2, p1) + lerp(0, -1, p2);
+      const scale = lerp(0.84, 0.97, p1) + lerp(0, 0.28, p2) - lerp(0, 0.25, p3);
+      const tx = lerp(0, -45, p2) + lerp(0, 45, p3);
+      const ty = lerp(24, 0, p1) + lerp(0, -55, p2) + lerp(0, 55, p3);
+      setActCamera("a2-rig", "a2-head", { ry, rx, scale, tx, ty, opacity: actOp });
+
+      // Live streaming typing
+      const qStr = "查询华东大区 30 天内到期的高风险合同及违约条款证据";
+      const chars = Math.floor(qStr.length * seg(lt, 0.8, 2.5));
+      $("a2-typing").textContent = qStr.slice(0, chars) + (lt < 2.9 ? "▌" : "");
+
+      // Cursor glide to button (1220, 42) and click at lt=2.8
+      const cMove = power4InOut(seg(lt, 1.8, 2.75));
+      const cx = lerp(680, 1215, cMove);
+      const cy = lerp(340, 52, cMove);
+      $("a2-cursor").style.left = `${cx}px`;
+      $("a2-cursor").style.top = `${cy}px`;
+      $("a2-cursor").style.opacity = String(seg(lt, 1.6, 2.0) * (1 - seg(lt, 4.0, 4.5)));
+      animateClickRing("a2-ring", 1215, 52, seg(lt, 2.75, 3.35));
+
+      const fired = lt >= 2.85;
+      $("a2-latency").textContent = fired ? "2.93 MS · 5 HITS" : "READY";
+      $("a2-hits").style.opacity = String(seg(lt, 2.9, 3.4));
+
+      // Live SVG Energy Pulses
+      const ep = seg(lt, 2.9, 5.2);
+      animatePulse("p2-1", "e2-1", clamp(ep * 1.4, 0, 1));
+      animatePulse("p2-2", "e2-2", clamp(ep * 1.35, 0, 1));
+      animatePulse("p2-3", "e2-3", clamp(ep * 1.3, 0, 1));
+      animatePulse("p2-4", "e2-4", clamp((ep - 0.25) * 1.4, 0, 1));
+      animatePulse("p2-5", "e2-5", clamp((ep - 0.25) * 1.4, 0, 1));
+
+      // Evidence panel slide-in
+      const evIn = expoOut(seg(lt, 3.3, 4.4));
+      $("a2-evidence").style.opacity = String(evIn);
+      $("a2-evidence").style.transform = `translateX(${lerp(60, 0, evIn)}px)`;
+    }
+
+    // ===== ACT 3 (15.5 - 24.0s): Multi-Agent Co-Review =====
+    if (t >= 15.4 && t <= 24.2) {
+      const lt = t - 15.5;
+      const actOp = Math.min(seg(t, 15.4, 16.0), 1 - seg(t, 23.4, 24.0));
+      $("act3").style.opacity = String(actOp);
+
+      const p1 = expoOut(seg(lt, 0.0, 1.5));
+      const p2 = power4InOut(seg(lt, 2.5, 4.0));
+      const p3 = power4InOut(seg(lt, 6.8, 8.1));
+      const ry = lerp(18, 3, p1) + lerp(0, -3, p2) + lerp(0, -12, p3);
+      const rx = lerp(7, 1.5, p1);
+      const scale = lerp(0.84, 0.97, p1) + lerp(0, 0.22, p2) - lerp(0, 0.20, p3);
+      const ty = lerp(24, 0, p1) + lerp(0, -42, p2) + lerp(0, 42, p3);
+      setActCamera("a3-rig", "a3-head", { ry, rx, scale, ty, opacity: actOp });
+
+      // Cursor click on button (1190, 62) at lt=1.8
+      const cm = power4InOut(seg(lt, 0.9, 1.75));
+      $("a3-cursor").style.left = `${lerp(560, 1190, cm)}px`;
+      $("a3-cursor").style.top = `${lerp(360, 62, cm)}px`;
+      $("a3-cursor").style.opacity = String(seg(lt, 0.8, 1.1) * (1 - seg(lt, 2.8, 3.2)));
+      animateClickRing("a3-ring", 1190, 62, seg(lt, 1.75, 2.35));
+
+      // Sequential specialist card ignition
+      const c1 = expoOut(seg(lt, 2.0, 2.9));
+      const c2 = expoOut(seg(lt, 2.5, 3.4));
+      const c3 = expoOut(seg(lt, 3.0, 3.9));
+      $("a3-c1").style.opacity = String(lerp(0.35, 1, c1));
+      $("a3-c2").style.opacity = String(lerp(0.35, 1, c2));
+      $("a3-c3").style.opacity = String(lerp(0.35, 1, c3));
+      $("a3-s1").textContent = `${Math.round(76 * c1)} / 100`;
+      $("a3-s2").textContent = `${Math.round(42 * c2)} / 100`;
+      $("a3-s3").textContent = `${Math.round(58 * c3)} / 100`;
+      $("a3-b1").textContent = c1 > 0.8 ? "有条件通过" : "审查中...";
+      $("a3-b2").textContent = c2 > 0.8 ? "预算通过" : "审查中...";
+      $("a3-b3").textContent = c3 > 0.8 ? "有条件通过" : "审查中...";
+
+      const sc = Math.round(59 * expoOut(seg(lt, 2.2, 4.2)));
+      $("a3-score").innerHTML = `${sc}<span style="font-size:20px; color:#94a3b8;">/100</span>`;
+      $("a3-verdict-txt").textContent = lt >= 3.6
+        ? "三专家裁决：有条件通过 · 需 7 日内签署书面续签确认函并合并供应商主数据"
+        : "三专家智能体并行穿透图谱与 PDF 证据中...";
+    }
+
+    // ===== ACT 4 (24.0 - 33.5s): Shadow Graph What-If =====
+    if (t >= 23.9 && t <= 33.7) {
+      const lt = t - 24.0;
+      const actOp = Math.min(seg(t, 23.9, 24.5), 1 - seg(t, 32.9, 33.5));
+      $("act4").style.opacity = String(actOp);
+
+      const p1 = expoOut(seg(lt, 0.0, 1.5));
+      const p2 = power4InOut(seg(lt, 2.6, 4.2));
+      const p3 = power4InOut(seg(lt, 7.6, 8.9));
+      const ry = lerp(-18, -3, p1) + lerp(0, 4, p2) + lerp(0, 10, p3);
+      const rx = lerp(8, 2, p1);
+      const scale = lerp(0.84, 0.97, p1) + lerp(0, 0.26, p2) - lerp(0, 0.22, p3);
+      const ty = lerp(24, 0, p1) + lerp(0, -52, p2) + lerp(0, 52, p3);
+      setActCamera("a4-rig", "a4-head", { ry, rx, scale, ty, opacity: actOp });
+
+      // Slider drag + click
+      const sl = power4InOut(seg(lt, 0.8, 1.7));
+      $("a4-slider-fill").style.width = `${lerp(28, 72, sl)}%`;
+      $("a4-thresh").textContent = `${Math.round(lerp(200, 500, sl))} 万`;
+
+      const cm = power4InOut(seg(lt, 1.6, 2.35));
+      $("a4-cursor").style.left = `${lerp(540, 1185, cm)}px`;
+      $("a4-cursor").style.top = `${lerp(56, 56, cm)}px`;
+      $("a4-cursor").style.opacity = String(seg(lt, 0.7, 1.0) * (1 - seg(lt, 3.2, 3.6)));
+      animateClickRing("a4-ring", 1185, 56, seg(lt, 2.35, 2.95));
+
+      // Cascade shockwaves
+      const cp = seg(lt, 2.5, 5.2);
+      animatePulse("p4-1", "e4-1", clamp(cp * 1.6, 0, 1));
+      animatePulse("p4-2", "e4-2", clamp(cp * 1.5, 0, 1));
+      animatePulse("p4-3", "e4-3", clamp((cp - 0.3) * 1.6, 0, 1));
+      animatePulse("p4-4", "e4-4", clamp((cp - 0.3) * 1.5, 0, 1));
+
+      const kProg = expoOut(seg(lt, 2.7, 4.8));
+      $("a4-exposure").textContent = `${Math.round(1060 * kProg).toLocaleString()} 万`;
+      $("a4-entities").textContent = String(Math.round(4 * kProg));
+      $("a4-alerts").textContent = String(Math.round(2 * kProg));
+      $("a4-clean-banner").style.opacity = String(expoOut(seg(lt, 4.6, 5.5)));
+    }
+
+    // ===== ACT 5 (33.5 - 42.5s): Ceramic White Executive Portal + ECA + SDK =====
+    if (t >= 33.4 && t <= 42.7) {
+      const lt = t - 33.5;
+      const actOp = Math.min(seg(t, 33.4, 34.1), 1 - seg(t, 41.9, 42.5));
+      $("act5").style.opacity = String(actOp);
+
+      const p1 = expoOut(seg(lt, 0.0, 1.5));
+      const p2 = power4InOut(seg(lt, 2.8, 4.2));
+      const p3 = power4InOut(seg(lt, 7.2, 8.5));
+      const ry = lerp(16, 2, p1) + lerp(0, -3, p2) + lerp(0, -10, p3);
+      const rx = lerp(6, 1, p1);
+      const scale = lerp(0.86, 0.98, p1) + lerp(0, 0.22, p2) - lerp(0, 0.20, p3);
+      const ty = lerp(20, 0, p1) + lerp(0, -40, p2) + lerp(0, 40, p3);
+      setActCamera("a5-rig", "a5-head", { ry, rx, scale, ty, opacity: actOp });
+
+      // Rolling KPIs
+      const kp = expoOut(seg(lt, 0.5, 2.0));
+      $("a5-kpi1").textContent = `${Math.round(925 * kp)} 万`;
+      $("a5-kpi2").textContent = `${(98.6 * kp).toFixed(1)}%`;
+
+      // Cursor click on ECA button (185, 595) at lt=2.2
+      const cm = power4InOut(seg(lt, 1.2, 2.15));
+      $("a5-cursor").style.left = `${lerp(560, 170, cm)}px`;
+      $("a5-cursor").style.top = `${lerp(320, 610, cm)}px`;
+      $("a5-cursor").style.opacity = String(seg(lt, 1.0, 1.3) * (1 - seg(lt, 3.2, 3.6)));
+      animateClickRing("a5-ring", 170, 610, seg(lt, 2.15, 2.75));
+
+      const fired = lt >= 2.25;
+      if (fired) {
+        $("a5-status").textContent = "✓ 已触发自动处置";
+        $("a5-status").style.color = "#047857";
+        $("a5-status").style.background = "#ecfdf5";
+        $("a5-status").style.borderColor = "#6ee7b7";
+      } else {
+        $("a5-status").textContent = "待人工确认";
+        $("a5-status").style.color = "#d97706";
+        $("a5-status").style.background = "#fffbeb";
+        $("a5-status").style.borderColor = "#fde68a";
+      }
+
+      const dr = expoOut(seg(lt, 2.35, 3.5));
+      $("a5-drawer").style.opacity = String(dr);
+      $("a5-drawer").style.transform = `translateX(${lerp(80, 0, dr)}px)`;
+      $("a5-exec-tag").style.opacity = String(expoOut(seg(lt, 3.5, 4.3)));
+    }
+
+    // ===== ACT 6 (42.5 - 50.0s): MDM + 4-Layer Lineage + SM3/ABAC =====
+    if (t >= 42.4 && t <= 50.2) {
+      const lt = t - 42.5;
+      const actOp = Math.min(seg(t, 42.4, 43.0), 1 - seg(t, 49.4, 50.0));
+      $("act6").style.opacity = String(actOp);
+
+      const p1 = expoOut(seg(lt, 0.0, 1.4));
+      const p2 = power4InOut(seg(lt, 2.4, 3.8));
+      const p3 = power4InOut(seg(lt, 6.0, 7.2));
+      const ry = lerp(-14, -2, p1) + lerp(0, 2, p2);
+      const rx = lerp(6, 1.5, p1);
+      const scale = lerp(0.86, 0.98, p1) + lerp(0, 0.16, p2) - lerp(0, 0.16, p3);
+      const ty = lerp(22, 0, p1) + lerp(0, -34, p2) + lerp(0, 34, p3);
+      setActCamera("a6-rig", "a6-head", { ry, rx, scale, ty, opacity: actOp });
+
+      // MDM Golden Record reveal
+      const gIn = backOut(seg(lt, 1.5, 2.6));
+      $("a6-golden").style.opacity = String(clamp(seg(lt, 1.5, 2.2), 0, 1));
+      $("a6-golden").style.transform = `scale(${lerp(0.9, 1, gIn)})`;
+
+      // 4-layer sequential lineage light-up
+      $("a6-l2").style.opacity = String(lerp(0.3, 1, seg(lt, 1.8, 2.4)));
+      $("a6-l3").style.opacity = String(lerp(0.3, 1, seg(lt, 2.4, 3.0)));
+      $("a6-l4").style.opacity = String(lerp(0.3, 1, seg(lt, 3.0, 3.6)));
+    }
+
+    // ===== ACT 7 (50.0 - 56.0s): Apple Titanium Bento Grid =====
+    if (t >= 49.9 && t <= 56.2) {
+      const lt = t - 50.0;
+      const actOp = Math.min(seg(t, 49.9, 50.5), 1 - seg(t, 55.4, 56.0));
+      $("act7").style.opacity = String(actOp);
+
+      for (let i = 1; i <= 6; i++) {
+        const delay = (i - 1) * 0.14;
+        const p = backOut(seg(lt, 0.15 + delay, 0.95 + delay));
+        const op = clamp(seg(lt, 0.15 + delay, 0.6 + delay), 0, 1);
+        const card = $("b-" + i);
+        card.style.opacity = String(op);
+        card.style.transform = `translateY(${lerp(46, 0, p)}px) scale(${lerp(0.92, 1, p)})`;
+      }
+
+      const numP = expoOut(seg(lt, 0.5, 2.2));
+      $("bn-1").textContent = (451.2 * numP).toFixed(1);
+      $("bn-3").textContent = `${(88.8 * numP).toFixed(1)} ms`;
+      $("bn-6").textContent = `${Math.round(59 * numP)} / 59`;
+    }
+
+    // ===== ACT 8 (56.0 - 60.0s): Grand Finale =====
+    if (t >= 55.9) {
+      const lt = t - 56.0;
+      const op = Math.min(expoOut(seg(lt, 0.0, 0.9)), 1 - seg(lt, 3.2, 4.0));
+      $("act8").style.opacity = String(op);
+      $("a8-wrap").style.transform = `scale(${lerp(0.92, 1.04, seg(lt, 0, 4.0))})`;
+    }
+  };
+
+  // Render frame 0 by default
+  window.renderAt(0);
+})();
+</script>
+</body>
+</html>

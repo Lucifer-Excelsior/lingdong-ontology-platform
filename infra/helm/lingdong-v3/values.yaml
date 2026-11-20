@@ -1,0 +1,28 @@
+global:
+  architecture: amd64 # 可选 arm64 (鲲鹏/飞腾信创服务器)
+  imagePullPolicy: IfNotPresent
+
+api:
+  replicas: 2
+  image: registry.internal/lingdong/ontology-v3-api:3.5.0
+  port: 8280
+  env:
+    OIDC_ISSUER_URL: ""
+    OIDC_AUDIENCE: "lingdong-studio"
+    ALLOW_DEMO_ACTOR_SWITCH: "false"
+
+web:
+  replicas: 2
+  image: registry.internal/lingdong/ontology-v3-web:3.5.0
+  port: 80
+
+elkSidecar:
+  enabled: false
+  image: registry.internal/lingdong/ontology-v3-elk:3.5.0
+  port: 8281
+
+postgresql:
+  existingSecret: lingdong-pg-credentials
+  host: lingdong-postgres
+  port: 5432
+  database: ontology_v3

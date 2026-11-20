@@ -1,0 +1,23 @@
+{
+  "name": "lingdong-ontology-platform-v3",
+  "version": "3.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev:api": "pnpm --filter @lingdong/api dev",
+    "dev:web": "pnpm --filter @lingdong/web dev",
+    "seed": "pnpm --filter @lingdong/api seed",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "build": "pnpm -r build",
+    "db:up": "docker compose -f compose.yaml up -d postgres"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  }
+}
