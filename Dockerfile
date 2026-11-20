@@ -24,4 +24,4 @@ ENV PORT=8280
 ENV WEB_DIST_DIR=/app/apps/web/dist
 COPY --from=builder /app /app
 EXPOSE 8280
-CMD ["node", "apps/api/dist/server.js"]
+CMD ["./apps/api/node_modules/.bin/tsx", "apps/api/src/server.ts"]
