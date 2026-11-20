@@ -22,7 +22,7 @@ export class LingDongClient {
     this.baseUrl = (
       options.baseUrl ??
       process.env.LINGDONG_BASE_URL ??
-      "https://lingdong-demo-production.up.railway.app"
+      "https://lingdong-v71-demo-production.up.railway.app"
     ).replace(/\/+$/, "");
     this.defaultWorkspaceId =
       options.workspaceId ?? process.env.LINGDONG_WORKSPACE_ID ?? "ws-contract";

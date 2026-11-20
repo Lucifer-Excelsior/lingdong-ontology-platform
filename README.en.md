@@ -6,12 +6,12 @@
 
 **Enterprise Semantic Decision Operating System (OWL / SHACL / SPARQL 1.1 · Shadow Graph What-If · Multi-Agent Co-Review · SM3 Sovereign Security)**
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Online_Now-10b981?style=for-the-badge)](https://lingdong-demo-production.up.railway.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Online_Now-10b981?style=for-the-badge)](https://lingdong-v71-demo-production.up.railway.app)
 [![Version](https://img.shields.io/badge/version-v7.1.0_AI--Native-4f46e5?style=for-the-badge)](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
 [![Tests](https://img.shields.io/badge/tests-62%2F62_passing-10b981?style=for-the-badge)](./.github/workflows/ci.yml)
 [![Peak QPS](https://img.shields.io/badge/peak_QPS-451.2_QPS-0284c7?style=for-the-badge)](#benchmarks)
 
-[🚀 Try Live Public Demo](https://lingdong-demo-production.up.railway.app) &nbsp;|&nbsp; [🎬 Watch 60s 1080P Launch Film](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0) &nbsp;|&nbsp; [📖 Live OpenAPI Docs](https://lingdong-demo-production.up.railway.app/api/docs)
+[🚀 Try Live Public Demo](https://lingdong-v71-demo-production.up.railway.app) &nbsp;|&nbsp; [🎬 Watch 60s 1080P Launch Film](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0) &nbsp;|&nbsp; [📖 Live OpenAPI Docs](https://lingdong-v71-demo-production.up.railway.app/api/docs)
 
 </div>
 
