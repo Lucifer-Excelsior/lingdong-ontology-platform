@@ -120,7 +120,7 @@ export function CommandPaletteDialog({
       {
         id: "portal-itu",
         prefix: "体验：",
-        title: "ITU 国际标准提案合规审查门户",
+        title: "集团招采合规与反围标风控审查台",
         badge: "业务门户",
         keywords: "portal itu 标准 提案 shall should",
         run: () => {

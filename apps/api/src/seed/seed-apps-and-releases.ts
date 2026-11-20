@@ -112,7 +112,7 @@ export async function seedDataAppsAndReleases(
       modelId: "deepseek-v3-ent",
       statusLabel: "生产可用",
       statusTone: "emerald",
-      purpose: "用途：受控能力编排路由与 ITU 条款核对 · 内网零外发",
+      purpose: "用途：受控能力编排路由与招采反围标条款核对 · 内网零外发",
       latencyMs: 118,
     },
     {
@@ -155,7 +155,7 @@ export async function seedDataAppsAndReleases(
       tenantId: "tenant-caict",
       workspaceId: "ws-itu",
       slug: "itu-proposal-reviewer",
-      name: "ITU 标准提案合规审查助手",
+      name: "集团招采反围标合规审查台",
       activeVersion: "v1.0 · 已发布线上",
       draftVersion: "v1.1-draft",
       boundRevisionId: ituRevCode,

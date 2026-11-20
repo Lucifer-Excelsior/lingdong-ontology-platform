@@ -86,7 +86,7 @@ export async function getEntity360Profile(
 
 const DEFAULT_PORTAL_CFG = (workspaceId: string): PortalAppConfig => ({
   workspaceId,
-  portalTitle: workspaceId === "ws-itu" ? "ITU-T 国际标准提案合规审查台" : "政企合同到期续签处置门户",
+  portalTitle: workspaceId === "ws-itu" ? "集团招采合规与反围标风控审查台" : "政企合同到期续签处置门户",
   subtitle: "零本体技术术语 · 面向一线业务、法务与风控人员的受治理智能工作台",
   enabledWidgets: ["kpi_alerts", "entity_360", "ai_copilot", "itu_review", "im_push", "csv_export"],
   alertWindowDays: 30,

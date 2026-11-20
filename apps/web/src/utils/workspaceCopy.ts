@@ -56,33 +56,33 @@ ont:guaranteesContract a owl:ObjectProperty ;
 };
 
 const ITU_COPY: WorkspaceCopyPack = {
-  domainLabel: "ITU 国际标准提案本体",
-  aboxSubtext: "标准规范库 · 增量同步",
-  defaultConcept: "StandardProposal",
-  defaultConceptsCsv: "StandardProposal, NormativeClause",
-  defaultCapability: "CheckNormativeCompliance",
-  cqPlaceholder: "例如：哪些提案章节混用了 shall 与 should 规范性动词？",
-  modelingInstruction: "重点识别提案章节、规范性条款 (shall/should) 及审查意见关联关系。",
-  chunkFallbackHeader: "待选择标准规范文档证据分块：",
-  sandboxSampleQ: "示例提问：核查当前 ITU-T 草案中所有强制性 shall 条款及其引用标准。",
-  sandboxSampleTitle: "国际标准提案合规问答示例（支持实时 SSE 流式检索与证据对齐）：",
+  domainLabel: "集团招采反围标本体",
+  aboxSubtext: "招采与主体关联库 · 增量同步",
+  defaultConcept: "BidPackage",
+  defaultConceptsCsv: "BidPackage, BidderEntity, BidRiskRule",
+  defaultCapability: "AuditProcurementCollusion",
+  cqPlaceholder: "例如：哪些投标方共享了同一项目经理或呈现异常等差报价阶梯？",
+  modelingInstruction: "重点识别招采标段、投标主体、股权/人员穿透关系及报价异常阶梯约束。",
+  chunkFallbackHeader: "待选择招采合规规范文档证据分块：",
+  sandboxSampleQ: "示例提问：核查标段 #ZB-2026-041 中所有存在共享联系人或异常报价阶梯的投标方。",
+  sandboxSampleTitle: "集团招采反围标问答示例（支持实时 SSE 流式检索与证据对齐）：",
   sandboxSampleBody:
-    "输入标准审查问题后，系统将基于冻结的 ITU 本体修订检索规范条款与引用依赖，并输出可追溯的合规定位结论。",
+    "输入招采风控问题后，系统将基于冻结的反围标本体修订穿透主体关系与报价清单，并输出可追溯的合规拦截结论。",
   sandboxTraceTail: [
-    "3. 合规检查: NormativeClause -> SHALL/SHOULD 规则校验",
-    "4. 证据锚点: ITU 活跃命名图 + 规范条款分块",
+    "3. 合规检查: BidderEntity -> 人员穿透与 0.80% 报价阶梯规则校验",
+    "4. 证据锚点: 招采活跃命名图 + 《集团招采合规管理规范》分块",
   ],
-  turtleSampleFilename: "itu-amendment.ttl",
-  turtleSampleBtn: "填入示例标准修正案 Turtle",
-  turtleSamplePlaceholder: "@prefix ont: <https://ontology.caict.cn/itu#> ...",
+  turtleSampleFilename: "procurement-anti-collusion.ttl",
+  turtleSampleBtn: "填入示例招采反围标规则 Turtle",
+  turtleSamplePlaceholder: "@prefix proc: <https://ontology.lingdong.ai/procurement#> ...",
   turtleSampleContent: `@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
-@prefix ont:  <https://ontology.caict.cn/itu#> .
+@prefix proc: <https://ontology.lingdong.ai/procurement#> .
 
-ont:TechnicalCorrigendum a owl:Class ;
-  rdfs:label "技术勘误表"@zh, "TechnicalCorrigendum"@en ;
-  rdfs:comment "针对已发布 ITU-T 建议书的勘误修订文档"@zh .`,
+proc:CollusionAlert a owl:Class ;
+  rdfs:label "围标串标高危告警"@zh, "CollusionAlert"@en ;
+  rdfs:comment "同一标段内不同投标方共享关键人员或异常等差报价时触发"@zh .`,
 };
 
 const SUPPLY_COPY: WorkspaceCopyPack = {

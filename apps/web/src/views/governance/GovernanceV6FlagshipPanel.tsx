@@ -32,7 +32,7 @@ export function GovernanceV6FlagshipPanel({ workspaceId, onToast }: GovernanceV6
     onSuccess: (res) => {
       void refetchFed();
       void qc.invalidateQueries({ queryKey: ["ontology", workspaceId] });
-      onToast(res.message || "已绑定集团标准父本体 ws-itu 并拉取上游类");
+      onToast(res.message || "已绑定集团标准招采父本体并拉取上游类");
     },
     onError: (e: Error) => onToast(e.message),
   });
@@ -78,7 +78,7 @@ export function GovernanceV6FlagshipPanel({ workspaceId, onToast }: GovernanceV6
             onClick={() => bindFedMut.mutate()}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium disabled:opacity-50 cursor-pointer"
           >
-            <Link2 className="w-3.5 h-3.5" />{bindFedMut.isPending ? "绑定同步中..." : "一键绑定集团父本体 (ws-itu)"}
+            <Link2 className="w-3.5 h-3.5" />{bindFedMut.isPending ? "绑定同步中..." : "一键绑定集团招采父本体"}
           </button>
         </div>
 

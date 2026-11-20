@@ -191,22 +191,22 @@ export async function generateContractRenewalBriefDocx(
 
 export function generateItuReviewReportDocx(): { filename: string; bytes: Uint8Array } {
   const bytes = buildDocxBytes({
-    title: "ITU-T 国际标准提案合规性与术语冲突审查意见书",
-    subtitle: "目标文稿：《Y.31xx 算力网络语义编排架构提案草案 v0.4.docx》 · 审查标准：ITU-T Author's Guide",
+    title: "集团招采合规与反围标风控审查意见书",
+    subtitle: "目标标段：《2026 华东智算中心液冷服务器集采标段 #ZB-2026-041》 · 审查依据：集团招采反围标本体与 SHACL 规则集",
     sections: [
       {
         heading: "一、 本体规则自动核对综述",
         paragraphs: [
-          `术语定义对齐率：94.5% · 规范性引用有效率：100% · 发现需修订冲突项：${ITU_REVIEW_ITEMS.filter((i) => i.severity === "CONFLICT").length} 处。`,
+          `主数据主体对齐率：94.5% · 投标资质有效性：100% · 检出需拦截高危围标冲突：${ITU_REVIEW_ITEMS.filter((i) => i.severity === "CONFLICT").length} 处。`,
         ],
       },
       {
-        heading: "二、 逐条规范性审查明细与修订建议",
-        paragraphs: ["下表列出经 ITU-T 标准规范本体与 SHACL 助动词约束检出的全部审查结论："],
+        heading: "二、 逐项反围标与合规审查明细",
+        paragraphs: ["下表列出经招采本体图谱穿透与 SHACL 约束检出的全部风险结论与处置建议："],
       },
     ],
     table: {
-      headers: ["章节条款", "规范助动词", "审查结论", "本体规则锚点", "修订建议"],
+      headers: ["审查维度", "风险标签", "审查结论", "本体规则锚点", "处置建议"],
       rows: ITU_REVIEW_ITEMS.map((item) => [
         item.clauseRef,
         item.normativeVerb,
@@ -217,9 +217,9 @@ export function generateItuReviewReportDocx(): { filename: string; bytes: Uint8A
     },
     footnotes: [
       "审查本体空间：urn:ws:ws-itu:rev:51b0e8a1:tbox",
-      "导则证据锚点：《ITU-T SG13 标准提案编写导则.pdf》#chunk-6.3 [6120..6280]",
+      "制度证据锚点：《集团招采合规与反围标管理规范.pdf》#chunk-4.1 [3120..3290]",
     ],
   });
 
-  return { filename: "ITU-T-Y31xx-compliance-review-report.docx", bytes };
+  return { filename: "LingDong-Procurement-AntiCollusion-Review-Report.docx", bytes };
 }

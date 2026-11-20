@@ -154,10 +154,26 @@ export async function healMultiWorkspaceConsistency(txDb: AppDb): Promise<void> 
     });
   }
 
-  // 4. Heal ws-supply: align aboxInstanceCount=98 & ensure CQs/audits exist
+  // 4. Upgrade ws-itu & ws-supply on existing PostgreSQL volumes to clean commercial showcase scenarios
   await txDb
     .update(workspaces)
-    .set({ aboxInstanceCount: 98 })
+    .set({
+      name: "集团招采合规与反围标风控",
+      versionLabel: "v2.0 · 已发布",
+      description:
+        "基于招采反围标本体与股权/人员关系图谱，自动穿透标段异常报价阶梯、共享联系人与跨系统重复主体风险。",
+    })
+    .where(eq(workspaces.id, "ws-itu"));
+  await txDb
+    .update(workspaces)
+    .set({
+      name: "供应链韧性与断供预警旗舰方案",
+      versionLabel: "v2.0 · 已发布",
+      status: "PUBLISHED",
+      aboxInstanceCount: 98,
+      description:
+        "围绕关键算力与精密制造物料 BOM、多级供应商替代度及断链级联冲击路径构建的供应链风控本体。",
+    })
     .where(eq(workspaces.id, "ws-supply"));
   const supCqs = await txDb.select().from(competencyQuestions).where(eq(competencyQuestions.workspaceId, "ws-supply"));
   if (supCqs.length === 0) {

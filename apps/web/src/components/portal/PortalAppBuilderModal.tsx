@@ -13,7 +13,7 @@ const WIDGET_OPTIONS: ReadonlyArray<{ id: WidgetId; label: string }> = [
   { id: "ai_copilot", label: "自然语言受治理问答助手" },
   { id: "im_push", label: "企微/钉钉/飞书审批推送" },
   { id: "csv_export", label: "风险台账 CSV 脱敏导出" },
-  { id: "itu_review", label: "ITU-T 标准提案合规审查" },
+  { id: "itu_review", label: "集团招采合规与反围标风控" },
 ];
 
 interface PortalAppBuilderModalProps {

@@ -121,7 +121,7 @@ export async function getPortalSnapshot(callerRole: SessionActor["role"]): Promi
   return {
     contractAlerts,
     ituReview: {
-      documentTitle: "Y.31xx 算力网络语义编排架构提案草案 v0.4.docx",
+      documentTitle: "2026 华东智算中心液冷服务器集采标段 #ZB-2026-041",
       termAlignmentRate: "94.5%",
       conflictCount: ITU_REVIEW_ITEMS.filter((i) => i.severity === "CONFLICT").length,
       normativeRefValidRate: "100% 现行有效",

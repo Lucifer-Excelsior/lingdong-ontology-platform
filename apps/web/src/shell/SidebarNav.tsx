@@ -91,7 +91,7 @@ export function SidebarNav({
           }`}
         >
           <BookOpen className={`w-4 h-4 shrink-0 ${portalApp === "itu" ? "text-[var(--primary)]" : ""}`} />
-          <span className="truncate">ITU 标准提案审查</span>
+          <span className="truncate">集团招采反围标审查</span>
         </button>
       </nav>
     );
