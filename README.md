@@ -4,6 +4,7 @@
 
 **Enterprise Semantic Decision Operating System · 企业级语义本体与可信决策操作系统**
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Online_Now-10b981?style=for-the-badge)](https://lingdong-demo-production.up.railway.app)
 [![Version](https://img.shields.io/badge/version-v7.0.0_Enterprise-4f46e5?style=for-the-badge)](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
 [![Tests](https://img.shields.io/badge/tests-59%2F59_passing-10b981?style=for-the-badge)](./.github/workflows/ci.yml)
 [![Peak QPS](https://img.shields.io/badge/peak_QPS-451.2_QPS-0284c7?style=for-the-badge)](#production-benchmarks)
@@ -14,7 +15,7 @@
 > **洞见全局，决胜毫秒。**  
 > 将散落在 ERP、CRM、OA 与海量合同 PDF 中的碎片化数据，升维为可推理、可推演、可溯源的企业语义决策中枢。
 
-[📦 下载 V7.0 品牌宣传册 / 客户培训手册 / 60秒发布会大片 (Releases)](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
+[🚀 立即体验公网在线 Demo (Railway)](https://lingdong-demo-production.up.railway.app) &nbsp;|&nbsp; [📖 在线 OpenAPI 文档](https://lingdong-demo-production.up.railway.app/api/docs) &nbsp;|&nbsp; [📦 下载 V7.0 品牌宣传册 / 培训手册 / 60秒发布会大片 (Releases)](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
 
 </div>
 
