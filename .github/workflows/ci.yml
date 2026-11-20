@@ -59,9 +59,10 @@ jobs:
           pnpm -r typecheck
           pnpm -r build
 
-      - name: Run Semantic Core & API Full Test Suite (59 tests)
+      - name: Run Full Monorepo Test Suite (62 tests: Semantic Core + SDK + API)
         run: |
           pnpm --filter @lingdong/semantic-core test
+          pnpm --filter @lingdong/sdk test
           pnpm --filter @lingdong/api test
 
       - name: Enforce File-Size Budget (<=280 backend / <=260 frontend)

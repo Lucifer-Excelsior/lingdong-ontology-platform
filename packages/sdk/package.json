@@ -1,0 +1,26 @@
+{
+  "name": "@lingdong/sdk",
+  "version": "7.1.0",
+  "description": "Unified TypeScript SDK, CLI, and Agent Skill for LingDong Ontology Workstation V7.1 Enterprise Decision OS with verifiable SM3 execution receipts.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "lingdong": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  }
+}

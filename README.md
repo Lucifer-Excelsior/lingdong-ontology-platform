@@ -1,12 +1,14 @@
 <div align="center">
 
-# 灵·洞本体工作站 V7.0 (LingDong Ontology Workstation)
+# 灵·洞本体工作站 V7.1 (LingDong Ontology Workstation)
+
+**中文** | [English](./README.en.md)
 
 **Enterprise Semantic Decision Operating System · 企业级语义本体与可信决策操作系统**
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Online_Now-10b981?style=for-the-badge)](https://lingdong-demo-production.up.railway.app)
-[![Version](https://img.shields.io/badge/version-v7.0.0_Enterprise-4f46e5?style=for-the-badge)](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
-[![Tests](https://img.shields.io/badge/tests-59%2F59_passing-10b981?style=for-the-badge)](./.github/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/version-v7.1.0_AI--Native-4f46e5?style=for-the-badge)](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
+[![Tests](https://img.shields.io/badge/tests-62%2F62_passing-10b981?style=for-the-badge)](./.github/workflows/ci.yml)
 [![Peak QPS](https://img.shields.io/badge/peak_QPS-451.2_QPS-0284c7?style=for-the-badge)](#production-benchmarks)
 [![P95 Latency](https://img.shields.io/badge/P95_latency-88.8_ms-06b6d4?style=for-the-badge)](#production-benchmarks)
 [![HA Failover](https://img.shields.io/badge/chaos_HA-20%2F20_zero_downtime-f59e0b?style=for-the-badge)](#production-benchmarks)
@@ -15,9 +17,45 @@
 > **洞见全局，决胜毫秒。**  
 > 将散落在 ERP、CRM、OA 与海量合同 PDF 中的碎片化数据，升维为可推理、可推演、可溯源的企业语义决策中枢。
 
-[🚀 立即体验公网在线 Demo (Railway)](https://lingdong-demo-production.up.railway.app) &nbsp;|&nbsp; [📖 在线 OpenAPI 文档](https://lingdong-demo-production.up.railway.app/api/docs) &nbsp;|&nbsp; [📦 下载 V7.0 品牌宣传册 / 培训手册 / 60秒发布会大片 (Releases)](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
+[🚀 立即体验公网在线 Demo (Railway)](https://lingdong-demo-production.up.railway.app) &nbsp;|&nbsp; [🎬 观看 60 秒 1080P 震撼发布大片](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0) &nbsp;|&nbsp; [📖 在线 OpenAPI 文档](https://lingdong-demo-production.up.railway.app/api/docs) &nbsp;|&nbsp; [📦 下载宣传册与培训手册](https://github.com/Lucifer-Excelsior/lingdong-ontology-platform/releases/tag/v7.0.0)
 
 </div>
+
+---
+
+## ⚡ 30 秒极速体验（CLI / SDK / Agent Skill · 带国密 SM3 可验证回执）
+
+无需装 K8s 集群，直接对着在线公网 Demo 一行命令体验零幻觉问数、影子图推演与三专家会审（兼容 Claude Code / Cursor / Antigravity / OpenClaw）：
+
+```bash
+# 1. 自然语言穿透语义图谱 + PDF 原文锚点 + 国密 SM3 可验证回执
+node packages/sdk/dist/cli.js ask "查询未来30天内到期的高风险合同及违约条款" --receipt
+
+# 2. 内存级影子图 What-If 推演（算清 1,060 万级联敞口 · 生产库 0 污染）
+node packages/sdk/dist/cli.js whatif HT-2026-089 --threshold 500 --receipt
+
+# 3. 法务 / 财务 / 供应链三专家并行联合会审
+node packages/sdk/dist/cli.js review HT-2026-089 --receipt
+
+# 或直接运行 3 个开箱即用业务脚本（直连公网 Demo）
+node examples/01-contract-risk-evidence.mjs
+node examples/02-supply-chain-whatif-sandbox.mjs
+node examples/03-lineage-drift-and-sm3-audit.mjs
+```
+
+- **AI Agent 接入**：直接加载内置标准 Skill 👉 [`packages/sdk/skills/lingdong-ontology/SKILL.md`](./packages/sdk/skills/lingdong-ontology/SKILL.md)
+
+---
+
+## 🏆 为什么选择灵·洞 V7.1？（对比传统数据中台与重型知识网络框架）
+
+| 能力维度 | 传统数据中台 / BI | 重型 K8s 微服务知识底座 | **灵·洞本体工作站 V7.1（Decision OS）** |
+| :--- | :--- | :--- | :--- |
+| **语义严谨度** | 仅搬运表和字段，无语义推理 | 自研对象/索引模型 | **真 W3C 标准（OWL / RDF 1.1 / SPARQL 1.1 / SHACL）+ PDF 坐标锚定** |
+| **高管决策闭环** | 滞后报表，人工对账 2 天 | 偏工程师管理控制台 | **门户+工程台双态：影子图 What-If + 三专家会审 + ECA + OA 嵌入** |
+| **AI Agent 生态** | 无原生 Agent 协议 | CLI / SDK / 回执 | **MCP + `@lingdong/sdk` + `lingdong` CLI + Agent Skill + 国密 SM3 回执** |
+| **信创安全合规** | 外挂安全网关 | 通用 RBAC | **原生国密 SM3 防篡改链 + ABAC 三级列脱敏 + Git 两阶段 PR + KMS** |
+| **PoC 部署速度** | 3–6 个月 | 强依赖 Linux + K8s 重装机 | **单容器 3 分钟上云 / 7×24h 公网 Demo 即点即用** |
 
 ---
 
