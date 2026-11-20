@@ -59,6 +59,14 @@ export async function runSchemaAndRlsBootstrap(adminSql: postgres.Sql): Promise<
     for (const stmt of DDL_STATEMENTS) {
       await tx.unsafe(stmt);
     }
+    await tx.unsafe(`
+      DO $$
+      BEGIN
+        IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'lingdong_app') THEN
+          CREATE ROLE lingdong_app LOGIN PASSWORD 'lingdong_app_password';
+        END IF;
+      END $$;
+    `);
     await tx`GRANT SELECT ON tenants TO lingdong_app`;
     for (const tbl of RLS_TABLES) {
       await tx.unsafe(`GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE ${tbl} TO lingdong_app`);
