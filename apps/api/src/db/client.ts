@@ -5,16 +5,20 @@ import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import * as schema from "./schema.js";
 import { runSchemaAndRlsBootstrap } from "./bootstrap-ddl.js";
 
-const ADMIN_URL =
-  process.env.DATABASE_ADMIN_URL ??
+const FALLBACK_URL =
+  process.env.DATABASE_URL ??
   "postgres://lingdong:lingdong_v3_dev_password@127.0.0.1:5433/ontology_v3";
+
+const ADMIN_URL = process.env.DATABASE_ADMIN_URL ?? FALLBACK_URL;
 
 const APP_URL =
   process.env.DATABASE_APP_URL ??
+  process.env.DATABASE_URL ??
   "postgres://lingdong_app:lingdong_app_password@127.0.0.1:5433/ontology_v3";
 
 const SANDBOX_ERP_URL =
   process.env.SANDBOX_ERP_URL ??
+  process.env.DATABASE_URL ??
   "postgres://lingdong:lingdong_v3_dev_password@127.0.0.1:5433/sandbox_erp";
 
 export const adminSql = postgres(ADMIN_URL, {

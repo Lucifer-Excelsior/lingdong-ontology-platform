@@ -1,4 +1,6 @@
 import { randomUUID } from "node:crypto";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { extname, join, resolve } from "node:path";
 import { Hono, type Context, type Next } from "hono";
 import { cors } from "hono/cors";
 import { adminSql } from "./db/client.js";
@@ -110,6 +112,32 @@ export function createApp() {
   app.route("/api", v6FlagshipRoutes);
   app.route("/api", v7BusinessOsRoutes);
   app.route("/mcp", mcpRoutes);
+
+  // Serve bundled React SPA when WEB_DIST_DIR is configured (e.g. Railway single-service demo)
+  const webDistDir = process.env.WEB_DIST_DIR ? resolve(process.env.WEB_DIST_DIR) : "";
+  if (webDistDir && existsSync(join(webDistDir, "index.html"))) {
+    const MIME: Record<string, string> = {
+      ".html": "text/html; charset=utf-8",
+      ".js": "application/javascript; charset=utf-8",
+      ".css": "text/css; charset=utf-8",
+      ".svg": "image/svg+xml",
+      ".png": "image/png",
+      ".jpg": "image/jpeg",
+      ".ico": "image/x-icon",
+      ".json": "application/json; charset=utf-8",
+      ".woff2": "font/woff2",
+    };
+    app.get("*", (c) => {
+      const reqPath = c.req.path === "/" ? "/index.html" : c.req.path;
+      const safePath = resolve(webDistDir, `.${reqPath}`);
+      const target =
+        safePath.startsWith(webDistDir) && existsSync(safePath) && statSync(safePath).isFile()
+          ? safePath
+          : join(webDistDir, "index.html");
+      const mime = MIME[extname(target)] ?? "application/octet-stream";
+      return c.body(readFileSync(target), 200, { "Content-Type": mime });
+    });
+  }
 
   app.onError((err, c) => {
     console.error("[API Error]", err);
